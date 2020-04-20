@@ -10,6 +10,13 @@
 		44FC276C244DEA360003446F /* Arigato.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44FC2762244DEA360003446F /* Arigato.framework */; };
 		44FC2771244DEA360003446F /* ArigatoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2770244DEA360003446F /* ArigatoTests.swift */; };
 		44FC2773244DEA360003446F /* Arigato.h in Headers */ = {isa = PBXBuildFile; fileRef = 44FC2765244DEA360003446F /* Arigato.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		44FC277E244DEB450003446F /* AudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC277D244DEB450003446F /* AudioSystem.swift */; };
+		44FC2782244DF7570003446F /* Snapshottable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2781244DF7570003446F /* Snapshottable.swift */; };
+		44FC2784244DF7960003446F /* AudioSystem.serialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2783244DF7960003446F /* AudioSystem.serialisation.swift */; };
+		44FC2787244DF86F0003446F /* AudioComponentDescription+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2786244DF86F0003446F /* AudioComponentDescription+.swift */; };
+		44FC2789244DF9480003446F /* FourCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2788244DF9480003446F /* FourCC.swift */; };
+		44FC278D244E588E0003446F /* AudioComponentDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC278C244E588E0003446F /* AudioComponentDescriptionTests.swift */; };
+		44FC2790244E59320003446F /* FourCCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC278F244E59320003446F /* FourCCTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +36,13 @@
 		44FC276B244DEA360003446F /* ArigatoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArigatoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44FC2770244DEA360003446F /* ArigatoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArigatoTests.swift; sourceTree = "<group>"; };
 		44FC2772244DEA360003446F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44FC277D244DEB450003446F /* AudioSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSystem.swift; sourceTree = "<group>"; };
+		44FC2781244DF7570003446F /* Snapshottable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshottable.swift; sourceTree = "<group>"; };
+		44FC2783244DF7960003446F /* AudioSystem.serialisation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSystem.serialisation.swift; sourceTree = "<group>"; };
+		44FC2786244DF86F0003446F /* AudioComponentDescription+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioComponentDescription+.swift"; sourceTree = "<group>"; };
+		44FC2788244DF9480003446F /* FourCC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCC.swift; sourceTree = "<group>"; };
+		44FC278C244E588E0003446F /* AudioComponentDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioComponentDescriptionTests.swift; sourceTree = "<group>"; };
+		44FC278F244E59320003446F /* FourCCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCCTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +85,8 @@
 		44FC2764244DEA360003446F /* Arigato */ = {
 			isa = PBXGroup;
 			children = (
+				44FC277F244DF7380003446F /* Utility */,
+				44FC277C244DEB330003446F /* Audio */,
 				44FC2765244DEA360003446F /* Arigato.h */,
 				44FC2766244DEA360003446F /* Info.plist */,
 			);
@@ -80,10 +96,71 @@
 		44FC276F244DEA360003446F /* ArigatoTests */ = {
 			isa = PBXGroup;
 			children = (
+				44FC278E244E591D0003446F /* Utility */,
+				44FC278A244E58580003446F /* Audio */,
 				44FC2770244DEA360003446F /* ArigatoTests.swift */,
 				44FC2772244DEA360003446F /* Info.plist */,
 			);
 			path = ArigatoTests;
+			sourceTree = "<group>";
+		};
+		44FC277C244DEB330003446F /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				44FC2785244DF83D0003446F /* Extensions */,
+				44FC277D244DEB450003446F /* AudioSystem.swift */,
+				44FC2783244DF7960003446F /* AudioSystem.serialisation.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		44FC277F244DF7380003446F /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				44FC2780244DF73D0003446F /* Protocols */,
+				44FC2788244DF9480003446F /* FourCC.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		44FC2780244DF73D0003446F /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				44FC2781244DF7570003446F /* Snapshottable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		44FC2785244DF83D0003446F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				44FC2786244DF86F0003446F /* AudioComponentDescription+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		44FC278A244E58580003446F /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				44FC278B244E585F0003446F /* Extensions */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		44FC278B244E585F0003446F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				44FC278C244E588E0003446F /* AudioComponentDescriptionTests.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		44FC278E244E591D0003446F /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				44FC278F244E59320003446F /* FourCCTests.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +225,7 @@
 				TargetAttributes = {
 					44FC2761244DEA360003446F = {
 						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1130;
 					};
 					44FC276A244DEA360003446F = {
 						CreatedOnToolsVersion = 11.3;
@@ -195,6 +273,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44FC2789244DF9480003446F /* FourCC.swift in Sources */,
+				44FC2782244DF7570003446F /* Snapshottable.swift in Sources */,
+				44FC277E244DEB450003446F /* AudioSystem.swift in Sources */,
+				44FC2787244DF86F0003446F /* AudioComponentDescription+.swift in Sources */,
+				44FC2784244DF7960003446F /* AudioSystem.serialisation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,7 +285,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44FC2790244E59320003446F /* FourCCTests.swift in Sources */,
 				44FC2771244DEA360003446F /* ArigatoTests.swift in Sources */,
+				44FC278D244E588E0003446F /* AudioComponentDescriptionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +424,7 @@
 		44FC2777244DEA360003446F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -356,6 +442,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kineticfactory.Arigato;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -363,6 +450,7 @@
 		44FC2778244DEA360003446F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -387,6 +475,7 @@
 		44FC277A244DEA360003446F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = RGZSVAB4M3;
@@ -405,6 +494,7 @@
 		44FC277B244DEA360003446F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = RGZSVAB4M3;
