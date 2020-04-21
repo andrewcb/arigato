@@ -26,6 +26,7 @@ extension AudioSystem: Snapshottable {
         let connections: [Connection]
     }
     
+    //MARK: generating a Snapshot of the current state
     var snapshot: Snapshot {
         get {
             // gather node state
@@ -49,6 +50,52 @@ extension AudioSystem: Snapshottable {
             return Snapshot(nodes: nodeSnapshots, manifest: manifest, connections: self.connections)
         }
     }
+    
+    //MARK: loading state from a Snapshot
+    func load(state: Snapshot, onCompletion: @escaping ((Result<(), Error>)->())) {
+        // validate the manifest, and throw if invalid
+        // TODO
+        
+        self.deleteAll()
+        // load all nodes
+        let nodesFuture: Future<[(Node.Snapshot, AVAudioUnit)]> = sequence(state.nodes.filter { $0.serialisedState != nil  }.map { (n: Node.Snapshot) -> Future<(Node.Snapshot, AVAudioUnit)> in
+            let p = Promise<AVAudioUnit>()
+            
+            do {
+                try AudioUnitPreset(data: n.serialisedState!).loadAudioUnit { (result) in
+                    p.complete(with: result)
+                }
+            } catch {
+                p.fail(with: error)
+            }
+            return p.future.map { (n, $0) }
+        })
+        
+        nodesFuture.onSuccess { (nodeData: [(Node.Snapshot, AVAudioUnit)]) in
+            for (nodeState,  avau) in nodeData {
+                let node = Node(id: nodeState.id, name: nodeState.name, avAudioNode: avau)
+                self.engine.attach(avau)
+                self.nodeMap[node.id] = node
+            }
+        }
+        
+        // wire all nodes together
+        for conn in state.connections {
+            guard
+                let fromNode = nodeMap[conn.from.node],
+                let toNode = nodeMap[conn.to.node]
+            else { continue }
+
+            engine.connect(fromNode.avAudioNode, to: toNode.avAudioNode, fromBus: conn.from.bus, toBus: conn.to.bus, format: nil)
+        }
+        self.connections = state.connections
+        
+        // TODO: set up mixer
+        
+        self.connectionsChanged()
+        
+        onCompletion(.success(()))
+    }
 }
 
 extension AudioSystem.Node: Snapshottable {
@@ -65,3 +112,62 @@ extension AudioSystem.Node: Snapshottable {
     }
 }
 
+extension AudioSystem.Node.Snapshot: Codable {}
+extension AudioSystem.Snapshot.ManifestItem: Codable {}
+extension AudioSystem.Connection.Endpoint: Codable {
+    enum CodingKeys: String, CodingKey {
+        case node
+        case bus
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.node = try container.decode(Int.self, forKey: .node)
+        self.bus = try container.decode(Int.self, forKey: .bus)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.node, forKey: .node)
+        try container.encode(self.bus, forKey: .bus)
+    }
+}
+extension AudioSystem.Connection: Codable {
+    enum CodingKeys: String, CodingKey {
+        case from
+        case to
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.from = try container.decode(AudioSystem.Connection.Endpoint.self, forKey: .from)
+        self.to = try container.decode(AudioSystem.Connection.Endpoint.self, forKey: .to)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.from, forKey: .from)
+        try container.encode(self.to, forKey: .to)
+    }
+}
+
+extension AudioSystem.Snapshot: Codable { }
+
+
+extension AudioSystem {
+    public convenience init(fromURL url: URL) throws {
+        self.init()
+        let data
+            = try Data(contentsOf: url)
+
+        let decoder = PropertyListDecoder()
+        let snapshot
+            = try decoder.decode(AudioSystem.Snapshot.self, from: data)
+
+        let semaphore = DispatchSemaphore(value: 1)
+        self.load(state: snapshot) {_ in
+            semaphore.signal()
+        }
+        semaphore.wait()
+    }
+}

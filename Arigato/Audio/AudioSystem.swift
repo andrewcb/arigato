@@ -11,7 +11,7 @@ import AVFoundation
 
 /** The AudioSystem  encapsulates the entire AudioUnit network as initialised, along with metadata for finding and addressing individual AudioUnits programmatically.
  */
-class AudioSystem {
+public class AudioSystem {
     internal let engine: AVAudioEngine = {
         let engine = AVAudioEngine()
         return engine
@@ -55,6 +55,13 @@ class AudioSystem {
 
     var connections: [Connection] = []
     
+    //MARK: internal handlers for events
+    // do any processing required when the topology of connections changes
+    internal func connectionsChanged() {
+        // invalidate caches, recalculate derived data, &c.
+    }
+
+    
     
     // MARK: initialisation
     private func initNodeMap() {
@@ -63,11 +70,34 @@ class AudioSystem {
         ]
     }
     
-    init() {
+    public init() {
         let engine = self.engine
         self.initNodeMap()
         try? engine.start()
     }
+    
+    //MARK: Public methods for accessing nodes
+    func node(byName name: String) -> Node? {
+        //  TODO: index this
+        return nodeMap.values.first { $0.name == name }
+    }
+    public func audioUnit(byName name: String) -> AVAudioUnit? {
+        return node(byName: name)?.avAudioNode as? AVAudioUnit
+    }
+    public func midiInstrument(byName name: String) -> AVAudioUnitMIDIInstrument? {
+        return node(byName: name)?.avAudioNode as? AVAudioUnitMIDIInstrument
+    }
 
+    //MARK: internal methods for editing the node graph
+    func deleteAll() {
+        for (id, node) in nodeMap {
+            guard id != Node.mainMixerID && id != Node.mainOutputID else { continue }
+            engine.disconnectNodeInput(node.avAudioNode)
+            engine.disconnectNodeOutput(node.avAudioNode)
+            engine.detach(node.avAudioNode)
+        }
+        self.initNodeMap()
+        self.connections = []
+    }
 
 }
