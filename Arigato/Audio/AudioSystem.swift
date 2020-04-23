@@ -87,6 +87,13 @@ public class AudioSystem {
     public func midiInstrument(byName name: String) -> AVAudioUnitMIDIInstrument? {
         return node(byName: name)?.avAudioNode as? AVAudioUnitMIDIInstrument
     }
+    
+    // finding mixer nodes for inputs
+    func findMixingHeadNode(forMixerInput ch: Int) -> AVAudioMixing? {
+        // Assumption: the node immediately upstream of the mixer input will be the one we want if  it's available. If this turns out to not be the case, we may need to follow links upstream
+        return self.connections.first { $0.to == Connection.Endpoint(node: Node.mainMixerID, bus: ch)
+        }.flatMap { self.nodeMap[$0.from.node]?.avAudioNode as? AVAudioMixing }
+    }
 
     //MARK: internal methods for editing the node graph
     func deleteAll() {
