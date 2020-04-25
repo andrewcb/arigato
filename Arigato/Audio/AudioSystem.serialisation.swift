@@ -11,9 +11,9 @@ import AVFoundation
 
 extension AudioSystem: Snapshottable {
     
-    struct Snapshot {
+    public struct Snapshot {
         // an item for the manifest of modules used; these are stored for validating recently opened documents, and reporting any unavailable units
-        struct ManifestItem {
+        public struct ManifestItem {
             let name: String
             let manufacturer: String
             let audioComponentDescription: AudioComponentDescription
@@ -21,13 +21,19 @@ extension AudioSystem: Snapshottable {
             
         }
         
-        let nodes: [Node.Snapshot]
-        let manifest: [ManifestItem]
-        let connections: [Connection]
+        public let nodes: [Node.Snapshot]
+        public let manifest: [ManifestItem]
+        public let connections: [Connection]
+        
+        public init(nodes: [Node.Snapshot], manifest: [ManifestItem], connections: [Connection]) {
+            self.nodes = nodes
+            self.manifest = manifest
+            self.connections = connections
+        }
     }
     
     //MARK: generating a Snapshot of the current state
-    var snapshot: Snapshot {
+    public var snapshot: Snapshot {
         get {
             // gather node state
             let nodeSnapshots: [Node.Snapshot] = self.nodeMap.values.map { $0.snapshot }
@@ -52,7 +58,7 @@ extension AudioSystem: Snapshottable {
     }
     
     //MARK: loading state from a Snapshot
-    func load(state: Snapshot, onCompletion: @escaping ((Result<(), Error>)->())) {
+    public func load(state: Snapshot, onCompletion: @escaping ((Result<(), Error>)->())) {
         // validate the manifest, and throw if invalid
         // TODO
         
@@ -99,7 +105,7 @@ extension AudioSystem: Snapshottable {
 }
 
 extension AudioSystem.Node: Snapshottable {
-    struct Snapshot {
+    public struct Snapshot {
         let id: AudioSystem.Node.ID
         let name: String
         let serialisedState: Data?
@@ -120,13 +126,13 @@ extension AudioSystem.Connection.Endpoint: Codable {
         case bus
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.node = try container.decode(Int.self, forKey: .node)
         self.bus = try container.decode(Int.self, forKey: .bus)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.node, forKey: .node)
         try container.encode(self.bus, forKey: .bus)
@@ -138,13 +144,13 @@ extension AudioSystem.Connection: Codable {
         case to
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.from = try container.decode(AudioSystem.Connection.Endpoint.self, forKey: .from)
         self.to = try container.decode(AudioSystem.Connection.Endpoint.self, forKey: .to)
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.from, forKey: .from)
         try container.encode(self.to, forKey: .to)

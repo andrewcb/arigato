@@ -11,6 +11,7 @@
 import Foundation
 import CoreAudio
 import AudioToolbox
+import AVFoundation
 
 extension AudioComponentDescription {
     
@@ -44,18 +45,35 @@ extension AudioComponentDescription: Hashable {
     }
 }
 
+//MARK: serialisation to/from binary data
+extension AudioComponentDescription {
+    public var asData: Data {
+        var array = [componentType, componentSubType, componentManufacturer, componentFlags, componentFlagsMask]
+        return Data(bytes: &array, count: array.count*4)
+    }
+    
+    public init?(data: Data) {
+        guard data.count >= 20 else { return nil }
+        let (type, subType, manufacturer, flags, flagsMask) = data.withUnsafeBytes { (ptr) -> (OSType, OSType, OSType, OSType, OSType)  in
+            let buf = ptr.bindMemory(to: OSType.self)
+            return (buf[0], buf[1], buf[2],  buf[3], buf[4])
+        }
+        self.init(componentType: type, componentSubType: subType, componentManufacturer: manufacturer, componentFlags: flags, componentFlagsMask: flagsMask)
+    }
+}
+
 // MARK: encoding to/from string representation
 
 // The line is of the form 'type:subt:manu' if  both flags and flags mask are 0, or 'type:subt:many:flags:mask" if not
 
 extension AudioComponentDescription {
-    var asString: String {
+    public var asString: String {
         return "\(fourCCToString(self.componentType)):\(fourCCToString(self.componentSubType)):\(fourCCToString(self.componentManufacturer))" + ((self.componentFlags==0 && self.componentFlagsMask == 0) ? "" : ":\(self.componentFlags):\(self.componentFlagsMask)")
     }
     
-    struct DecodingError: Swift.Error {}
+    public struct DecodingError: Swift.Error {}
     
-    init(string: String) throws {
+    public init(string: String) throws {
         let parts = string.split(separator: ":")
         guard
             parts.count == 3 || parts.count == 5,
@@ -83,3 +101,15 @@ extension AudioComponentDescription: Codable {
     }
 }
 
+//MARK: load an AudioUnit from the description, asynchronously
+extension AudioComponentDescription {
+    func loadAudioUnit(_ callback: @escaping (Result<AVAudioUnit, Swift.Error>)->()) {
+        AVAudioUnitMIDIInstrument.instantiate(with: self, options: .loadOutOfProcess) { (unit, err) in
+            guard let unit = unit else {
+                if let err = err { callback(.failure(err)) }
+                return
+            }
+            callback(.success(unit))
+        }
+    }
+}

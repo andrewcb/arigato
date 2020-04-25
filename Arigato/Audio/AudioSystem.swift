@@ -12,21 +12,29 @@ import AVFoundation
 /** The AudioSystem  encapsulates the entire AudioUnit network as initialised, along with metadata for finding and addressing individual AudioUnits programmatically.
  */
 public class AudioSystem {
+    public enum Error: Swift.Error {
+        /// Thrown if referring to a nonexistent node
+        case nodeNotFound
+        
+        ///  Thrown if attempting to load state containing unavailable components
+        case componentsNotAvailable([(name: String, manufacturer: String, audioComponentDescription: AudioComponentDescription, nodeNames: [String])])
+    }
+
     internal let engine: AVAudioEngine = {
         let engine = AVAudioEngine()
         return engine
     }()
 
     // MARK: Node metadata
-    struct Node {
-        typealias ID = Int
-        static let mainOutputID = 0
-        static let mainMixerID = 1
+    public struct Node {
+        public typealias ID = Int
+        public static let mainOutputID = 0
+        public static let mainMixerID = 1
         static var nextID: ID = 2
         
-        let id: ID
-        let avAudioNode: AVAudioNode
-        var name: String
+        public let id: ID
+        public let avAudioNode: AVAudioNode
+        public var name: String
         
         init(id: ID? = nil, name: String, avAudioNode: AVAudioNode) {
             self.id = id ?? Node.nextID
@@ -35,25 +43,26 @@ public class AudioSystem {
             self.avAudioNode = avAudioNode
         }
     }
+    public typealias NodeID = Node.ID
     
     var nodeMap: [Node.ID:Node] = [:]
     
     // MARK: Connections
-    struct Connection: Equatable, Hashable {
-        struct Endpoint: Equatable, Hashable {
-            let node: Node.ID
-            let bus: Int
+    public struct Connection: Equatable, Hashable {
+        public struct Endpoint: Equatable, Hashable {
+            public let node: Node.ID
+            public let bus: Int
         }
-        let from: Endpoint
-        let to: Endpoint
+        public let from: Endpoint
+        public let to: Endpoint
         
-        init(from:(Node.ID, Int), to: (Node.ID, Int)) {
+        public init(from:(Node.ID, Int), to: (Node.ID, Int)) {
             self.from = Endpoint(node: from.0, bus: from.1)
             self.to = Endpoint(node: to.0, bus: to.1)
         }
     }
 
-    var connections: [Connection] = []
+    public internal(set) var connections: [Connection] = []
     
     //MARK: internal handlers for events
     // do any processing required when the topology of connections changes
@@ -77,7 +86,15 @@ public class AudioSystem {
     }
     
     //MARK: Public methods for accessing nodes
-    func node(byName name: String) -> Node? {
+    
+    public var nodeCount: Int { return nodeMap.count }
+    
+    public var nodeIDs: AnyCollection<NodeID> { return AnyCollection(nodeMap.keys) }
+    
+    public func node(byId id: NodeID) -> Node? {
+        return nodeMap[id]
+    }
+    public func node(byName name: String) -> Node? {
         //  TODO: index this
         return nodeMap.values.first { $0.name == name }
     }
@@ -89,7 +106,7 @@ public class AudioSystem {
     }
     
     // finding mixer nodes for inputs
-    func findMixingHeadNode(forMixerInput ch: Int) -> AVAudioMixing? {
+    public func findMixingHeadNode(forMixerInput ch: Int) -> AVAudioMixing? {
         // Assumption: the node immediately upstream of the mixer input will be the one we want if  it's available. If this turns out to not be the case, we may need to follow links upstream
         return self.connections.first { $0.to == Connection.Endpoint(node: Node.mainMixerID, bus: ch)
         }.flatMap { self.nodeMap[$0.from.node]?.avAudioNode as? AVAudioMixing }
