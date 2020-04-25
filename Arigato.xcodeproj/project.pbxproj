@@ -19,6 +19,24 @@
 		44FC2790244E59320003446F /* FourCCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC278F244E59320003446F /* FourCCTests.swift */; };
 		44FC2792244E5AB90003446F /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2791244E5AB90003446F /* Future.swift */; };
 		44FC2794244E5CEE0003446F /* AudioUnitPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2793244E5CEE0003446F /* AudioUnitPreset.swift */; };
+		44FC279C24524AE10003446F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC279B24524AE10003446F /* AppDelegate.swift */; };
+		44FC279E24524AE10003446F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC279D24524AE10003446F /* MainViewController.swift */; };
+		44FC27A024524AE10003446F /* ARigDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC279F24524AE10003446F /* ARigDocument.swift */; };
+		44FC27A224524AE50003446F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44FC27A124524AE50003446F /* Assets.xcassets */; };
+		44FC27A524524AE50003446F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44FC27A324524AE50003446F /* Main.storyboard */; };
+		44FC27B124524AE50003446F /* ARigEditorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27B024524AE50003446F /* ARigEditorTests.swift */; };
+		44FC27BA24524DE60003446F /* Arigato.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44FC2762244DEA360003446F /* Arigato.framework */; };
+		44FC27BB24524DE60003446F /* Arigato.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44FC2762244DEA360003446F /* Arigato.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		44FC27C32453053E0003446F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27C22453053E0003446F /* GraphView.swift */; };
+		44FC27C5245312230003446F /* CocoaExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27C4245312230003446F /* CocoaExtensions.swift */; };
+		44FC27C8245313860003446F /* GenericGraphNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27C7245313860003446F /* GenericGraphNodeView.swift */; };
+		44FC27CA245313B50003446F /* MixerGraphNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27C9245313B50003446F /* MixerGraphNodeView.swift */; };
+		44FC27CC245313FA0003446F /* NSColor+application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27CB245313FA0003446F /* NSColor+application.swift */; };
+		44FC27CE245318500003446F /* KeyboardCommittableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27CD245318500003446F /* KeyboardCommittableTextField.swift */; };
+		44FC27D0245318810003446F /* MixerNodeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27CF245318810003446F /* MixerNodeSlider.swift */; };
+		44FC27D3245318F30003446F /* ComponentSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D2245318F30003446F /* ComponentSelectorViewController.swift */; };
+		44FC27D52453220B0003446F /* AudioUnitComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D42453220B0003446F /* AudioUnitComponent.swift */; };
+		44FC27D72453225D0003446F /* AVAudioNode+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D62453225D0003446F /* AVAudioNode+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +47,35 @@
 			remoteGlobalIDString = 44FC2761244DEA360003446F;
 			remoteInfo = Arigato;
 		};
+		44FC27AD24524AE50003446F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44FC2759244DEA360003446F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44FC279824524AE10003446F;
+			remoteInfo = ARigEditor;
+		};
+		44FC27BC24524DE60003446F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44FC2759244DEA360003446F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44FC2761244DEA360003446F;
+			remoteInfo = Arigato;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		44FC27BE24524DE60003446F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				44FC27BB24524DE60003446F /* Arigato.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		44FC2762244DEA360003446F /* Arigato.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Arigato.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +93,27 @@
 		44FC278F244E59320003446F /* FourCCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCCTests.swift; sourceTree = "<group>"; };
 		44FC2791244E5AB90003446F /* Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		44FC2793244E5CEE0003446F /* AudioUnitPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitPreset.swift; sourceTree = "<group>"; };
+		44FC279924524AE10003446F /* ARigEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARigEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		44FC279B24524AE10003446F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		44FC279D24524AE10003446F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		44FC279F24524AE10003446F /* ARigDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARigDocument.swift; sourceTree = "<group>"; };
+		44FC27A124524AE50003446F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		44FC27A424524AE50003446F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		44FC27A624524AE50003446F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44FC27A724524AE50003446F /* ARigEditor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARigEditor.entitlements; sourceTree = "<group>"; };
+		44FC27AC24524AE50003446F /* ARigEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARigEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		44FC27B024524AE50003446F /* ARigEditorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARigEditorTests.swift; sourceTree = "<group>"; };
+		44FC27B224524AE50003446F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44FC27C22453053E0003446F /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		44FC27C4245312230003446F /* CocoaExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaExtensions.swift; sourceTree = "<group>"; };
+		44FC27C7245313860003446F /* GenericGraphNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGraphNodeView.swift; sourceTree = "<group>"; };
+		44FC27C9245313B50003446F /* MixerGraphNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerGraphNodeView.swift; sourceTree = "<group>"; };
+		44FC27CB245313FA0003446F /* NSColor+application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+application.swift"; sourceTree = "<group>"; };
+		44FC27CD245318500003446F /* KeyboardCommittableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardCommittableTextField.swift; sourceTree = "<group>"; };
+		44FC27CF245318810003446F /* MixerNodeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerNodeSlider.swift; sourceTree = "<group>"; };
+		44FC27D2245318F30003446F /* ComponentSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentSelectorViewController.swift; sourceTree = "<group>"; };
+		44FC27D42453220B0003446F /* AudioUnitComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitComponent.swift; sourceTree = "<group>"; };
+		44FC27D62453225D0003446F /* AVAudioNode+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioNode+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +132,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		44FC279624524AE10003446F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44FC27BA24524DE60003446F /* Arigato.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44FC27A924524AE50003446F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -73,7 +155,10 @@
 			children = (
 				44FC2764244DEA360003446F /* Arigato */,
 				44FC276F244DEA360003446F /* ArigatoTests */,
+				44FC279A24524AE10003446F /* ARigEditor */,
+				44FC27AF24524AE50003446F /* ARigEditorTests */,
 				44FC2763244DEA360003446F /* Products */,
+				44FC27B924524DE60003446F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,6 +167,8 @@
 			children = (
 				44FC2762244DEA360003446F /* Arigato.framework */,
 				44FC276B244DEA360003446F /* ArigatoTests.xctest */,
+				44FC279924524AE10003446F /* ARigEditor.app */,
+				44FC27AC24524AE50003446F /* ARigEditorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,6 +202,7 @@
 				44FC277D244DEB450003446F /* AudioSystem.swift */,
 				44FC2783244DF7960003446F /* AudioSystem.serialisation.swift */,
 				44FC2793244E5CEE0003446F /* AudioUnitPreset.swift */,
+				44FC27D42453220B0003446F /* AudioUnitComponent.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -140,6 +228,7 @@
 		44FC2785244DF83D0003446F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				44FC27D62453225D0003446F /* AVAudioNode+.swift */,
 				44FC2786244DF86F0003446F /* AudioComponentDescription+.swift */,
 			);
 			path = Extensions;
@@ -167,6 +256,84 @@
 				44FC278F244E59320003446F /* FourCCTests.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		44FC279A24524AE10003446F /* ARigEditor */ = {
+			isa = PBXGroup;
+			children = (
+				44FC27BF245255540003446F /* UI */,
+				44FC279B24524AE10003446F /* AppDelegate.swift */,
+				44FC279F24524AE10003446F /* ARigDocument.swift */,
+				44FC27A124524AE50003446F /* Assets.xcassets */,
+				44FC27A324524AE50003446F /* Main.storyboard */,
+				44FC27A624524AE50003446F /* Info.plist */,
+				44FC27A724524AE50003446F /* ARigEditor.entitlements */,
+			);
+			path = ARigEditor;
+			sourceTree = "<group>";
+		};
+		44FC27AF24524AE50003446F /* ARigEditorTests */ = {
+			isa = PBXGroup;
+			children = (
+				44FC27B024524AE50003446F /* ARigEditorTests.swift */,
+				44FC27B224524AE50003446F /* Info.plist */,
+			);
+			path = ARigEditorTests;
+			sourceTree = "<group>";
+		};
+		44FC27B924524DE60003446F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		44FC27BF245255540003446F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				44FC27D1245318CA0003446F /* Component Selector */,
+				44FC27C12452559A0003446F /* Graph View */,
+				44FC27C0245255710003446F /* controls */,
+				44FC279D24524AE10003446F /* MainViewController.swift */,
+				44FC27C4245312230003446F /* CocoaExtensions.swift */,
+				44FC27CB245313FA0003446F /* NSColor+application.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		44FC27C0245255710003446F /* controls */ = {
+			isa = PBXGroup;
+			children = (
+				44FC27CD245318500003446F /* KeyboardCommittableTextField.swift */,
+				44FC27CF245318810003446F /* MixerNodeSlider.swift */,
+			);
+			path = controls;
+			sourceTree = "<group>";
+		};
+		44FC27C12452559A0003446F /* Graph View */ = {
+			isa = PBXGroup;
+			children = (
+				44FC27C62453136D0003446F /* Node views */,
+				44FC27C22453053E0003446F /* GraphView.swift */,
+			);
+			path = "Graph View";
+			sourceTree = "<group>";
+		};
+		44FC27C62453136D0003446F /* Node views */ = {
+			isa = PBXGroup;
+			children = (
+				44FC27C7245313860003446F /* GenericGraphNodeView.swift */,
+				44FC27C9245313B50003446F /* MixerGraphNodeView.swift */,
+			);
+			path = "Node views";
+			sourceTree = "<group>";
+		};
+		44FC27D1245318CA0003446F /* Component Selector */ = {
+			isa = PBXGroup;
+			children = (
+				44FC27D2245318F30003446F /* ComponentSelectorViewController.swift */,
+			);
+			path = "Component Selector";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +386,43 @@
 			productReference = 44FC276B244DEA360003446F /* ArigatoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		44FC279824524AE10003446F /* ARigEditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44FC27B324524AE50003446F /* Build configuration list for PBXNativeTarget "ARigEditor" */;
+			buildPhases = (
+				44FC279524524AE10003446F /* Sources */,
+				44FC279624524AE10003446F /* Frameworks */,
+				44FC279724524AE10003446F /* Resources */,
+				44FC27BE24524DE60003446F /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				44FC27BD24524DE60003446F /* PBXTargetDependency */,
+			);
+			name = ARigEditor;
+			productName = ARigEditor;
+			productReference = 44FC279924524AE10003446F /* ARigEditor.app */;
+			productType = "com.apple.product-type.application";
+		};
+		44FC27AB24524AE50003446F /* ARigEditorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44FC27B624524AE50003446F /* Build configuration list for PBXNativeTarget "ARigEditorTests" */;
+			buildPhases = (
+				44FC27A824524AE50003446F /* Sources */,
+				44FC27A924524AE50003446F /* Frameworks */,
+				44FC27AA24524AE50003446F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				44FC27AE24524AE50003446F /* PBXTargetDependency */,
+			);
+			name = ARigEditorTests;
+			productName = ARigEditorTests;
+			productReference = 44FC27AC24524AE50003446F /* ARigEditorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -235,6 +439,13 @@
 					};
 					44FC276A244DEA360003446F = {
 						CreatedOnToolsVersion = 11.3;
+					};
+					44FC279824524AE10003446F = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					44FC27AB24524AE50003446F = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 44FC279824524AE10003446F;
 					};
 				};
 			};
@@ -253,6 +464,8 @@
 			targets = (
 				44FC2761244DEA360003446F /* Arigato */,
 				44FC276A244DEA360003446F /* ArigatoTests */,
+				44FC279824524AE10003446F /* ARigEditor */,
+				44FC27AB24524AE50003446F /* ARigEditorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -272,6 +485,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		44FC279724524AE10003446F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44FC27A224524AE50003446F /* Assets.xcassets in Resources */,
+				44FC27A524524AE50003446F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44FC27AA24524AE50003446F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -279,11 +508,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44FC27D52453220B0003446F /* AudioUnitComponent.swift in Sources */,
 				44FC2792244E5AB90003446F /* Future.swift in Sources */,
 				44FC2789244DF9480003446F /* FourCC.swift in Sources */,
 				44FC2794244E5CEE0003446F /* AudioUnitPreset.swift in Sources */,
 				44FC2782244DF7570003446F /* Snapshottable.swift in Sources */,
 				44FC277E244DEB450003446F /* AudioSystem.swift in Sources */,
+				44FC27D72453225D0003446F /* AVAudioNode+.swift in Sources */,
 				44FC2787244DF86F0003446F /* AudioComponentDescription+.swift in Sources */,
 				44FC2784244DF7960003446F /* AudioSystem.serialisation.swift in Sources */,
 			);
@@ -299,6 +530,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		44FC279524524AE10003446F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44FC27D3245318F30003446F /* ComponentSelectorViewController.swift in Sources */,
+				44FC27CA245313B50003446F /* MixerGraphNodeView.swift in Sources */,
+				44FC27CE245318500003446F /* KeyboardCommittableTextField.swift in Sources */,
+				44FC279E24524AE10003446F /* MainViewController.swift in Sources */,
+				44FC279C24524AE10003446F /* AppDelegate.swift in Sources */,
+				44FC27D0245318810003446F /* MixerNodeSlider.swift in Sources */,
+				44FC27CC245313FA0003446F /* NSColor+application.swift in Sources */,
+				44FC27A024524AE10003446F /* ARigDocument.swift in Sources */,
+				44FC27C8245313860003446F /* GenericGraphNodeView.swift in Sources */,
+				44FC27C32453053E0003446F /* GraphView.swift in Sources */,
+				44FC27C5245312230003446F /* CocoaExtensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44FC27A824524AE50003446F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44FC27B124524AE50003446F /* ARigEditorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -307,7 +564,28 @@
 			target = 44FC2761244DEA360003446F /* Arigato */;
 			targetProxy = 44FC276D244DEA360003446F /* PBXContainerItemProxy */;
 		};
+		44FC27AE24524AE50003446F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44FC279824524AE10003446F /* ARigEditor */;
+			targetProxy = 44FC27AD24524AE50003446F /* PBXContainerItemProxy */;
+		};
+		44FC27BD24524DE60003446F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44FC2761244DEA360003446F /* Arigato */;
+			targetProxy = 44FC27BC24524DE60003446F /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		44FC27A324524AE50003446F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44FC27A424524AE50003446F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		44FC2774244DEA360003446F /* Debug */ = {
@@ -518,6 +796,90 @@
 			};
 			name = Release;
 		};
+		44FC27B424524AE50003446F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ARigEditor/ARigEditor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = RGZSVAB4M3;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = ARigEditor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kineticfactory.ARigEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		44FC27B524524AE50003446F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ARigEditor/ARigEditor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = RGZSVAB4M3;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = ARigEditor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kineticfactory.ARigEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		44FC27B724524AE50003446F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = RGZSVAB4M3;
+				INFOPLIST_FILE = ARigEditorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kineticfactory.ARigEditorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARigEditor.app/Contents/MacOS/ARigEditor";
+			};
+			name = Debug;
+		};
+		44FC27B824524AE50003446F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = RGZSVAB4M3;
+				INFOPLIST_FILE = ARigEditorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kineticfactory.ARigEditorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARigEditor.app/Contents/MacOS/ARigEditor";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -544,6 +906,24 @@
 			buildConfigurations = (
 				44FC277A244DEA360003446F /* Debug */,
 				44FC277B244DEA360003446F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44FC27B324524AE50003446F /* Build configuration list for PBXNativeTarget "ARigEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44FC27B424524AE50003446F /* Debug */,
+				44FC27B524524AE50003446F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44FC27B624524AE50003446F /* Build configuration list for PBXNativeTarget "ARigEditorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44FC27B724524AE50003446F /* Debug */,
+				44FC27B824524AE50003446F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

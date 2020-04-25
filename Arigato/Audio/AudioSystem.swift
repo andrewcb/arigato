@@ -105,6 +105,60 @@ public class AudioSystem {
         return node(byName: name)?.avAudioNode as? AVAudioUnitMIDIInstrument
     }
     
+    //MARK: Public node manipulation methods for editing the graph
+    public  func createNode(withDesc desc: AudioComponentDescription, callback: ((NodeID)->())?) {
+        desc.loadAudioUnit { (result) in
+            guard let unit = try? result.get() else {
+                print("Error loading unit: \(result)")
+                return
+            }
+            callback?(self.add(node: unit, withName: unit.name))
+        }
+    }
+    
+    public func connect(fromNode from: Node.ID, bus fromBus: AVAudioNodeBus, toNode  to: Node.ID, bus toBus: AVAudioNodeBus) throws {
+        guard
+            let fromNode = nodeMap[from],
+            let toNode = nodeMap[to]
+        else { throw Error.nodeNotFound }
+        engine.connect(fromNode.avAudioNode, to: toNode.avAudioNode, fromBus: fromBus, toBus: toBus, format: nil)
+        let newConnection = Connection(from: (from, fromBus), to: (to, toBus))
+        self.connections.removeAll { $0.from == newConnection.from || $0.to == newConnection.to }
+        self.connections.append(newConnection)
+        self.connectionsChanged()
+    }
+    
+    // Connect to the next available slot on the main mixer
+    public func connectToMainMixer(node: Node.ID, bus: AVAudioNodeBus = 0) throws {
+        guard
+            let fromNode = nodeMap[node]
+        else { throw Error.nodeNotFound }
+        let toBus = engine.mainMixerNode.nextAvailableInputBus
+        engine.connect(fromNode.avAudioNode, to: engine.mainMixerNode, fromBus: bus, toBus: toBus, format: nil)
+        self.connections.append(Connection(from: (node, bus), to: (Node.mainMixerID, toBus)))
+        self.connectionsChanged()
+    }
+    
+    public func disconnect(inputBus: AVAudioNodeBus, ofNode nodeID: Node.ID) throws {
+        guard
+            let node = nodeMap[nodeID]
+        else { throw Error.nodeNotFound }
+        engine.disconnectNodeInput(node.avAudioNode, bus: inputBus)
+        self.connections.removeAll { ($0.to.node, $0.to.bus) == (nodeID, inputBus) }
+        self.connectionsChanged()
+    }
+    
+    public func delete(node id: NodeID) {
+        guard let node = self.nodeMap[id] else { return }
+        self.connections.removeAll { id == $0.from.node || id == $0.to.node }
+        engine.disconnectNodeInput(node.avAudioNode)
+        engine.disconnectNodeOutput(node.avAudioNode)
+        engine.detach(node.avAudioNode)
+        nodeMap.removeValue(forKey: id)
+        self.connectionsChanged()
+    }
+        
+
     // finding mixer nodes for inputs
     public func findMixingHeadNode(forMixerInput ch: Int) -> AVAudioMixing? {
         // Assumption: the node immediately upstream of the mixer input will be the one we want if  it's available. If this turns out to not be the case, we may need to follow links upstream
@@ -113,6 +167,13 @@ public class AudioSystem {
     }
 
     //MARK: internal methods for editing the node graph
+    @discardableResult func add(node avAudioNode: AVAudioNode, withName name: String)  -> Node.ID {
+        let node = Node(name: name, avAudioNode: avAudioNode)
+        engine.attach(avAudioNode)
+        self.nodeMap[node.id] = node
+        return node.id
+    }
+    
     func deleteAll() {
         for (id, node) in nodeMap {
             guard id != Node.mainMixerID && id != Node.mainOutputID else { continue }
