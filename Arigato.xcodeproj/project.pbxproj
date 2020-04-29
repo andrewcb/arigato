@@ -25,8 +25,6 @@
 		44FC27A224524AE50003446F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44FC27A124524AE50003446F /* Assets.xcassets */; };
 		44FC27A524524AE50003446F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44FC27A324524AE50003446F /* Main.storyboard */; };
 		44FC27B124524AE50003446F /* ARigEditorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27B024524AE50003446F /* ARigEditorTests.swift */; };
-		44FC27BA24524DE60003446F /* Arigato.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44FC2762244DEA360003446F /* Arigato.framework */; };
-		44FC27BB24524DE60003446F /* Arigato.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44FC2762244DEA360003446F /* Arigato.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44FC27C32453053E0003446F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27C22453053E0003446F /* GraphView.swift */; };
 		44FC27C5245312230003446F /* CocoaExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27C4245312230003446F /* CocoaExtensions.swift */; };
 		44FC27C8245313860003446F /* GenericGraphNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27C7245313860003446F /* GenericGraphNodeView.swift */; };
@@ -39,6 +37,16 @@
 		44FC27D72453225D0003446F /* AVAudioNode+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D62453225D0003446F /* AVAudioNode+.swift */; };
 		44FC27D92454ADD80003446F /* ARig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D82454ADD80003446F /* ARig.swift */; };
 		44FC27DC2454F46C0003446F /* NodeInterfaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27DB2454F46C0003446F /* NodeInterfaceManager.swift */; };
+		44FC27DD2458E96A0003446F /* NodeInterfaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27DB2454F46C0003446F /* NodeInterfaceManager.swift */; };
+		44FC27DE2458E9900003446F /* AudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC277D244DEB450003446F /* AudioSystem.swift */; };
+		44FC27DF2458E9930003446F /* AudioSystem.serialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2783244DF7960003446F /* AudioSystem.serialisation.swift */; };
+		44FC27E02458E9960003446F /* AudioUnitPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2793244E5CEE0003446F /* AudioUnitPreset.swift */; };
+		44FC27E12458E9990003446F /* AudioUnitComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D42453220B0003446F /* AudioUnitComponent.swift */; };
+		44FC27E22458E9A30003446F /* Snapshottable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2781244DF7570003446F /* Snapshottable.swift */; };
+		44FC27E32458E9A70003446F /* FourCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2788244DF9480003446F /* FourCC.swift */; };
+		44FC27E42458E9A70003446F /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2791244E5AB90003446F /* Future.swift */; };
+		44FC27E52458E9E10003446F /* AudioComponentDescription+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2786244DF86F0003446F /* AudioComponentDescription+.swift */; };
+		44FC27E62458E9E40003446F /* AVAudioNode+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D62453225D0003446F /* AVAudioNode+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,28 +64,7 @@
 			remoteGlobalIDString = 44FC279824524AE10003446F;
 			remoteInfo = ARigEditor;
 		};
-		44FC27BC24524DE60003446F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 44FC2759244DEA360003446F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 44FC2761244DEA360003446F;
-			remoteInfo = Arigato;
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		44FC27BE24524DE60003446F /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				44FC27BB24524DE60003446F /* Arigato.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		44FC2762244DEA360003446F /* Arigato.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Arigato.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,7 +127,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44FC27BA24524DE60003446F /* Arigato.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,12 +393,10 @@
 				44FC279524524AE10003446F /* Sources */,
 				44FC279624524AE10003446F /* Frameworks */,
 				44FC279724524AE10003446F /* Resources */,
-				44FC27BE24524DE60003446F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				44FC27BD24524DE60003446F /* PBXTargetDependency */,
 			);
 			name = ARigEditor;
 			productName = ARigEditor;
@@ -550,13 +534,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44FC27DF2458E9930003446F /* AudioSystem.serialisation.swift in Sources */,
 				44FC27D3245318F30003446F /* ComponentSelectorViewController.swift in Sources */,
+				44FC27E52458E9E10003446F /* AudioComponentDescription+.swift in Sources */,
+				44FC27E22458E9A30003446F /* Snapshottable.swift in Sources */,
+				44FC27E42458E9A70003446F /* Future.swift in Sources */,
 				44FC27CA245313B50003446F /* MixerGraphNodeView.swift in Sources */,
 				44FC27CE245318500003446F /* KeyboardCommittableTextField.swift in Sources */,
 				44FC279E24524AE10003446F /* MainViewController.swift in Sources */,
+				44FC27E02458E9960003446F /* AudioUnitPreset.swift in Sources */,
+				44FC27E62458E9E40003446F /* AVAudioNode+.swift in Sources */,
 				44FC279C24524AE10003446F /* AppDelegate.swift in Sources */,
 				44FC27D0245318810003446F /* MixerNodeSlider.swift in Sources */,
+				44FC27E12458E9990003446F /* AudioUnitComponent.swift in Sources */,
 				44FC27CC245313FA0003446F /* NSColor+application.swift in Sources */,
+				44FC27E32458E9A70003446F /* FourCC.swift in Sources */,
+				44FC27DD2458E96A0003446F /* NodeInterfaceManager.swift in Sources */,
+				44FC27DE2458E9900003446F /* AudioSystem.swift in Sources */,
 				44FC27A024524AE10003446F /* ARigDocument.swift in Sources */,
 				44FC27C8245313860003446F /* GenericGraphNodeView.swift in Sources */,
 				44FC27C32453053E0003446F /* GraphView.swift in Sources */,
@@ -584,11 +578,6 @@
 			isa = PBXTargetDependency;
 			target = 44FC279824524AE10003446F /* ARigEditor */;
 			targetProxy = 44FC27AD24524AE50003446F /* PBXContainerItemProxy */;
-		};
-		44FC27BD24524DE60003446F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 44FC2761244DEA360003446F /* Arigato */;
-			targetProxy = 44FC27BC24524DE60003446F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

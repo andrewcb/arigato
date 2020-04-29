@@ -8,7 +8,6 @@
 
 import Cocoa
 import AudioToolbox
-import Arigato
 
 protocol GraphViewDataSource {
     var numberOfNodes: Int { get }

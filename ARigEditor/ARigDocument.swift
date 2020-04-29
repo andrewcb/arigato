@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import Arigato
 
 class ARigDocument: NSDocument {
     

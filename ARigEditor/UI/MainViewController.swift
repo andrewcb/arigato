@@ -9,11 +9,13 @@
 import Cocoa
 import AudioToolbox
 import AVFoundation
-import Arigato
+//import Arigato
 
 class MainViewController: NSViewController {
     
     @IBOutlet var graphView: GraphView!
+    
+    let nodeInterfaceManager  = NodeInterfaceManager()
 
     var midiDest: AudioSystem.Node?
 
@@ -43,6 +45,11 @@ class MainViewController: NSViewController {
         self.graphView.adjustFrame()
     }
 
+    //MARK: UI windows
+    func openUIView(forNode id: AudioSystem.NodeID) {
+        guard let node = document?.audioSystem.node(byId: id) else { return }
+        nodeInterfaceManager.openWindow(forNode: node)
+    }
 }
 
 extension MainViewController: GraphViewDelegate {
@@ -83,9 +90,7 @@ extension MainViewController: GraphViewDelegate {
     }
     
     func delete(node id: GraphView.NodeID) {
-        #warning("Not implemented: interface window closing")
-//        self.nodeInterfaceWindows[id]?.close()
-//        self.nodeInterfaceWindows[id] = nil
+        nodeInterfaceManager.closeInterfaces(forNodeWithID: id)
         self.document?.audioSystem.delete(node: id)
         self.graphView.reloadData()
     }
@@ -120,8 +125,8 @@ extension MainViewController: GraphViewDataSource {
             view.id = id
             view.metadata = metadata
             view.onInterfaceButtonPress = {
-                #warning("not implemented: openUIView")
-//                self.openUIView(forNode: id)
+                //#warning("not implemented: openUIView")
+                self.openUIView(forNode: id)
             }
             return view
         }

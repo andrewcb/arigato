@@ -8,7 +8,6 @@
 
 import Cocoa
 import AudioToolbox
-import Arigato
 
 extension NSPasteboard.PasteboardType {
     static let audioUnit = NSPasteboard.PasteboardType("com.kineticfactory.TEST.audioUnit")
