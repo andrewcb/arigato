@@ -77,8 +77,7 @@ extension MainViewController: GraphViewDelegate {
     }
     
     func rename(node id: Int, to newTitle: String) {
-        #warning("Renaming of nodes not implemented")
-//        document?.audioSystem.nodeMap[id]?.name = newTitle
+        document?.audioSystem.nodeMap[id]?.name = newTitle
         self.graphView.reloadData()
     }
     
@@ -117,8 +116,7 @@ extension MainViewController: GraphViewDataSource {
             let view =  MixerGraphNodeView(frame: .zero, graphView: graphView)
             view.id = id
             view.metadata = metadata
-            #warning("not implemented: MixerTarget conformance")
-//            view.mixerTarget = self.document?.audioSystem
+            view.mixerTarget = self
             return view
         } else {
             let view = GenericGraphNodeView(frame: .zero, graphView: graphView)
@@ -140,5 +138,24 @@ extension MainViewController: GraphViewLayout {
     
     func nodePosition(forNodeID id: Int) -> NSPoint {
         return self.document?.nodePositions[id] ?? .zero
+    }
+}
+
+extension MainViewController: MixerTarget {
+    // TODO: cache the head nodes?
+    func getLevel(forChannel ch: Int) -> Float {
+        return self.document?.audioSystem.findMixingHeadNode(forMixerInput: ch)?.volume ?? .nan
+    }
+    
+    func getPan(forChannel ch: Int) -> Float {
+        return (self.document?.audioSystem.findMixingHeadNode(forMixerInput: ch))?.pan ?? .nan
+    }
+    
+    func setLevel(forChannel ch: Int, to value: Float) {
+        self.document?.audioSystem.findMixingHeadNode(forMixerInput: ch)?.volume = value
+    }
+    
+    func setPan(forChannel ch: Int, to value: Float) {
+        self.document?.audioSystem.findMixingHeadNode(forMixerInput: ch)?.pan = value
     }
 }
