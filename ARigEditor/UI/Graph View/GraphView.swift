@@ -386,6 +386,7 @@ extension GraphView {
             }
             print("\(desc)")
             self.requestCreateNode(withDesc: desc, at: point)
+            self.window?.makeFirstResponder(self)
             return true
         }
         return false
