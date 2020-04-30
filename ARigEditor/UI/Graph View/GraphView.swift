@@ -345,7 +345,6 @@ class GraphView: NSView {
     }
     
     override func keyDown(with event: NSEvent) {
-        print("keyDown: \(event.keyCode)")
         switch(event.keyCode) {
         case 51: // backspace
             guard let sel = self.selection else { break }
@@ -359,6 +358,7 @@ class GraphView: NSView {
                 self.delegate?.delete(node: id)
             }
         default:
+            nextResponder?.keyDown(with: event)
             break
         }
     }

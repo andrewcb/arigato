@@ -44,7 +44,12 @@ class MainViewController: NSViewController {
         super.viewDidLayout()
         self.graphView.adjustFrame()
     }
-
+    
+    override func keyDown(with event: NSEvent) {
+        print("VC: keyDown: \(event.keyCode)")
+        nextResponder?.keyDown(with: event)
+    }
+    
     //MARK: UI windows
     func openUIView(forNode id: AudioSystem.NodeID) {
         guard let node = document?.audioSystem.node(byId: id) else { return }
