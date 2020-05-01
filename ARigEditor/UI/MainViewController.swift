@@ -17,11 +17,18 @@ class MainViewController: NSViewController {
     
     let nodeInterfaceManager  = NodeInterfaceManager()
 
-    var midiDest: AudioSystem.Node?
+    var selectedNode: AudioSystem.Node?
+    var selectedMIDIInstrument: AVAudioUnitMIDIInstrument? {
+        return self.selectedNode?.avAudioNode as? AVAudioUnitMIDIInstrument
+    }
 
     var document: ARigDocument? {
         return self.view.window?.windowController?.document as? ARigDocument
     }
+    
+    let midiKeystrokeHandler = MIDIKeystrokeHandler()
+    
+    var keystrokeReceiverChain: [KeystrokeReceiver] = []
 
     
     override func viewDidLoad() {
@@ -34,6 +41,10 @@ class MainViewController: NSViewController {
         self.graphView.wantsLayer = true
         self.graphView.layer?.borderColor = NSColor(white: 0.0, alpha: 0.05).cgColor
         self.graphView.layer?.borderWidth = 1.0
+        
+        self.keystrokeReceiverChain = [midiKeystrokeHandler]
+        self.midiKeystrokeHandler.sendNoteOn = { (n,v) in self.selectedMIDIInstrument?.startNote(n, withVelocity: v, onChannel: 0) }
+        self.midiKeystrokeHandler.sendNoteOff = { (n,_) in self.selectedMIDIInstrument?.stopNote(n, onChannel: 0) }
     }
 
     override func viewWillAppear() {
@@ -46,8 +57,18 @@ class MainViewController: NSViewController {
     }
     
     override func keyDown(with event: NSEvent) {
-        print("VC: keyDown: \(event.keyCode)")
+        if event.isARepeat { return }
+        for receiver in self.keystrokeReceiverChain {
+            if receiver.receiveKeyDown(event.keyCode) { return }
+        }
         nextResponder?.keyDown(with: event)
+    }
+    
+    override func keyUp(with event: NSEvent) {
+        for receiver in self.keystrokeReceiverChain {
+            if receiver.receiveKeyUp(event.keyCode) { return }
+        }
+        nextResponder?.keyUp(with: event)
     }
     
     //MARK: UI windows
@@ -59,7 +80,7 @@ class MainViewController: NSViewController {
 
 extension MainViewController: GraphViewDelegate {
     func nodeSelected(_ id: GraphView.NodeID?) {
-        self.midiDest = id.flatMap { document?.audioSystem.node(byId:$0) }
+        self.selectedNode = id.flatMap { document?.audioSystem.node(byId:$0) }
     }
     
     func make(connection: GraphView.Connection) {
