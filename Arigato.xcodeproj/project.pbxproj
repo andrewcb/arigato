@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4490FCAC245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */; };
+		4490FCAE245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */; };
 		44FC276C244DEA360003446F /* Arigato.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44FC2762244DEA360003446F /* Arigato.framework */; };
 		44FC2771244DEA360003446F /* ArigatoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2770244DEA360003446F /* ArigatoTests.swift */; };
 		44FC2773244DEA360003446F /* Arigato.h in Headers */ = {isa = PBXBuildFile; fileRef = 44FC2765244DEA360003446F /* Arigato.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -69,6 +71,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIKeyboardNodeDetailViewController.swift; sourceTree = "<group>"; };
+		4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeechNodeDetailViewController.swift; sourceTree = "<group>"; };
 		44FC2762244DEA360003446F /* Arigato.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Arigato.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44FC2765244DEA360003446F /* Arigato.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arigato.h; sourceTree = "<group>"; };
 		44FC2766244DEA360003446F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -144,6 +148,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4490FCAA245E3B20009C2729 /* Node Detail Views */ = {
+			isa = PBXGroup;
+			children = (
+				4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */,
+				4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */,
+			);
+			path = "Node Detail Views";
+			sourceTree = "<group>";
+		};
 		44FC2758244DEA360003446F = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +300,7 @@
 		44FC27BF245255540003446F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				4490FCAA245E3B20009C2729 /* Node Detail Views */,
 				44FC27EA245B8AEA0003446F /* Keystroke Handling */,
 				44FC27D1245318CA0003446F /* Component Selector */,
 				44FC27C12452559A0003446F /* Graph View */,
@@ -555,6 +569,7 @@
 				44FC27E52458E9E10003446F /* AudioComponentDescription+.swift in Sources */,
 				44FC27E22458E9A30003446F /* Snapshottable.swift in Sources */,
 				44FC27E42458E9A70003446F /* Future.swift in Sources */,
+				4490FCAE245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift in Sources */,
 				44FC27CA245313B50003446F /* MixerGraphNodeView.swift in Sources */,
 				44FC27CE245318500003446F /* KeyboardCommittableTextField.swift in Sources */,
 				44FC279E24524AE10003446F /* MainViewController.swift in Sources */,
@@ -565,6 +580,7 @@
 				44FC27E12458E9990003446F /* AudioUnitComponent.swift in Sources */,
 				44FC27CC245313FA0003446F /* NSColor+application.swift in Sources */,
 				44FC27E32458E9A70003446F /* FourCC.swift in Sources */,
+				4490FCAC245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift in Sources */,
 				44FC27DD2458E96A0003446F /* NodeInterfaceManager.swift in Sources */,
 				44FC27DE2458E9900003446F /* AudioSystem.swift in Sources */,
 				44FC27A024524AE10003446F /* ARigDocument.swift in Sources */,

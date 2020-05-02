@@ -885,10 +885,10 @@
             </objects>
             <point key="canvasLocation" x="586" y="480"/>
         </scene>
-        <!--View Controller-->
+        <!--Keyboard Node Detail View Controller-->
         <scene sceneID="Ca7-iU-ggh">
             <objects>
-                <viewController storyboardIdentifier="NodeDetailMIDI" id="b1i-BV-EyO" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NodeDetailMIDI" id="b1i-BV-EyO" customClass="MIDIKeyboardNodeDetailViewController" customModule="ARigEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Ost-55-X2J">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="100"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -913,10 +913,10 @@
             </objects>
             <point key="canvasLocation" x="614" y="921"/>
         </scene>
-        <!--View Controller-->
+        <!--Text To Speech Node Detail View Controller-->
         <scene sceneID="vkL-Eh-Ngp">
             <objects>
-                <viewController storyboardIdentifier="NodeDetailTTS" id="nif-SG-Gi8" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NodeDetailTTS" id="nif-SG-Gi8" customClass="TextToSpeechNodeDetailViewController" customModule="ARigEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="ZVX-6n-lPq">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="100"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -929,7 +929,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tGt-Aj-SNJ">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tGt-Aj-SNJ" customClass="KeyboardCommittableTextField" customModule="ARigEditor" customModuleProvider="target">
                                 <rect key="frame" x="113" y="59" width="329" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="MdY-PJ-4YL">
                                     <font key="font" metaFont="system"/>
@@ -946,6 +946,9 @@
                             <constraint firstAttribute="trailing" secondItem="tGt-Aj-SNJ" secondAttribute="trailing" constant="8" id="gPc-rZ-6xE"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="inputTextField" destination="tGt-Aj-SNJ" id="GDQ-9u-eTW"/>
+                    </connections>
                 </viewController>
                 <customObject id="9b3-SD-ODf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

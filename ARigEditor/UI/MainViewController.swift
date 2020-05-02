@@ -85,6 +85,9 @@ class MainViewController: NSViewController {
         for key in NodeDetailType.allCases {
             nodeDetailViewControllers[key] = self.storyboard?.instantiateController(withIdentifier: key.rawValue) as? NSViewController
         }
+        (nodeDetailViewControllers[.textToSpeech] as? TextToSpeechNodeDetailViewController)?.textSubmitHandler = { (text) in
+            self.selectedNode?.avAudioNode.speak(text)
+        }
     }
 
     override func viewWillAppear() {
