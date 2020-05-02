@@ -14,13 +14,49 @@ import AVFoundation
 class MainViewController: NSViewController {
     
     @IBOutlet var graphView: GraphView!
+    @IBOutlet var selectedNodeDetailContainerView: NSView!
     
     let nodeInterfaceManager  = NodeInterfaceManager()
 
-    var selectedNode: AudioSystem.Node?
+    var selectedNode: AudioSystem.Node? {
+        didSet {
+            self.currentNodeDetailViewController = selectedNode.flatMap { NodeDetailType(node: $0) }.flatMap { self.nodeDetailViewControllers[$0] }
+        }
+    }
     var selectedMIDIInstrument: AVAudioUnitMIDIInstrument? {
         return self.selectedNode?.avAudioNode as? AVAudioUnitMIDIInstrument
     }
+    
+    /// The type of detail view a selected node should have, if any.
+    enum NodeDetailType: String, Equatable, CaseIterable {
+        case midi = "NodeDetailMIDI"
+        case textToSpeech = "NodeDetailTTS"
+        
+        init?(node: AudioSystem.Node) {
+            if node.avAudioNode.isSpeechSynthesizer { self = .textToSpeech }
+            else if (node.avAudioNode as? AVAudioUnitMIDIInstrument) != nil { self = .midi }
+            else { return nil }
+        }
+    }
+    var currentNodeDetailViewController: NSViewController? {
+        didSet(prev) {
+            guard self.currentNodeDetailViewController != prev else { return }
+            if let prevVC = prev {
+                /* remove the previous view */
+                prevVC.removeFromParent()
+                prevVC.view.removeFromSuperview()
+            }
+            if let vc = currentNodeDetailViewController {
+                // add the new view controller
+                self.selectedNodeDetailContainerView.addSubview(vc.view)
+                vc.view.frame = self.selectedNodeDetailContainerView.bounds
+                self.addChild(vc)
+            }
+
+        }
+    }
+    
+    var nodeDetailViewControllers: [NodeDetailType:NSViewController] = [:]
 
     var document: ARigDocument? {
         return self.view.window?.windowController?.document as? ARigDocument
@@ -45,6 +81,10 @@ class MainViewController: NSViewController {
         self.keystrokeReceiverChain = [midiKeystrokeHandler]
         self.midiKeystrokeHandler.sendNoteOn = { (n,v) in self.selectedMIDIInstrument?.startNote(n, withVelocity: v, onChannel: 0) }
         self.midiKeystrokeHandler.sendNoteOff = { (n,_) in self.selectedMIDIInstrument?.stopNote(n, onChannel: 0) }
+        
+        for key in NodeDetailType.allCases {
+            nodeDetailViewControllers[key] = self.storyboard?.instantiateController(withIdentifier: key.rawValue) as? NSViewController
+        }
     }
 
     override func viewWillAppear() {

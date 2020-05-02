@@ -712,8 +712,17 @@
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lbk-AS-FNK">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="64"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="9fo-Wv-IFM">
+                                        <rect key="frame" x="8" y="0.0" width="472" height="64"/>
+                                    </customView>
+                                </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="9fo-Wv-IFM" secondAttribute="trailing" id="8Ee-uw-SR9"/>
+                                    <constraint firstAttribute="bottom" secondItem="9fo-Wv-IFM" secondAttribute="bottom" id="ZZm-ij-bAA"/>
                                     <constraint firstAttribute="height" constant="64" id="jSK-pm-iJU"/>
+                                    <constraint firstItem="9fo-Wv-IFM" firstAttribute="top" secondItem="Lbk-AS-FNK" secondAttribute="top" id="yo8-lU-4au"/>
+                                    <constraint firstItem="9fo-Wv-IFM" firstAttribute="leading" secondItem="Lbk-AS-FNK" secondAttribute="leading" constant="8" id="zn3-mv-vXu"/>
                                 </constraints>
                             </customView>
                             <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FiF-Nd-cim">
@@ -778,6 +787,7 @@
                     </view>
                     <connections>
                         <outlet property="graphView" destination="Nu4-T6-CaE" id="M7V-Pa-QHD"/>
+                        <outlet property="selectedNodeDetailContainerView" destination="9fo-Wv-IFM" id="oUN-y7-VGn"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -836,7 +846,7 @@
                                                                 <outlet property="textField" destination="7bQ-Zz-eeA" id="JrE-yK-r4e"/>
                                                             </connections>
                                                         </tableCellView>
-                                                        <tableCellView identifier="ComponentCell" id="Zko-TO-KX6" customClass="ComponentCellView" customModule="AudioUnitGraphWork2" customModuleProvider="target">
+                                                        <tableCellView identifier="ComponentCell" id="Zko-TO-KX6" customClass="ComponentCellView" customModule="ARigEditor" customModuleProvider="target">
                                                             <rect key="frame" x="1" y="20" width="448" height="34"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </tableCellView>
@@ -874,6 +884,72 @@
                 <customObject id="5kn-A1-LK3" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="586" y="480"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ca7-iU-ggh">
+            <objects>
+                <viewController storyboardIdentifier="NodeDetailMIDI" id="b1i-BV-EyO" sceneMemberID="viewController">
+                    <view key="view" id="Ost-55-X2J">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="100"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ikd-MW-2wL">
+                                <rect key="frame" x="18" y="64" width="329" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="This is a MIDI instrument. Play notes on the keyboard." id="8pk-50-SsK">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Ikd-MW-2wL" firstAttribute="top" secondItem="Ost-55-X2J" secondAttribute="top" constant="20" id="KvZ-vx-byg"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ikd-MW-2wL" secondAttribute="trailing" constant="20" id="UVy-ng-Pfg"/>
+                            <constraint firstItem="Ikd-MW-2wL" firstAttribute="leading" secondItem="Ost-55-X2J" secondAttribute="leading" constant="20" id="rnD-bb-2Kc"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="9wL-K1-mDW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="614" y="921"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="vkL-Eh-Ngp">
+            <objects>
+                <viewController storyboardIdentifier="NodeDetailTTS" id="nif-SG-Gi8" sceneMemberID="viewController">
+                    <view key="view" id="ZVX-6n-lPq">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="100"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mhl-My-5TE">
+                                <rect key="frame" x="18" y="62" width="89" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Text to speak:" id="d0Q-Nr-pNW">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tGt-Aj-SNJ">
+                                <rect key="frame" x="113" y="59" width="329" height="21"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="MdY-PJ-4YL">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="tGt-Aj-SNJ" firstAttribute="top" secondItem="ZVX-6n-lPq" secondAttribute="top" constant="20" id="0FL-VV-NlP"/>
+                            <constraint firstItem="tGt-Aj-SNJ" firstAttribute="leading" secondItem="Mhl-My-5TE" secondAttribute="trailing" constant="8" id="UgQ-Qa-h5g"/>
+                            <constraint firstItem="Mhl-My-5TE" firstAttribute="leading" secondItem="ZVX-6n-lPq" secondAttribute="leading" constant="20" id="ZDz-qo-Xid"/>
+                            <constraint firstItem="Mhl-My-5TE" firstAttribute="centerY" secondItem="tGt-Aj-SNJ" secondAttribute="centerY" id="egl-oa-cex"/>
+                            <constraint firstAttribute="trailing" secondItem="tGt-Aj-SNJ" secondAttribute="trailing" constant="8" id="gPc-rZ-6xE"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="9b3-SD-ODf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="614" y="1110"/>
         </scene>
     </scenes>
 </document>
