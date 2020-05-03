@@ -52,7 +52,7 @@ class MainViewController: NSViewController {
                 vc.view.frame = self.selectedNodeDetailContainerView.bounds
                 self.addChild(vc)
             }
-
+            self.view.window?.makeFirstResponder(self.graphView)
         }
     }
     
