@@ -31,7 +31,7 @@ class GenericGraphNodeView: NSView, GraphNodeView {
     // MARK: --
     
     let titleLabel = KeyboardCommittableTextField()
-    let interfaceButton = NSButton(title: "I", target: nil, action:nil)
+    let interfaceButton = NSButton(title: "", target: nil, action:nil)
     var id: GraphView.NodeID?
     var metadata: GraphView.NodeMetadata?
     
@@ -65,7 +65,9 @@ class GenericGraphNodeView: NSView, GraphNodeView {
         self.addSubview(titleLabel)
         
         self.interfaceButton.bezelStyle = .smallSquare
+        self.interfaceButton.isBordered = false
         self.interfaceButton.wantsLayer = true
+        self.interfaceButton.image = NSImage(named: "btn_gui")
         self.interfaceButton.target = self
         self.interfaceButton.action = #selector(self.interfaceButtonPressed(_:))
         self.addSubview(interfaceButton)
@@ -82,7 +84,7 @@ class GenericGraphNodeView: NSView, GraphNodeView {
     
     override func layout() {
         super.layout()
-        self.interfaceButton.frame = NSRect(x: DrawingModel.innerMargin, y: drawingModel.titleBottom-24, width: 16, height: 16)
+        self.interfaceButton.frame = NSRect(x: DrawingModel.innerMargin, y: drawingModel.titleBottom-24, width: 18, height: 18)
     }
     
     @objc func click(_ recognizer: NSClickGestureRecognizer) {
