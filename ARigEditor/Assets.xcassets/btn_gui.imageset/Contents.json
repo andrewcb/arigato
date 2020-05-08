@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "btn_gui.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "btn_gui.png",
+      "filename" : "btn_gui@2x.png",
       "scale" : "2x"
     },
     {
