@@ -23,19 +23,39 @@ class NodeInterfaceManager: NSObject {
             }
         }
     }
-    
+        
     var openNodes: [AudioSystem.NodeID:InterfaceInstance] = [:]
+    
+    private struct NoGUIError: Swift.Error {}
+    // obtain the view controller for a unit
+    private func makeAudioUnitGUIViewController(for audioUnit: AUAudioUnit) -> Future<NSViewController> {
+        let promise = Promise<NSViewController>()
+        audioUnit.requestViewController { maybeVC in
+            if let vc = maybeVC {
+                promise.complete(with: .success(vc))
+            }  else {
+                promise.complete(with: .failure(NoGUIError()))
+            }
+        }
+        return promise.future
+    }
     
     private func createWindow(forNode node: AudioSystem.Node) {
         guard
             let auAudioUnit = (node.avAudioNode as? AVAudioUnit)?.auAudioUnit
         else { return }
-        auAudioUnit.requestViewController { vc in
-            guard let vc = vc else { return }
-            let window = NSWindow(contentViewController: vc)
-            window.delegate = self
-            window.makeKeyAndOrderFront(nil)
-            self.openNodes[node.id] = .window(window)
+        let future = self.makeAudioUnitGUIViewController(for: auAudioUnit)
+        future.onCompletion { result in
+            switch(result) {
+            case .success(let vc):
+                let window = NSWindow(contentViewController: vc)
+                window.delegate = self
+                window.makeKeyAndOrderFront(nil)
+                self.openNodes[node.id] = .window(window)
+            case .failure(_):
+                print("No view controller for AudioUnit")
+                return
+            }
         }
     }
     
