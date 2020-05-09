@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4490FCAC245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */; };
 		4490FCAE245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */; };
+		4490FCB02466EA40009C2729 /* NodeParameterEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */; };
+		4490FCB124670344009C2729 /* NodeParameterEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */; };
 		44FC276C244DEA360003446F /* Arigato.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44FC2762244DEA360003446F /* Arigato.framework */; };
 		44FC2771244DEA360003446F /* ArigatoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2770244DEA360003446F /* ArigatoTests.swift */; };
 		44FC2773244DEA360003446F /* Arigato.h in Headers */ = {isa = PBXBuildFile; fileRef = 44FC2765244DEA360003446F /* Arigato.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -73,6 +75,7 @@
 /* Begin PBXFileReference section */
 		4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIKeyboardNodeDetailViewController.swift; sourceTree = "<group>"; };
 		4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeechNodeDetailViewController.swift; sourceTree = "<group>"; };
+		4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeParameterEditorViewController.swift; sourceTree = "<group>"; };
 		44FC2762244DEA360003446F /* Arigato.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Arigato.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44FC2765244DEA360003446F /* Arigato.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arigato.h; sourceTree = "<group>"; };
 		44FC2766244DEA360003446F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -351,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				44FC27DB2454F46C0003446F /* NodeInterfaceManager.swift */,
+				4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -545,6 +549,7 @@
 				44FC2787244DF86F0003446F /* AudioComponentDescription+.swift in Sources */,
 				44FC27D92454ADD80003446F /* ARig.swift in Sources */,
 				44FC2784244DF7960003446F /* AudioSystem.serialisation.swift in Sources */,
+				4490FCB02466EA40009C2729 /* NodeParameterEditorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +592,7 @@
 				44FC27C8245313860003446F /* GenericGraphNodeView.swift in Sources */,
 				44FC27C32453053E0003446F /* GraphView.swift in Sources */,
 				44FC27C5245312230003446F /* CocoaExtensions.swift in Sources */,
+				4490FCB124670344009C2729 /* NodeParameterEditorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

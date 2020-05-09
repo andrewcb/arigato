@@ -40,6 +40,12 @@ class NodeInterfaceManager: NSObject {
         return promise.future
     }
     
+    private func makeParameterViewController(for audioUnit: AUAudioUnit) -> Future<NSViewController> {
+        let vc = NodeParameterEditorViewController()
+        vc.auAudioUnit = audioUnit
+        return Future.immediate(.success(vc))
+    }
+    
     private func createWindow(forNode node: AudioSystem.Node) {
         guard
             let auAudioUnit = (node.avAudioNode as? AVAudioUnit)?.auAudioUnit
