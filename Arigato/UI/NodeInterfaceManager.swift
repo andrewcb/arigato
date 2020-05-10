@@ -46,11 +46,15 @@ class NodeInterfaceManager: NSObject {
         return Future.immediate(.success(vc))
     }
     
-    private func createWindow(forNode node: AudioSystem.Node) {
+    private func createWindow(forNode node: AudioSystem.Node, preferringGUI: Bool = true) {
         guard
             let auAudioUnit = (node.avAudioNode as? AVAudioUnit)?.auAudioUnit
         else { return }
-        let future = self.makeAudioUnitGUIViewController(for: auAudioUnit)
+        
+        struct GUINotSelectedError: Swift.Error { }
+        
+        let guiFuture: Future<NSViewController> = preferringGUI ? self.makeAudioUnitGUIViewController(for: auAudioUnit) : .immediate(.failure(GUINotSelectedError()))
+        let future = guiFuture.orElse(self.makeParameterViewController(for: auAudioUnit))
         future.onCompletion { result in
             switch(result) {
             case .success(let vc):
@@ -65,12 +69,12 @@ class NodeInterfaceManager: NSObject {
         }
     }
     
-    func openWindow(forNode node: AudioSystem.Node) {
+    func openWindow(forNode node: AudioSystem.Node, preferringGUI: Bool = true) {
         if case let .window(window) = self.openNodes[node.id] {
             window.makeKeyAndOrderFront(nil)
             return
         }
-        self.createWindow(forNode: node)
+        self.createWindow(forNode: node, preferringGUI: preferringGUI)
     }
     
     func closeInterfaces(forNodeWithID id: AudioSystem.NodeID) {
