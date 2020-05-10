@@ -115,9 +115,9 @@ class MainViewController: NSViewController {
     }
     
     //MARK: UI windows
-    func openUIView(forNode id: AudioSystem.NodeID) {
+    func openUIView(forNode id: AudioSystem.NodeID, preferringGUI: Bool = true) {
         guard let node = document?.audioSystem.node(byId: id) else { return }
-        nodeInterfaceManager.openWindow(forNode: node)
+        nodeInterfaceManager.openWindow(forNode: node, preferringGUI: preferringGUI)
     }
 }
 
@@ -192,8 +192,8 @@ extension MainViewController: GraphViewDataSource {
             view.id = id
             view.metadata = metadata
             view.onInterfaceButtonPress = {
-                //#warning("not implemented: openUIView")
-                self.openUIView(forNode: id)
+                let ctrlPressed = NSEvent.modifierFlags.contains(.control)
+                self.openUIView(forNode: id, preferringGUI: !ctrlPressed)
             }
             return view
         }
