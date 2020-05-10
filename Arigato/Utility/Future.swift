@@ -125,6 +125,25 @@ public class Future<T> {
         }
         return r.future
     }
+    
+    /** orElse: allow the chanining of Futures on failure */
+    public func orElse(_ elseCase: @escaping @autoclosure () throws -> Future<T>) -> Future<T> {
+        let r = Promise<T>()
+        self.onCompletion { (result) in
+            switch(result) {
+            case .success(let s1): r.succeed(with: s1)
+            case .failure(_): do {
+                let f2 = try elseCase()
+                f2.onCompletion { (result2) in
+                    r.complete(with: result2)
+                }
+            } catch let error {
+                r.fail(with: error)
+                }
+            }
+        }
+        return r.future
+    }
 }
 
 func sequence<T>(_ arraySlice: ArraySlice<Future<T>>) -> Future<[T]> {
