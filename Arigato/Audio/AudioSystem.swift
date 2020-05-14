@@ -186,3 +186,17 @@ public class AudioSystem {
     }
 
 }
+
+extension AudioSystem.Error: Equatable {
+    public static func == (lhs: AudioSystem.Error, rhs: AudioSystem.Error) -> Bool {
+        switch (lhs, rhs) {
+        case (.nodeNotFound, .nodeNotFound): return true
+        case (.componentsNotAvailable(let la), .componentsNotAvailable(let lb)):
+            return zip(la,lb).reduce(true) {
+                (prev, pair) -> Bool in
+                return prev && (pair.0.name == pair.1.name) && (pair.0.manufacturer == pair.1.manufacturer) && (pair.0.audioComponentDescription == pair.1.audioComponentDescription) && (pair.0.nodeNames == pair.1.nodeNames)
+            }
+        default: return false
+        }
+    }
+}

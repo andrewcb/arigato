@@ -118,6 +118,26 @@ extension AudioSystem.Node: Snapshottable {
     }
 }
 
+extension AudioSystem.Snapshot {
+    func validate(_ checker: ((AudioComponentDescription)->Bool)) -> AudioSystem.Error? {
+        let failed = self.manifest.filter { !$0.validate(checker) }
+        if failed.isEmpty { return nil }
+        let failedComponents = failed.map { item in
+            (name: item.name, manufacturer: item.manufacturer, audioComponentDescription: item.audioComponentDescription, nodeNames: item.nodes.flatMap { nid in (self.nodes.first {
+                $0.id == nid })?.name })
+        }
+        return AudioSystem.Error.componentsNotAvailable(failedComponents)
+    }
+}
+
+extension AudioSystem.Snapshot.ManifestItem {
+    // Validate this ManifestItem, using the passed function for checking the availability of its component; return true if valid
+    func validate(_ checker: ((AudioComponentDescription)->Bool)) -> Bool {
+        return checker(self.audioComponentDescription)
+    }
+}
+
+//MARK: Codable conformances
 extension AudioSystem.Node.Snapshot: Codable {}
 extension AudioSystem.Snapshot.ManifestItem: Codable {}
 extension AudioSystem.Connection.Endpoint: Codable {
