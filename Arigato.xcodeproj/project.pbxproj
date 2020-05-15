@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4414B9C4246D958000619B74 /* AudioSystemSerialisationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9C3246D958000619B74 /* AudioSystemSerialisationTests.swift */; };
+		4414B9C8246F4FA000619B74 /* ARigEditorDocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9C7246F4FA000619B74 /* ARigEditorDocumentController.swift */; };
 		4490FCAC245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */; };
 		4490FCAE245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */; };
 		4490FCB02466EA40009C2729 /* NodeParameterEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */; };
@@ -76,6 +77,7 @@
 
 /* Begin PBXFileReference section */
 		4414B9C3246D958000619B74 /* AudioSystemSerialisationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSystemSerialisationTests.swift; sourceTree = "<group>"; };
+		4414B9C7246F4FA000619B74 /* ARigEditorDocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARigEditorDocumentController.swift; sourceTree = "<group>"; };
 		4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIKeyboardNodeDetailViewController.swift; sourceTree = "<group>"; };
 		4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeechNodeDetailViewController.swift; sourceTree = "<group>"; };
 		4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeParameterEditorViewController.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				44FC27BF245255540003446F /* UI */,
 				44FC279B24524AE10003446F /* AppDelegate.swift */,
 				44FC279F24524AE10003446F /* ARigDocument.swift */,
+				4414B9C7246F4FA000619B74 /* ARigEditorDocumentController.swift */,
 				44FC27A124524AE50003446F /* Assets.xcassets */,
 				44FC27A324524AE50003446F /* Main.storyboard */,
 				44FC27A624524AE50003446F /* Info.plist */,
@@ -590,6 +593,7 @@
 				44FC27E62458E9E40003446F /* AVAudioNode+.swift in Sources */,
 				44FC279C24524AE10003446F /* AppDelegate.swift in Sources */,
 				44FC27D0245318810003446F /* MixerNodeSlider.swift in Sources */,
+				4414B9C8246F4FA000619B74 /* ARigEditorDocumentController.swift in Sources */,
 				44FC27E12458E9990003446F /* AudioUnitComponent.swift in Sources */,
 				44FC27CC245313FA0003446F /* NSColor+application.swift in Sources */,
 				44FC27E32458E9A70003446F /* FourCC.swift in Sources */,
