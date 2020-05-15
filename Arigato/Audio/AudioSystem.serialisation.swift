@@ -58,9 +58,11 @@ extension AudioSystem: Snapshottable {
     }
     
     //MARK: loading state from a Snapshot
-    public func load(state: Snapshot, onCompletion: @escaping ((Result<(), Error>)->())) {
-        // validate the manifest, and throw if invalid
-        // TODO
+    public func load(state: Snapshot, onCompletion:  (()->())) throws {
+        // validate the manifest, and pass back an error if invalid
+        if let err = state.validate() {
+            throw err
+        }
         
         self.deleteAll()
         // load all nodes
@@ -100,7 +102,7 @@ extension AudioSystem: Snapshottable {
         
         self.connectionsChanged()
         
-        onCompletion(.success(()))
+        onCompletion()
     }
 }
 
@@ -118,8 +120,15 @@ extension AudioSystem.Node: Snapshottable {
     }
 }
 
+//MARK: Validation
+
+func audioComponentQueryChecker(_ acd: AudioComponentDescription) -> Bool {
+    var desc = acd
+    return AudioComponentFindNext(nil, &desc) != nil
+}
+
 extension AudioSystem.Snapshot {
-    func validate(_ checker: ((AudioComponentDescription)->Bool)) -> AudioSystem.Error? {
+    func validate(_ checker: ((AudioComponentDescription)->Bool) = audioComponentQueryChecker(_:)) -> AudioSystem.Error? {
         let failed = self.manifest.filter { !$0.validate(checker) }
         if failed.isEmpty { return nil }
         let failedComponents = failed.map { item in
@@ -191,7 +200,7 @@ extension AudioSystem {
             = try decoder.decode(AudioSystem.Snapshot.self, from: data)
 
         let semaphore = DispatchSemaphore(value: 1)
-        self.load(state: snapshot) {_ in
+        try self.load(state: snapshot) {
             semaphore.signal()
         }
         semaphore.wait()

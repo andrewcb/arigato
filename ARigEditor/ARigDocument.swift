@@ -49,8 +49,8 @@ class ARigDocument: NSDocument {
         return State(audioSystemState: self.audioSystem.snapshot, editorData: State.EditorData(nodes: self.nodePositions.map { (id, pos) in State.EditorData.NodeLayout(id: id, position: pos) }))
     }
     
-    private func load(state: State) {
-        self.audioSystem.load(state: state.audioSystemState) { (result) in
+    private func load(state: State) throws {
+        try self.audioSystem.load(state: state.audioSystemState) {
             self.nodePositions = [Int:NSPoint](uniqueKeysWithValues: state.editorData.nodes.map {  ($0.id, $0.position) })
             // update the UI
         }
@@ -65,7 +65,7 @@ class ARigDocument: NSDocument {
     override func read(from data: Data, ofType typeName: String) throws {
         let decoder = PropertyListDecoder()
         let decoded = try decoder.decode(State.self, from: data)
-        self.load(state: decoded)
+        try self.load(state: decoded)
     }
 
 }
