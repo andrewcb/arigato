@@ -155,6 +155,8 @@ class GenericGraphNodeView: NSView, GraphNodeView {
         }
     }
     
+    func connectionsChanged() {}
+    
     //MARK: drawing
     
     // All the information required to draw a node shape (not counting native controls embedded in it)

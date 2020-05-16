@@ -128,7 +128,7 @@ extension MainViewController: GraphViewDelegate {
     
     func make(connection: GraphView.Connection) {
         try? document?.audioSystem.connect(fromNode: connection.from.node, bus: connection.from.bus, toNode: connection.to.node, bus: connection.to.bus)
-        self.graphView.reloadConnections()
+        self.graphView.reloadConnections(affectedNodes: [connection.from.node, connection.to.node])
     }
     
     func makeNewInletConnection(fromNode id: GraphView.NodeID, bus: Int, toNode id2: GraphView.NodeID) {
@@ -137,12 +137,13 @@ extension MainViewController: GraphViewDelegate {
             return
         }
         try? document?.audioSystem.connectToMainMixer(node: id, bus: bus)
+        self.graphView.reloadConnections(affectedNodes: [id, id2])
         self.graphView.reloadData()
     }
     
     func `break`(connection: GraphView.Connection) {
         try? document?.audioSystem.disconnect(inputBus: connection.to.bus, ofNode: connection.to.node)
-        self.graphView.reloadConnections()
+        self.graphView.reloadConnections(affectedNodes: [connection.from.node, connection.to.node])
     }
     
     func rename(node id: Int, to newTitle: String) {

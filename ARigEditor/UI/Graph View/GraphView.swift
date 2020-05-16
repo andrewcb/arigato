@@ -42,6 +42,9 @@ protocol GraphNodeView: NSView {
     func outletPoint(_ index: Int) -> NSPoint
     func regionHitTest(_ point: NSPoint) -> GraphView.NodeViewRegion?
     
+    // notify the GraphNodeView that its connections have changed
+    func connectionsChanged()
+    
     var graphView: GraphView { get set }
     var isSelected: Bool { get set }
     var isSelectable: Bool { get }
@@ -247,8 +250,11 @@ class GraphView: NSView {
     
     //MARK: reloading
     
-    func reloadConnections() {
+    func reloadConnections(affectedNodes: [NodeID]? = nil) {
         updateLineLayer()
+        for nodeID in (affectedNodes ?? []) {
+            self.nodeViews[nodeID]?.connectionsChanged()
+        }
     }
     
     func reloadData() {

@@ -47,12 +47,12 @@ class MixerGraphNodeView: NSView, GraphNodeView {
         
         var level: Float {
             get { return self.levelSlider.floatValue }
-            set(v) { self.levelSlider.floatValue = v }
+            set(v) { self.levelSlider.floatValue = v; self.levelSlider.isHidden = (v.isNaN) }
         }
         
         var pan: Float {
             get { return self.panSlider.floatValue }
-            set(v) { self.panSlider.floatValue = v }
+            set(v) { self.panSlider.floatValue = v; self.panSlider.isHidden = (v.isNaN) }
         }
         
         var onLevelChange: ((Float)->())?
@@ -99,6 +99,10 @@ class MixerGraphNodeView: NSView, GraphNodeView {
     var graphView: GraphView
     
     var channelViews: [ChannelView] = []
+    
+    func connectionsChanged() {
+        fetchMixerValues()
+    }
     
     // Create/destroy channel views when the number of channels changes
     fileprivate func createOrDestroyChannelViews() {
