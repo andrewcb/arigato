@@ -453,24 +453,70 @@
             <objects>
                 <viewController storyboardIdentifier="NodeDetailMIDI" id="b1i-BV-EyO" customClass="MIDIKeyboardNodeDetailViewController" customModule="ARigEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Ost-55-X2J">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="100"/>
+                        <rect key="frame" x="0.0" y="0.0" width="401" height="104"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ikd-MW-2wL">
-                                <rect key="frame" x="18" y="64" width="329" height="16"/>
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ikd-MW-2wL">
+                                <rect key="frame" x="18" y="68" width="329" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="This is a MIDI instrument. Play notes on the keyboard." id="8pk-50-SsK">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XhF-iH-MKp" customClass="MIDIComputerKeyboardView" customModule="ARigEditor" customModuleProvider="target">
+                                <rect key="frame" x="20" y="24" width="361" height="76"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="XhF-iH-MKp" secondAttribute="height" multiplier="19:4" id="A9J-Ju-y4c"/>
+                                </constraints>
+                            </customView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9cf-Bm-QSH">
+                                <rect key="frame" x="18" y="4" width="22" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="C0" id="4ir-m7-b9L">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <levelIndicator verticalHuggingPriority="750" drawsTieredCapacityLevels="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aJY-Iz-C0C">
+                                <rect key="frame" x="333" y="2" width="48" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="5qQ-cD-9oR"/>
+                                </constraints>
+                                <levelIndicatorCell key="cell" alignment="left" doubleValue="80" maxValue="127" warningValue="120" criticalValue="127" levelIndicatorStyle="continuousCapacity" id="37b-u9-XMW"/>
+                            </levelIndicator>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f7c-9w-Y4v">
+                                <rect key="frame" x="303" y="4" width="26" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="127" id="8eG-qM-ntd">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="9cf-Bm-QSH" firstAttribute="leading" secondItem="XhF-iH-MKp" secondAttribute="leading" id="0Z4-6K-QHG"/>
+                            <constraint firstItem="aJY-Iz-C0C" firstAttribute="top" secondItem="XhF-iH-MKp" secondAttribute="bottom" constant="4" id="4pB-fc-dbN"/>
+                            <constraint firstItem="XhF-iH-MKp" firstAttribute="top" secondItem="Ost-55-X2J" secondAttribute="top" constant="4" id="8PG-Xj-dz0"/>
+                            <constraint firstAttribute="bottom" secondItem="aJY-Iz-C0C" secondAttribute="bottom" constant="4" id="9l5-kD-dq9"/>
+                            <constraint firstItem="aJY-Iz-C0C" firstAttribute="trailing" secondItem="XhF-iH-MKp" secondAttribute="trailing" id="DnC-TN-2PG"/>
                             <constraint firstItem="Ikd-MW-2wL" firstAttribute="top" secondItem="Ost-55-X2J" secondAttribute="top" constant="20" id="KvZ-vx-byg"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ikd-MW-2wL" secondAttribute="trailing" constant="20" id="UVy-ng-Pfg"/>
+                            <constraint firstItem="f7c-9w-Y4v" firstAttribute="top" secondItem="XhF-iH-MKp" secondAttribute="bottom" constant="4" id="aIQ-yG-26S"/>
+                            <constraint firstItem="XhF-iH-MKp" firstAttribute="leading" secondItem="Ost-55-X2J" secondAttribute="leading" constant="20" id="gCp-gZ-bf9"/>
+                            <constraint firstItem="aJY-Iz-C0C" firstAttribute="leading" secondItem="f7c-9w-Y4v" secondAttribute="trailing" constant="6" id="hSs-nu-nxy"/>
+                            <constraint firstItem="9cf-Bm-QSH" firstAttribute="top" secondItem="XhF-iH-MKp" secondAttribute="bottom" constant="4" id="lf0-VI-ZjV"/>
+                            <constraint firstAttribute="bottom" secondItem="9cf-Bm-QSH" secondAttribute="bottom" constant="4" id="o23-SN-yG2"/>
+                            <constraint firstItem="f7c-9w-Y4v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9cf-Bm-QSH" secondAttribute="trailing" constant="20" id="pyb-wA-o1Y"/>
                             <constraint firstItem="Ikd-MW-2wL" firstAttribute="leading" secondItem="Ost-55-X2J" secondAttribute="leading" constant="20" id="rnD-bb-2Kc"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="keyboardView" destination="XhF-iH-MKp" id="DvJ-95-eDR"/>
+                        <outlet property="octaveLabel" destination="9cf-Bm-QSH" id="oSB-vN-HLb"/>
+                        <outlet property="velocityLabel" destination="f7c-9w-Y4v" id="m8z-cf-sL6"/>
+                        <outlet property="velocityLevelIndicator" destination="aJY-Iz-C0C" id="6dZ-b8-Gr3"/>
+                    </connections>
                 </viewController>
                 <customObject id="9wL-K1-mDW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
