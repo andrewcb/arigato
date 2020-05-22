@@ -79,6 +79,8 @@ class ComponentSelectorViewController: NSViewController {
         }
     }
     
+    let visibleAudioUnitTypes: Set<UInt32> = [kAudioUnitType_Generator, kAudioUnitType_MusicDevice, kAudioUnitType_MusicEffect, kAudioUnitType_Effect, kAudioUnitType_Mixer, kAudioUnitType_Panner]
+    
     let typeFilterOptions: [TypeFilterOption] = [
         TypeFilterOption(label: "Inst", types: [kAudioUnitType_MusicDevice]),
         TypeFilterOption(label: "FX", types: [kAudioUnitType_Effect, kAudioUnitType_MusicEffect]),
@@ -89,7 +91,9 @@ class ComponentSelectorViewController: NSViewController {
     }
     
     private func filterAvailableInstruments() {
-        self.filteredComponents = self.availableInstruments.filter  { currentTypeFilter?.apply($0) ?? true }
+        self.filteredComponents = self.availableInstruments
+            .filter { visibleAudioUnitTypes.contains($0.audioComponentDescription.componentType)}
+            .filter  { currentTypeFilter?.apply($0) ?? true }
     }
 
     var availableInstruments = [AudioUnitComponent]() {
