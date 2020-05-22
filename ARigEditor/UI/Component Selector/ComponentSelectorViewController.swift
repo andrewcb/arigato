@@ -112,9 +112,34 @@ class ComponentSelectorViewController: NSViewController {
         }
     }
     var instrumentsByManufacturer: [(String, [AudioUnitComponent])] = [] {
-        didSet {
+        didSet(prev) {
+            let expanded: [String] = (0..<self.instrumentsOutlineView.numberOfRows).compactMap { (row:Int) -> String? in
+                let item = self.instrumentsOutlineView.item(atRow: row)
+                if self.instrumentsOutlineView.isExpandable(item) && self.instrumentsOutlineView.isItemExpanded(item),
+                    let outlineItem = item as? OutlineItem,
+                    case let .manufacturer(index) = outlineItem {
+                    return prev[index].0
+                }
+                return nil
+            }
             DispatchQueue.main.async { [weak self] in
-                self?.instrumentsOutlineView.reloadData()
+                guard let self = self else { return }
+                CATransaction.begin()
+                CATransaction.setCompletionBlock {
+                    // expand blocks here
+                    for row in 0..<self.instrumentsOutlineView.numberOfRows {
+                        let item = self.instrumentsOutlineView.item(atRow: row)
+                        if
+                            let outlineItem = item as? OutlineItem,
+                            case let .manufacturer(index) = outlineItem,
+                            expanded.contains(self.instrumentsByManufacturer[index].0)
+                        {
+                            self.instrumentsOutlineView.expandItem(item)
+                        }
+                    }
+                }
+                self.instrumentsOutlineView.reloadData()
+                CATransaction.commit()
             }
         }
     }
@@ -141,16 +166,17 @@ class ComponentSelectorViewController: NSViewController {
     }
 
     @IBAction func doubleClicked(_ sender: NSOutlineView) {
-        guard let item = sender.item(atRow: sender.clickedRow) as? OutlineItem else { return }
+        let itemAtRow = sender.item(atRow: sender.clickedRow)
+        guard let item = itemAtRow as? OutlineItem else { return }
         switch(item) {
         case .component(let component):
             self.onSelection?(.component(component))
-            self.view.window?.close()
-        case .manufacturer(let item):
-            if sender.isItemExpanded(item) {
-                sender.collapseItem(item)
+        case .manufacturer(_):
+            // The item needs to be the same reference pointer as returned by item(atRow) to match
+            if sender.isItemExpanded(itemAtRow) {
+                sender.collapseItem(itemAtRow)
             } else {
-                sender.expandItem(item)
+                sender.expandItem(itemAtRow)
             }
         }
     }

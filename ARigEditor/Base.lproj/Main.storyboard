@@ -417,6 +417,7 @@
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
+                                                <action trigger="doubleAction" selector="doubleClicked:" target="pez-58-Ucd" id="17P-p1-WZA"/>
                                                 <outlet property="dataSource" destination="pez-58-Ucd" id="ZQe-r5-cDe"/>
                                                 <outlet property="delegate" destination="pez-58-Ucd" id="Fw1-IZ-YoP"/>
                                             </connections>
