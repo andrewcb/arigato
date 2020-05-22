@@ -113,17 +113,17 @@ class ComponentSelectorViewController: NSViewController {
     }
     var instrumentsByManufacturer: [(String, [AudioUnitComponent])] = [] {
         didSet(prev) {
-            let expanded: [String] = (0..<self.instrumentsOutlineView.numberOfRows).compactMap { (row:Int) -> String? in
-                let item = self.instrumentsOutlineView.item(atRow: row)
-                if self.instrumentsOutlineView.isExpandable(item) && self.instrumentsOutlineView.isItemExpanded(item),
-                    let outlineItem = item as? OutlineItem,
-                    case let .manufacturer(index) = outlineItem {
-                    return prev[index].0
-                }
-                return nil
-            }
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
+                let expanded: [String] = (0..<self.instrumentsOutlineView.numberOfRows).compactMap { (row:Int) -> String? in
+                    let item = self.instrumentsOutlineView.item(atRow: row)
+                    if self.instrumentsOutlineView.isExpandable(item) && self.instrumentsOutlineView.isItemExpanded(item),
+                        let outlineItem = item as? OutlineItem,
+                        case let .manufacturer(index) = outlineItem {
+                        return prev[index].0
+                    }
+                    return nil
+                }
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     // expand blocks here
