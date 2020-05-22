@@ -58,6 +58,7 @@ class ComponentSelectorViewController: NSViewController {
         case component(AudioUnitComponent)
     }
 
+    @IBOutlet weak var typeSegmentedControl: NSSegmentedControl!
     @IBOutlet weak var instrumentsOutlineView: NSOutlineView!
 
     //private var hasSoundFontItem: Bool { return self.componentType == .instrument }
@@ -69,10 +70,35 @@ class ComponentSelectorViewController: NSViewController {
 
     var onSelection: ((Selection)->())? = nil
 
+    struct TypeFilterOption {
+        let label: String
+        let types: [UInt32]
+        
+        func apply(_ component: AudioUnitComponent) -> Bool {
+            return types.contains(component.audioComponentDescription.componentType)
+        }
+    }
+    
+    let typeFilterOptions: [TypeFilterOption] = [
+        TypeFilterOption(label: "Inst", types: [kAudioUnitType_MusicDevice]),
+        TypeFilterOption(label: "FX", types: [kAudioUnitType_Effect, kAudioUnitType_MusicEffect]),
+        TypeFilterOption(label: "Gen", types: [kAudioUnitType_Generator])
+    ]
+    var currentTypeFilter: TypeFilterOption? {
+        didSet { self.filterAvailableInstruments() }
+    }
+    
+    private func filterAvailableInstruments() {
+        self.filteredComponents = self.availableInstruments.filter  { currentTypeFilter?.apply($0) ?? true }
+    }
+
     var availableInstruments = [AudioUnitComponent]() {
+        didSet {  self.filterAvailableInstruments() }
+    }
+    var filteredComponents = [AudioUnitComponent]() {
         didSet {
             var d: [String:[AudioUnitComponent]] = [:]
-            for inst in self.availableInstruments {
+            for inst in self.filteredComponents {
                 let manufacturerName = inst.manufacturerName ?? "?"
                 var a = d[manufacturerName] ?? []
                 a.append(inst)
@@ -91,6 +117,10 @@ class ComponentSelectorViewController: NSViewController {
 
     override func viewWillAppear() {
         super.viewWillAppear()
+        self.typeSegmentedControl.segmentCount = typeFilterOptions.count+1
+        for (i,t) in typeFilterOptions.enumerated() {
+            self.typeSegmentedControl.setLabel(t.label, forSegment: i+1)
+        }
         self.instrumentsOutlineView.registerForDraggedTypes([.audioUnit])
         self.reloadInstruments()
     }
@@ -119,6 +149,12 @@ class ComponentSelectorViewController: NSViewController {
                 sender.expandItem(item)
             }
         }
+    }
+    
+    @IBAction func typeSelected(_ sender: NSSegmentedControl) {
+        let index = sender.indexOfSelectedItem
+        print("\(sender.indexOfSelectedItem)")
+        self.currentTypeFilter = index>0 ? self.typeFilterOptions[index-1] : nil
     }
 }
 

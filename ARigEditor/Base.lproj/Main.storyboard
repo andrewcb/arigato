@@ -362,17 +362,17 @@
             <objects>
                 <viewController id="pez-58-Ucd" customClass="ComponentSelectorViewController" customModule="ARigEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="sRF-0p-3Tg">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="306"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="36" horizontalPageScroll="10" verticalLineScroll="36" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FL1-Po-0OR">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="248"/>
                                 <clipView key="contentView" id="INf-mu-8av">
-                                    <rect key="frame" x="1" y="1" width="448" height="298"/>
+                                    <rect key="frame" x="1" y="1" width="448" height="246"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="34" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="1" indentationMarkerFollowsCell="NO" autoresizesOutlineColumn="YES" outlineTableColumn="NsZ-kO-gDC" id="tH0-t3-5de">
-                                            <rect key="frame" x="0.0" y="0.0" width="451" height="298"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="451" height="246"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -424,7 +424,7 @@
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="oyM-W0-V2R">
-                                    <rect key="frame" x="1" y="283" width="448" height="16"/>
+                                    <rect key="frame" x="1" y="231" width="448" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="JA7-Wj-E5i">
@@ -432,16 +432,42 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lam-Mq-PZm">
+                                <rect key="frame" x="0.0" y="248" width="450" height="58"/>
+                                <subviews>
+                                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bJZ-s1-Ofw">
+                                        <rect key="frame" x="19" y="19" width="93" height="20"/>
+                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="roundRect" trackingMode="selectOne" id="HbN-NH-wQb">
+                                            <font key="font" metaFont="cellTitle"/>
+                                            <segments>
+                                                <segment label="All" width="89" selected="YES"/>
+                                            </segments>
+                                        </segmentedCell>
+                                        <connections>
+                                            <action selector="typeSelected:" target="pez-58-Ucd" id="Dcx-ma-vpQ"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="bJZ-s1-Ofw" secondAttribute="bottom" constant="20" id="lSK-fQ-1f3"/>
+                                    <constraint firstItem="bJZ-s1-Ofw" firstAttribute="top" secondItem="Lam-Mq-PZm" secondAttribute="top" constant="20" id="mXD-GJ-b2q"/>
+                                    <constraint firstItem="bJZ-s1-Ofw" firstAttribute="leading" secondItem="Lam-Mq-PZm" secondAttribute="leading" constant="20" id="v38-Of-j6r"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="Lam-Mq-PZm" firstAttribute="top" secondItem="sRF-0p-3Tg" secondAttribute="top" id="IFm-ni-Zqx"/>
                             <constraint firstItem="FL1-Po-0OR" firstAttribute="leading" secondItem="sRF-0p-3Tg" secondAttribute="leading" id="JWP-YN-Tcr"/>
+                            <constraint firstItem="FL1-Po-0OR" firstAttribute="top" secondItem="Lam-Mq-PZm" secondAttribute="bottom" id="Nb4-rm-TxJ"/>
                             <constraint firstAttribute="trailing" secondItem="FL1-Po-0OR" secondAttribute="trailing" id="OFx-eV-eDX"/>
-                            <constraint firstItem="FL1-Po-0OR" firstAttribute="top" secondItem="sRF-0p-3Tg" secondAttribute="top" id="Ri0-6q-5cv"/>
                             <constraint firstAttribute="bottom" secondItem="FL1-Po-0OR" secondAttribute="bottom" id="TGE-hh-Luy"/>
+                            <constraint firstItem="Lam-Mq-PZm" firstAttribute="leading" secondItem="sRF-0p-3Tg" secondAttribute="leading" id="ii4-wm-izL"/>
+                            <constraint firstAttribute="trailing" secondItem="Lam-Mq-PZm" secondAttribute="trailing" id="qa9-ke-oEK"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="instrumentsOutlineView" destination="tH0-t3-5de" id="T7x-VV-TQj"/>
+                        <outlet property="typeSegmentedControl" destination="bJZ-s1-Ofw" id="wm6-Nb-r3W"/>
                     </connections>
                 </viewController>
                 <customObject id="5kn-A1-LK3" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
