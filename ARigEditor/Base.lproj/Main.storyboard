@@ -437,11 +437,11 @@
                                 <rect key="frame" x="0.0" y="248" width="450" height="58"/>
                                 <subviews>
                                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bJZ-s1-Ofw">
-                                        <rect key="frame" x="19" y="19" width="93" height="20"/>
+                                        <rect key="frame" x="19" y="19" width="47" height="20"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="roundRect" trackingMode="selectOne" id="HbN-NH-wQb">
                                             <font key="font" metaFont="cellTitle"/>
                                             <segments>
-                                                <segment label="All" width="89" selected="YES"/>
+                                                <segment label="All" width="43" selected="YES"/>
                                             </segments>
                                         </segmentedCell>
                                         <connections>
