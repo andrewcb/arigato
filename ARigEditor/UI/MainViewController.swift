@@ -105,16 +105,22 @@ class MainViewController: NSViewController {
         guard let vc = self.storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("ExportPlaygroundOptions")) as? ExportPlaygroundOptionsViewController else { return }
         vc.onConfirm = { [weak self] (fmtOptions, actOptions) in
             guard let self = self else { return }
-            print("Will export Playground: \(fmtOptions), and then \(actOptions)")
             let savePanel = NSSavePanel()
             savePanel.allowedFileTypes =  ["playground"]
             savePanel.allowsOtherFileTypes = false
-            savePanel.nameFieldStringValue = self.document?.fileURL?.lastPathComponent ?? "Untitled"
-            savePanel.runModal()
-            guard let url = savePanel.url else { return }
-            print("will export to \(url)")
+            savePanel.nameFieldStringValue = (self.document?.fileURL?.lastPathComponent).map {  $0.hasSuffix(".arig") ? String($0.dropLast(5)) : $0  } ?? "Untitled"
+            guard
+                savePanel.runModal() == .OK,
+                let url = savePanel.url
+            else { return }
             do {
                 try PlaygroundExporter.export(self.document!, toURL: url, withOptions: fmtOptions)
+                switch(actOptions.onCompletion) {
+                    
+                case .doNothing: break
+                case .showInFinder: NSWorkspace.shared.activateFileViewerSelecting([url])
+                case .openInXcode: NSWorkspace.shared.open(url)
+                }
             } catch {
                 let alert = NSAlert(error: error)
                 alert.runModal()
