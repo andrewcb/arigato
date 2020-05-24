@@ -403,7 +403,7 @@
                                 </constraints>
                                 <popUpButtonCell key="cell" type="push" title="Open in Xcode" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="2E7-um-fwG" id="PXj-uO-Zzc">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="Hu7-EA-ATG">
                                         <items>
                                             <menuItem title="Do nothing" id="749-Jc-2iS"/>
@@ -544,7 +544,7 @@ Gw
                                 <rect key="frame" x="0.0" y="248" width="450" height="58"/>
                                 <subviews>
                                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bJZ-s1-Ofw">
-                                        <rect key="frame" x="19" y="19" width="47" height="20"/>
+                                        <rect key="frame" x="19" y="19" width="412" height="20"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="roundRect" trackingMode="selectOne" id="HbN-NH-wQb">
                                             <font key="font" metaFont="cellTitle"/>
                                             <segments>
@@ -557,6 +557,7 @@ Gw
                                     </segmentedControl>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="bJZ-s1-Ofw" secondAttribute="trailing" constant="20" id="ZQg-88-oOu"/>
                                     <constraint firstAttribute="bottom" secondItem="bJZ-s1-Ofw" secondAttribute="bottom" constant="20" id="lSK-fQ-1f3"/>
                                     <constraint firstItem="bJZ-s1-Ofw" firstAttribute="top" secondItem="Lam-Mq-PZm" secondAttribute="top" constant="20" id="mXD-GJ-b2q"/>
                                     <constraint firstItem="bJZ-s1-Ofw" firstAttribute="leading" secondItem="Lam-Mq-PZm" secondAttribute="leading" constant="20" id="v38-Of-j6r"/>
