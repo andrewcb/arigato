@@ -66,10 +66,29 @@ class MixerGraphNodeView: NSView, GraphNodeView {
             self.onPanChange?(self.pan)
         }
         
+        var levelSliderFrame: NSRect {
+            return NSRect(x: (self.frame.size.width-levelSliderWidth)/2, y: panSectionHeight+innerMargin, width: levelSliderWidth, height: self.frame.size.height-panSectionHeight-2*innerMargin)
+        }
+        var panSliderFrame: NSRect {
+            return NSRect(x: innerMargin, y: (panSectionHeight-panSliderHeight)/2, width: self.frame.size.width-2*innerMargin, height: panSliderHeight)
+        }
+        
         override func layout() {
             super.layout()
-            levelSlider.frame = NSRect(x: (self.frame.size.width-levelSliderWidth)/2, y: panSectionHeight+innerMargin, width: levelSliderWidth, height: self.frame.size.height-panSectionHeight-2*innerMargin)
-            panSlider.frame = NSRect(x: innerMargin, y: (panSectionHeight-panSliderHeight)/2, width: self.frame.size.width-2*innerMargin, height: panSliderHeight)
+            levelSlider.frame = self.levelSliderFrame
+            panSlider.frame = self.panSliderFrame
+        }
+        
+        override func draw(_ dirtyRect: NSRect) {
+            NSColor(white: 0.5, alpha: 0.2).setFill()
+            let levelRect = self.levelSliderFrame
+            levelRect.fill()
+            self.panSliderFrame.fill()
+            NSColor(white: 0.5, alpha: 0.5).setFill()
+            for i in 0...4 {
+                NSRect(x: levelRect.maxX+2, y: levelRect.origin.y + floor((levelRect.size.height-2) * CGFloat(i)/4), width: 5, height: 2).fill()
+            }
+            
         }
     }
     
