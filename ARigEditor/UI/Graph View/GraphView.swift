@@ -309,6 +309,7 @@ class GraphView: NSView {
     override func mouseUp(with event: NSEvent) {
         guard let dragState = self.dragState else { return }
         self.dragState = nil
+        self.connectionOverlayView.connectionDropZone = nil
         let locationInView = self.convert(event.locationInWindow, from: nil)
         switch(dragState) {
         case .movingNode(let id, offset: let offset):
