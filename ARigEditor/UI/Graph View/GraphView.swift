@@ -232,6 +232,11 @@ class GraphView: NSView {
         return (self.subviews.compactMap({$0 as? GraphNodeView}).first { $0.frame.contains(point) }?.id).flatMap { ContentItem.node($0) } ?? self.hitTestConnection(point).map { ContentItem.connection($0) }
     }
     
+    fileprivate func nodeViewAt(point: NSPoint) -> GraphNodeView? {
+        if case let .node(id) = self.itemAt(point: point) { return self.nodeViews[id] }
+        else { return nil }
+    }
+    
     // MARK: communication with the connection overlay
     
     fileprivate func points(forConnection connection: Connection) -> (NSPoint, NSPoint)? {
@@ -343,10 +348,27 @@ class GraphView: NSView {
             guard let v = self.nodeViews[id] else { return }
             let startPt = v.frame.origin + v.inletPoint(n)
             self.connectionOverlayView.dragLine = (startPt, locationInView)
+            if
+                let view = self.nodeViewAt(point: locationInView),
+                case let .outlet(n1) = view.regionHitTest(locationInView-view.frame.origin)
+            {
+                self.connectionOverlayView.connectionDropZone = view.frame.origin + view.outletPoint(n1)
+            }  else {
+                self.connectionOverlayView.connectionDropZone = nil
+            }
+
         case .draggingFromOutlet(let id, let n):
             guard let v = self.nodeViews[id] else { return }
             let startPt = v.frame.origin + v.outletPoint(n)
             self.connectionOverlayView.dragLine = (startPt, locationInView)
+            if
+                let view = self.nodeViewAt(point: locationInView),
+                case let .inlet(n2) = view.regionHitTest(locationInView-view.frame.origin)
+            {
+                self.connectionOverlayView.connectionDropZone = view.frame.origin + view.inletPoint(n2)
+            }  else {
+                self.connectionOverlayView.connectionDropZone = nil
+            }
         }
     }
     
@@ -404,17 +426,67 @@ extension GraphView {
 extension GraphView {
     class ConnectionOverlay: NSView {
         let lineColor = NSColor.red
+        /// Connection lines that form part of the current graph
         var lines: [(NSPoint, NSPoint, Bool)] = []  {
             didSet {
                 self.setNeedsDisplay(self.bounds)
             }
         }
+        /// The transitory line forming a potential connection currently being drawn
         var dragLine: (NSPoint, NSPoint)? = nil {
             didSet(prev) {
                 // TODO: calculate a minimum rectangle enclosing the current and old value
                 self.setNeedsDisplay(self.bounds)
             }
         }
+        
+        // a highlight showing the current potential drop zone for connections
+        var connectionDropZone: NSPoint? {
+            didSet(prev) {
+                guard self.connectionDropZone != prev else { return }
+                if let current = self.connectionDropZone {
+                    CATransaction.begin()
+                    CATransaction.setAnimationDuration(0)
+                    self.connectionDropZoneLayer.isHidden = false
+                    self.connectionDropZoneLayer.position = current
+                    CATransaction.commit()
+                    CATransaction.begin()
+                    CATransaction.setAnimationDuration(connectionDropZoneAppearDuration)
+                    self.connectionDropZoneLayer.transform = CATransform3DMakeScale(1.0, 1.0, 1.0)
+                    CATransaction.commit()
+                } else {
+                    CATransaction.begin()
+                    CATransaction.setAnimationDuration(connectionDropZoneAppearDuration)
+                    CATransaction.setCompletionBlock {
+                        self.connectionDropZoneLayer.isHidden = true
+                    }
+                    self.connectionDropZoneLayer.transform = CATransform3DMakeScale(0.0, 0.0, 0.0)
+                    CATransaction.commit()
+
+                }
+            }
+        }
+        private let connectionDropZoneAppearDuration: CFTimeInterval = 0.1
+        private var connectionDropZoneLayer: CALayer = {
+            let layer = CALayer()
+            let radius: CGFloat = 10
+            layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            layer.bounds = NSRect(origin: .zero, size: CGSize(width: radius*2-1, height: radius*2-1))
+            layer.borderWidth = 2
+            layer.borderColor = NSColor.red.cgColor
+            layer.cornerRadius = radius
+            layer.transform = CATransform3DMakeScale(0.0, 0.0, 0.0)
+            return layer
+        }()
+        
+        override init(frame frameRect: NSRect) {
+            super.init(frame: frameRect)
+            self.wantsLayer = true
+            self.layer?.addSublayer(self.connectionDropZoneLayer)
+            self.connectionDropZoneLayer.contentsScale = 0.0
+        }
+        
+        required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
         
         override func hitTest(_ point: NSPoint) -> NSView? {
             return nil
