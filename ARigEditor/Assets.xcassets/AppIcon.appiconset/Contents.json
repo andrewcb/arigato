@@ -35,7 +35,7 @@
     {
       "size" : "256x256",
       "idiom" : "mac",
-      "filename" : "ARigEditIcon256-1.png",
+      "filename" : "ARigEditIcon256.png",
       "scale" : "1x"
     },
     {
@@ -47,7 +47,7 @@
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "ARigEditIcon512-1.png",
+      "filename" : "ARigEditIcon512.png",
       "scale" : "1x"
     },
     {
