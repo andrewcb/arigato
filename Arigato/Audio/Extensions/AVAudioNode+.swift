@@ -13,6 +13,10 @@ extension AVAudioNode {
         return ((self as?AVAudioUnit)?.audioComponentDescription).map { $0  == audioComponentDescription } ?? false
     }
     
+    var isMusicDevice: Bool {
+        return ((self as? AVAudioUnit)?.audioComponentDescription.componentType).map { $0 == kAudioUnitType_MusicDevice } ?? false
+    }
+    
     var isSpeechSynthesizer: Bool {
         return self.matches(audioComponentDescription: .speechSynthesis)
     }
@@ -21,7 +25,7 @@ extension AVAudioNode {
         return self.matches(audioComponentDescription: .audioFilePlayer)
     }
     
-    func speak(_ text: String) {
+    public func speak(_ text: String) {
         guard let au = (self as? AVAudioUnit)?.audioUnit else { return }
         var chptr: SpeechChannel? = nil
         var sz: UInt32 = UInt32(MemoryLayout<SpeechChannel>.size)

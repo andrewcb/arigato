@@ -105,6 +105,14 @@ public class AudioSystem {
         return node(byName: name)?.avAudioNode as? AVAudioUnitMIDIInstrument
     }
     
+    public var musicDeviceIDs: [NodeID] {
+        return self.nodeMap.compactMap { (id, node) in node.avAudioNode.isMusicDevice  ? id : nil }
+    }
+    
+    public var speechSynthesizerIDs: [NodeID] {
+        return self.nodeMap.compactMap { (id, node) in node.avAudioNode.isSpeechSynthesizer  ? id : nil }
+    }
+    
     //MARK: Public node manipulation methods for editing the graph
     public  func createNode(withDesc desc: AudioComponentDescription, callback: ((NodeID)->())?) {
         desc.loadAudioUnit { (result) in

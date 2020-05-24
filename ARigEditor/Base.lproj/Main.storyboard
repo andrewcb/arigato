@@ -104,6 +104,19 @@
                                                 <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Export" id="m5o-I9-We3">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Export" id="6Ck-XT-CBA">
+                                                <items>
+                                                    <menuItem title="Xcode Playground..." id="LLY-79-lWp">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="exportPlaygroundRequested:" target="Ady-hI-5gd" id="Q7V-9Z-8zw"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
@@ -356,6 +369,100 @@
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
+        </scene>
+        <!--Export Playground Options View Controller-->
+        <scene sceneID="oC5-ea-rfg">
+            <objects>
+                <viewController storyboardIdentifier="ExportPlaygroundOptions" id="8jl-Ye-59w" customClass="ExportPlaygroundOptionsViewController" customModule="ARigEditor" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="sED-5r-tgH">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Xl-3Z-rvp">
+                                <rect key="frame" x="18" y="264" width="154" height="18"/>
+                                <buttonCell key="cell" type="check" title="Include example code" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="r95-PW-UpI">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pS3-C5-pWx">
+                                <rect key="frame" x="18" y="209" width="97" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="On completion:" id="ZNV-7g-MoS">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="8oj-k6-U1g">
+                                <rect key="frame" x="20" y="243" width="410" height="5"/>
+                            </box>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="O2g-dO-Jkx">
+                                <rect key="frame" x="119" y="204" width="149" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="144" id="CSs-MN-dRR"/>
+                                </constraints>
+                                <popUpButtonCell key="cell" type="push" title="Open in Xcode" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="2E7-um-fwG" id="PXj-uO-Zzc">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <menu key="menu" id="Hu7-EA-ATG">
+                                        <items>
+                                            <menuItem title="Do nothing" id="749-Jc-2iS"/>
+                                            <menuItem title="Show in Finder" id="Hy4-x9-yul"/>
+                                            <menuItem title="Open in Xcode" state="on" id="2E7-um-fwG"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TrR-4H-kv0">
+                                <rect key="frame" x="362" y="13" width="69" height="32"/>
+                                <buttonCell key="cell" type="push" title="Next" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5YX-Ke-ynY">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="nextPressed:" target="8jl-Ye-59w" id="ETr-Vb-RA8"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mHL-D3-jiB">
+                                <rect key="frame" x="19" y="13" width="82" height="32"/>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pvj-YW-2fl">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancelPressed:" target="8jl-Ye-59w" id="dlI-kw-5FD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="mHL-D3-jiB" secondAttribute="bottom" constant="20" id="05B-Vq-VMh"/>
+                            <constraint firstItem="pS3-C5-pWx" firstAttribute="leading" secondItem="sED-5r-tgH" secondAttribute="leading" constant="20" id="0qd-b3-NWK"/>
+                            <constraint firstItem="O2g-dO-Jkx" firstAttribute="leading" secondItem="pS3-C5-pWx" secondAttribute="trailing" constant="8" id="8nM-SS-dVc"/>
+                            <constraint firstAttribute="bottom" secondItem="TrR-4H-kv0" secondAttribute="bottom" constant="20" id="CzE-Um-xo1"/>
+                            <constraint firstAttribute="trailing" secondItem="TrR-4H-kv0" secondAttribute="trailing" constant="25" id="OxI-Gd-b05"/>
+                            <constraint firstItem="9Xl-3Z-rvp" firstAttribute="top" secondItem="sED-5r-tgH" secondAttribute="top" constant="20" id="Rer-DV-JGh"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9Xl-3Z-rvp" secondAttribute="trailing" constant="20" id="SPV-gf-RO0"/>
+                            <constraint firstItem="8oj-k6-U1g" firstAttribute="top" secondItem="9Xl-3Z-rvp" secondAttribute="bottom" constant="20" id="VBe-wC-O5v"/>
+                            <constraint firstItem="mHL-D3-jiB" firstAttribute="leading" secondItem="sED-5r-tgH" secondAttribute="leading" constant="25" id="WHB-4d-h8C"/>
+                            <constraint firstItem="8oj-k6-U1g" firstAttribute="leading" secondItem="sED-5r-tgH" secondAttribute="leading" constant="20" id="Xp6-YN-L3i"/>
+                            <constraint firstItem="O2g-dO-Jkx" firstAttribute="centerY" secondItem="pS3-C5-pWx" secondAttribute="centerY" id="i9E-kv-CaM"/>
+                            <constraint firstItem="pS3-C5-pWx" firstAttribute="top" secondItem="8oj-k6-U1g" secondAttribute="bottom" constant="20" id="lfV-SY-iFu"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="O2g-dO-Jkx" secondAttribute="trailing" constant="20" id="qLV-TF-ea2"/>
+                            <constraint firstItem="9Xl-3Z-rvp" firstAttribute="leading" secondItem="sED-5r-tgH" secondAttribute="leading" constant="20" id="rzu-rD-4dP"/>
+                            <constraint firstAttribute="trailing" secondItem="8oj-k6-U1g" secondAttribute="trailing" constant="20" id="zUX-On-u5B"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="includeSampleCodeCheckBox" destination="9Xl-3Z-rvp" id="Cbm-j3-9HE"/>
+                        <outlet property="onCompletionPopUp" destination="O2g-dO-Jkx" id="WQY-nm-UcL"/>
+                    </connections>
+                </viewController>
+                <customObject id="Tjd-VN-19q" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="747" y="80"/>
         </scene>
         <!--Component Selector View Controller-->
         <scene sceneID="6FO-hT-fPZ">

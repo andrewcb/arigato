@@ -18,6 +18,16 @@ public class ARig {
         audioSystem = try AudioSystem(fromURL: url)
     }
     
+    enum Error: Swift.Error {
+        case resourceNotFound
+    }
+    public convenience init(fromResource resname: String, withExtension ext:String = "arig") throws {
+        guard let url = Bundle.main.url(forResource: resname, withExtension: ext) else {
+            throw Error.resourceNotFound
+        }
+        try self.init(fromURL: url)
+    }
+    
     public func audioUnit(byName name: String) -> AVAudioUnit? {
         return audioSystem.audioUnit(byName: name)
     }

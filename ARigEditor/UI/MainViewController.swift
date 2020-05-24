@@ -99,6 +99,33 @@ class MainViewController: NSViewController {
         self.graphView.adjustFrame()
     }
     
+    //MARK: menus
+    
+    @IBAction func exportPlaygroundRequested(_ sender: Any) {
+        guard let vc = self.storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("ExportPlaygroundOptions")) as? ExportPlaygroundOptionsViewController else { return }
+        vc.onConfirm = { [weak self] (fmtOptions, actOptions) in
+            guard let self = self else { return }
+            print("Will export Playground: \(fmtOptions), and then \(actOptions)")
+            let savePanel = NSSavePanel()
+            savePanel.allowedFileTypes =  ["playground"]
+            savePanel.allowsOtherFileTypes = false
+            savePanel.nameFieldStringValue = self.document?.fileURL?.lastPathComponent ?? "Untitled"
+            savePanel.runModal()
+            guard let url = savePanel.url else { return }
+            print("will export to \(url)")
+            do {
+                try PlaygroundExporter.export(self.document!, toURL: url, withOptions: fmtOptions)
+            } catch {
+                let alert = NSAlert(error: error)
+                alert.runModal()
+            }
+        }
+        self.presentAsSheet(vc)
+    }
+    
+    //MARK: the export flow
+    
+    //MARK: keystroke handling
     override func keyDown(with event: NSEvent) {
         if event.isARepeat { return }
         for receiver in self.keystrokeReceiverChain {

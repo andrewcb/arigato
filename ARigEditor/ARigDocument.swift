@@ -43,6 +43,11 @@ class ARigDocument: NSDocument {
         let audioSystemState: AudioSystem.Snapshot
         let editorData: EditorData
 
+        func asData() throws -> Data {
+            let encoder = PropertyListEncoder()
+            encoder.outputFormat = .xml // for debugging
+            return try encoder.encode(self)
+        }
     }
     
     private var state: State {
@@ -57,9 +62,7 @@ class ARigDocument: NSDocument {
     }
         
     override func data(ofType typeName: String) throws -> Data {
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml // for debugging
-        return try encoder.encode(self.state)
+        return try self.state.asData()
     }
     
     override func read(from data: Data, ofType typeName: String) throws {
