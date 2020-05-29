@@ -88,6 +88,8 @@ class MainViewController: NSViewController {
         (nodeDetailViewControllers[.textToSpeech] as? TextToSpeechNodeDetailViewController)?.textSubmitHandler = { (text) in
             self.selectedNode?.avAudioNode.speak(text)
         }
+        
+        nodeInterfaceManager.keystrokeRelayingTarget =  self
     }
 
     override func viewWillAppear() {

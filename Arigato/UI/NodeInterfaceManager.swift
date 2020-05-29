@@ -26,6 +26,20 @@ class NodeInterfaceManager: NSObject {
         
     var openNodes: [AudioSystem.NodeID:InterfaceInstance] = [:]
     
+    var keystrokeRelayingTarget: NSResponder?
+        
+    /// A NSWindow subclass  that forwards keystrokes that reach its end of the responder chain to a specified responder; this is intended to, for example, allow the use of the computer keyboard to play MIDI notes when an instrument UI is  focussed.
+    class KeystrokeRelayingWindow: NSWindow {
+        var keystrokeRelayingTarget: NSResponder? = nil
+        
+        override func keyDown(with event: NSEvent) {
+            keystrokeRelayingTarget?.keyDown(with: event)
+        }
+        override func keyUp(with event: NSEvent) {
+            keystrokeRelayingTarget?.keyUp(with: event)
+        }
+    }
+    
     private struct NoGUIError: Swift.Error {}
     // obtain the view controller for a unit
     private func makeAudioUnitGUIViewController(for audioUnit: AUAudioUnit) -> Future<NSViewController> {
@@ -58,7 +72,11 @@ class NodeInterfaceManager: NSObject {
         future.onCompletion { result in
             switch(result) {
             case .success(let vc):
-                let window = NSWindow(contentViewController: vc)
+                let cvc = NodeInterfaceContainerViewController()
+                cvc.view.frame = NSRect(origin: .zero, size: vc.view.bounds.size)
+                cvc.graphicalViewController = vc
+                let window = KeystrokeRelayingWindow(contentViewController: cvc)
+                window.keystrokeRelayingTarget = self.keystrokeRelayingTarget
                 window.delegate = self
                 window.makeKeyAndOrderFront(nil)
                 self.openNodes[node.id] = .window(window)

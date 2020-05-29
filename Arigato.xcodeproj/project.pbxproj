@@ -60,6 +60,8 @@
 		44FC27E62458E9E40003446F /* AVAudioNode+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D62453225D0003446F /* AVAudioNode+.swift */; };
 		44FC27EC245B8B160003446F /* KeystrokeReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27EB245B8B160003446F /* KeystrokeReceiver.swift */; };
 		44FC27EE245B8F770003446F /* MIDIKeystrokeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27ED245B8F770003446F /* MIDIKeystrokeHandler.swift */; };
+		44FC9A2024800F5400F158F1 /* NodeInterfaceContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A1F24800F5400F158F1 /* NodeInterfaceContainerViewController.swift */; };
+		44FC9A212480112E00F158F1 /* NodeInterfaceContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A1F24800F5400F158F1 /* NodeInterfaceContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +132,7 @@
 		44FC27DB2454F46C0003446F /* NodeInterfaceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInterfaceManager.swift; sourceTree = "<group>"; };
 		44FC27EB245B8B160003446F /* KeystrokeReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystrokeReceiver.swift; sourceTree = "<group>"; };
 		44FC27ED245B8F770003446F /* MIDIKeystrokeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIKeystrokeHandler.swift; sourceTree = "<group>"; };
+		44FC9A1F24800F5400F158F1 /* NodeInterfaceContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInterfaceContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,6 +411,7 @@
 			children = (
 				44FC27DB2454F46C0003446F /* NodeInterfaceManager.swift */,
 				4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */,
+				44FC9A1F24800F5400F158F1 /* NodeInterfaceContainerViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -624,6 +628,7 @@
 				44FC2787244DF86F0003446F /* AudioComponentDescription+.swift in Sources */,
 				44FC27D92454ADD80003446F /* ARig.swift in Sources */,
 				44FC2784244DF7960003446F /* AudioSystem.serialisation.swift in Sources */,
+				44FC9A2024800F5400F158F1 /* NodeInterfaceContainerViewController.swift in Sources */,
 				4490FCB02466EA40009C2729 /* NodeParameterEditorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,6 +678,7 @@
 				44FC27C8245313860003446F /* GenericGraphNodeView.swift in Sources */,
 				44FC27C32453053E0003446F /* GraphView.swift in Sources */,
 				44FC27C5245312230003446F /* CocoaExtensions.swift in Sources */,
+				44FC9A212480112E00F158F1 /* NodeInterfaceContainerViewController.swift in Sources */,
 				4490FCB124670344009C2729 /* NodeParameterEditorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
