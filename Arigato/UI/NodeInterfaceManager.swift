@@ -78,6 +78,7 @@ class NodeInterfaceManager: NSObject {
                 let window = KeystrokeRelayingWindow(contentViewController: cvc)
                 window.keystrokeRelayingTarget = self.keystrokeRelayingTarget
                 window.delegate = self
+                window.title = node.name
                 window.makeKeyAndOrderFront(nil)
                 self.openNodes[node.id] = .window(window)
             case .failure(_):
