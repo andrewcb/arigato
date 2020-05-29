@@ -90,10 +90,5 @@ class NodeInterfaceManager: NSObject {
 
 extension NodeInterfaceManager: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
-        guard
-            let window = notification.object as? NSWindow,
-            let id = (self.openNodes.first { $0.value == InterfaceInstance.window(window) }).map({ $0.key })
-        else { return }
-        openNodes[id] = nil
     }
 }
