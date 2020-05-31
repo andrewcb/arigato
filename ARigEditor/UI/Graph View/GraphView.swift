@@ -186,8 +186,7 @@ class GraphView: NSView {
     /// this is the internal zoom scale, as calculated from the zoomLevel
     var zoomScale: CGFloat = 1 {
         didSet(prev) {
-            // Resize/reposition all node views, and set their scale
-            // refresh the connection overlay view
+            self.connectionOverlayView.drawScale = zoomScale
             self.reloadData()
         }
     }
@@ -449,6 +448,10 @@ extension GraphView {
 extension GraphView {
     class ConnectionOverlay: NSView {
         let lineColor = NSColor.red
+        
+        /// the scale; this is used only for scaling elements such as line thickness, drop zone radius and such, as coördinates are  assumed to be prescaled.
+        var drawScale: CGFloat = 1.0
+        
         /// Connection lines that form part of the current graph
         var lines: [(NSPoint, NSPoint, Bool)] = []  {
             didSet {
@@ -522,7 +525,7 @@ extension GraphView {
                 }
                 lineColor.setStroke()
                 let curve = NSBezierPath()
-                curve.lineWidth = isSelected ? 2 : 1
+                curve.lineWidth = (isSelected ? 2 : 1)*self.drawScale
                 curve.move(to: from)
                 curve.line(to: to)
                 curve.stroke()

@@ -30,8 +30,8 @@ class ComponentCellView: NSTableCellView {
 
         NSString(string:(component?.audioComponentDescription.componentType.audioUnitTypeName ?? "")).draw(
             at: NSPoint(
-                x: 8+GenericGraphNodeView.DrawingModel.innerMargin,
-                y: 2+frame.size.height - (2*GenericGraphNodeView.DrawingModel.titleHeight + 3*GenericGraphNodeView.DrawingModel.innerMargin)*zoomScale), withAttributes: titleAttr)
+                x: 8+GenericGraphNodeView.DrawingModel.unscaledInnerMargin,
+                y: 2+frame.size.height - (2*GenericGraphNodeView.DrawingModel.titleHeight + 3*GenericGraphNodeView.DrawingModel.unscaledInnerMargin)*zoomScale), withAttributes: titleAttr)
     }
 }
 

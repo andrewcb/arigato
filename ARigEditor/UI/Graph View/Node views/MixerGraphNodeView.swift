@@ -232,7 +232,7 @@ class MixerGraphNodeView: NSView, GraphNodeView {
         let backgroundColor  = self.isSelected ? NSColor.nodeBackground : NSColor.nodeBackground.muted
         //let titleFont = NSFont.systemFont(ofSize: 8)
         
-        let outlineWidth: CGFloat = 0.5
+        let outlineWidth: CGFloat = 0.5 * graphView.zoomScale
         let outlineBezierPath = self.outlinePath(forLineWidth: outlineWidth)
 
         backgroundColor.setFill()
