@@ -14,6 +14,7 @@ class GenericGraphNodeView: NSView, GraphNodeView {
     var onInterfaceButtonPress: (()->())?
 
     // MARK: metrics
+    // these are prescaled
     // The depth of the inlet/outlet tabs (width if horizontal, height if vertical)
     // The depth of the tabs for the purposes of dropping links
     let connectionTabDropDepth: CGFloat = 8
@@ -23,8 +24,8 @@ class GenericGraphNodeView: NSView, GraphNodeView {
     
     override var intrinsicContentSize: NSSize {
         return NSSize(
-            width: 64,
-            height: DrawingModel.reservedHeight+clientAreaHeight)
+            width: (64*graphView.zoomScale).rounded(.toNearestOrAwayFromZero),
+            height: (DrawingModel.reservedHeight+clientAreaHeight)*graphView.zoomScale.rounded(.toNearestOrAwayFromZero))
     }
 
 
@@ -84,7 +85,11 @@ class GenericGraphNodeView: NSView, GraphNodeView {
     
     override func layout() {
         super.layout()
-        self.interfaceButton.frame = NSRect(x: DrawingModel.innerMargin, y: drawingModel.titleBottom-24, width: 18, height: 18)
+        self.interfaceButton.frame = NSRect(
+            x: DrawingModel.innerMargin,
+            y: drawingModel.titleBottom-24*graphView.zoomScale,
+            width: 18*graphView.zoomScale,
+            height: 18*graphView.zoomScale)
     }
     
     @objc func click(_ recognizer: NSClickGestureRecognizer) {
@@ -119,10 +124,10 @@ class GenericGraphNodeView: NSView, GraphNodeView {
     
     private func actualConnectionMetrics(forNumberOfConnections n: Int) -> (connectionSize: CGFloat, startMargin: CGFloat) {
         if n<1 { return (0, 0) }
-        let gaps = DrawingModel.connectionMargin*CGFloat(n-1)
+        let gaps = (DrawingModel.connectionMargin*CGFloat(n-1))*graphView.zoomScale
         let frameExtent = self.frame.size.width
         let availableSpace = frameExtent - gaps
-        let connectionSize = min(floor(availableSpace/CGFloat(n)), maxConnectionSize)
+        let connectionSize = min(floor(availableSpace/CGFloat(n)), maxConnectionSize*graphView.zoomScale)
         let remaining = frameExtent - (gaps + connectionSize * CGFloat(n))
         return (connectionSize, floor(remaining*0.5))
     }
@@ -146,7 +151,7 @@ class GenericGraphNodeView: NSView, GraphNodeView {
         return sl
     }
     func regionHitTest(_ point: NSPoint) -> GraphView.NodeViewRegion? {
-        if point.y < connectionTabDropDepth { // the outlet region
+        if point.y < connectionTabDropDepth*graphView.zoomScale { // the outlet region
             return self.hitTestConnector(number: self.metadata?.numOutlets ?? 0, forX: point.x).map { .outlet($0) }
         } else if point.y  >= self.frame.size.height-connectionTabDropDepth { // the outlet region
             return self.hitTestConnector(number: self.metadata?.numInlets ?? 0, forX: point.x).map { .inlet($0) }
@@ -167,22 +172,36 @@ class GenericGraphNodeView: NSView, GraphNodeView {
         let isSelected: Bool // Perhaps replace with an enum named style or similar?
         let topTabs: [(offset: CGFloat, width: CGFloat)]?
         let bottomTabs: [(offset: CGFloat, width: CGFloat)]?
+        let scale: CGFloat
         
         // The depth of the inlet/outlet tabs (width if horizontal, height if vertical)
         static let connectionTabProtrusion: CGFloat = 4
         static let connectionMargin: CGFloat = 2
         static let innerMargin: CGFloat = 2
-        static let titleFont = NSFont.systemFont(ofSize: 8)
-        static let titleHeight: CGFloat = {ceil(NSString(string:"Ågy,/|").size(withAttributes: [.font : Self.titleFont]).height)}()
+        
+        var connectionTabProtrusion: CGFloat { return  Self.connectionTabProtrusion*scale }
+        var connectionMargin: CGFloat { return  Self.connectionMargin*scale }
+        var innerMargin: CGFloat { return  Self.innerMargin*scale }
+
+        static let titleFontSize: CGFloat = 8
+        static func titleFont(forScale scale: CGFloat) -> NSFont { return NSFont.systemFont(ofSize: Self.titleFontSize*scale) }
+        static let titleFont: NSFont = NSFont.systemFont(ofSize: Self.titleFontSize)
+        var titleFont: NSFont  { return Self.titleFont(forScale: self.scale) }
+        static let titleHeight: CGFloat = {
+            return ceil(NSString(string:"Ågy,/|").size(withAttributes: [.font : Self.titleFont(forScale: 1.0)]).height)
+        }()
+        var titleHeight: CGFloat { return Self.titleHeight*scale }
 
         var outlineWidth: CGFloat {
-            return self.isSelected ? 1.0 : 0.5
+            return scale * (self.isSelected ? 1.0 : 0.5)
         }
         
-        var titleBottom: CGFloat { return frame.origin.y+frame.size.height - DrawingModel.connectionTabProtrusion - DrawingModel.innerMargin - DrawingModel.titleHeight }
+        var titleBottom: CGFloat { return frame.origin.y+frame.size.height - connectionTabProtrusion - innerMargin - titleHeight }
 
         /// The amount of vertical space used by the frame, tabs, title and other elements handled by the drawing code
         static var reservedHeight: CGFloat = Self.connectionTabProtrusion + Self.innerMargin + Self.titleHeight  + Self.innerMargin + Self.innerMargin + Self.connectionTabProtrusion
+        var reservedHeight: CGFloat  { return connectionTabProtrusion + innerMargin + titleHeight  + innerMargin + innerMargin + connectionTabProtrusion
+        }
 
         
         // A path which, when stroked, will draw an outline for the node. The pen thickness is given to center the line and reduce aliasing
@@ -193,8 +212,8 @@ class GenericGraphNodeView: NSView, GraphNodeView {
             let left = frame.origin.x+halfOutline
             let bottom = frame.origin.y+halfOutline
             let right = frame.origin.x+frame.size.width-halfOutline
-            let bodyTop = top-((topTabs==nil) ? 0 : Self.connectionTabProtrusion)
-            let bodyBottom = bottom+((bottomTabs==nil) ? 0 : Self.connectionTabProtrusion)
+            let bodyTop = top-((topTabs==nil) ? 0 : connectionTabProtrusion)
+            let bodyBottom = bottom+((bottomTabs==nil) ? 0 : connectionTabProtrusion)
 
             // top tab points, left to right; empty if none
             let topPts: [(CGFloat, CGFloat)] = ((topTabs ?? []).reduce((frame.origin.x, [])) { (prev: (CGFloat, [(CGFloat, CGFloat)]), tab:(CGFloat, CGFloat)) -> (CGFloat, [(CGFloat, CGFloat)]) in
@@ -221,7 +240,7 @@ class GenericGraphNodeView: NSView, GraphNodeView {
             let borderColor  = isSelected ? NSColor.nodeBorder : NSColor.nodeBorder.muted
             let nodeTypeColor = NSColor.forAudioUnit(ofType: type)
             let titleBackgroundColor = isSelected ? nodeTypeColor : nodeTypeColor.muted
-            let titleFont = NSFont.systemFont(ofSize: 8)
+            let titleFont = NSFont.systemFont(ofSize: 8*scale)
             
             let outlineBezierPath = self.outlinePath()
 
@@ -233,9 +252,9 @@ class GenericGraphNodeView: NSView, GraphNodeView {
             let rightSpaceBeforeCut: CGFloat = 4
             let titleAttr: [NSAttributedString.Key : Any] = [.font: titleFont, .foregroundColor: NSColor.nodeText]
             let titleSize = titleNSString.size(withAttributes: titleAttr)
-            let leftIndent = max(0, min(frame.size.width-titleSize.width-2*Self.innerMargin, maxLeftIndent))
-            let titleTopY = frame.origin.y+frame.size.height - (topTabs==nil ? 0 : Self.connectionTabProtrusion)
-            let titleBarHeight = Self.innerMargin + Self.titleHeight
+            let leftIndent = max(0, min(frame.size.width-titleSize.width-2*innerMargin, maxLeftIndent))
+            let titleTopY = frame.origin.y+frame.size.height - (topTabs==nil ? 0 : connectionTabProtrusion)
+            let titleBarHeight = innerMargin + titleHeight
             let titleBottomY = titleTopY - titleBarHeight
             // the diagonal cut to the right of the title
             let cutBottomX = frame.origin.x+min(frame.size.width-1, leftIndent+titleSize.width+rightSpaceBeforeCut)
@@ -249,7 +268,7 @@ class GenericGraphNodeView: NSView, GraphNodeView {
             titleBackgroundColor.setFill()
             titleBackgroundPath.fill()
             
-            titleNSString.draw(at: NSPoint(x: frame.origin.x+Self.innerMargin+leftIndent, y:frame.origin.y+frame.size.height - Self.titleHeight - (topTabs == nil ? 0 : Self.connectionTabProtrusion) - Self.innerMargin), withAttributes: titleAttr)
+            titleNSString.draw(at: NSPoint(x: frame.origin.x+Self.innerMargin+leftIndent, y:frame.origin.y+frame.size.height - titleHeight - (topTabs == nil ? 0 : connectionTabProtrusion) - innerMargin), withAttributes: titleAttr)
 
             borderColor.setStroke()
             outlineBezierPath.stroke()
@@ -265,7 +284,7 @@ class GenericGraphNodeView: NSView, GraphNodeView {
         let topTabs = (0..<numInlets).map { ($0==0 ? inMargin : DrawingModel.connectionMargin, inSize) }
         let bottomTabs = (0..<numOutlets).map { ($0==0 ? outMargin : DrawingModel.connectionMargin, outSize) }
         
-        return DrawingModel(frame: self.bounds, title: metadata?.title ?? " ", type: metadata?.audioComponentDescription?.componentType ?? 0, isSelected: isSelected, topTabs: topTabs, bottomTabs: bottomTabs)
+        return DrawingModel(frame: self.bounds, title: metadata?.title ?? " ", type: metadata?.audioComponentDescription?.componentType ?? 0, isSelected: isSelected, topTabs: topTabs, bottomTabs: bottomTabs, scale: graphView.zoomScale)
     }
     
     override func draw(_ dirtyRect: NSRect) {

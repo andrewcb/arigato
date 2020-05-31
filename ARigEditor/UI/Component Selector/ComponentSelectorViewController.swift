@@ -22,7 +22,7 @@ class ComponentCellView: NSTableCellView {
     }
 
     override func draw(_ dirtyRect: NSRect) {
-        GenericGraphNodeView.DrawingModel(frame: NSRect(x: 8, y: 2, width: 128, height: self.frame.size.height-4), title: component?.componentName ?? "", type: component?.audioComponentDescription.componentType ?? 0, isSelected: false, topTabs: nil, bottomTabs: nil).draw()
+        GenericGraphNodeView.DrawingModel(frame: NSRect(x: 8, y: 2, width: 128, height: self.frame.size.height-4), title: component?.componentName ?? "", type: component?.audioComponentDescription.componentType ?? 0, isSelected: false, topTabs: nil, bottomTabs: nil, scale: 1.0).draw()
         
 
         let titleAttr: [NSAttributedString.Key : Any] = [.font: NSFont.systemFont(ofSize: 8), .foregroundColor: NSColor.nodeText]
@@ -233,7 +233,7 @@ extension ComponentSelectorViewController: NSOutlineViewDataSource {
                     frame: rect,
                     title: component.componentName ?? "",
                     type: component.audioComponentDescription.componentType,
-                    isSelected: false, topTabs: nil, bottomTabs: nil).draw()
+                    isSelected: false, topTabs: nil, bottomTabs: nil, scale: 1.0).draw()
                 return true
             }))
             

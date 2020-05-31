@@ -93,7 +93,12 @@ class MainViewController: NSViewController {
     }
 
     override func viewWillAppear() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleZoomNotification(_:)), name: .zoomChanged, object: nil)
         self.graphView.reloadData()
+    }
+    
+    override func viewWillDisappear() {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLayout() {
@@ -131,7 +136,11 @@ class MainViewController: NSViewController {
         self.presentAsSheet(vc)
     }
     
-    //MARK: the export flow
+    @objc func handleZoomNotification(_ notification: Notification) {
+        guard let zoomLevel = notification.userInfo?[kZoomLevel] as? Int else { return }
+//        print("zoom notication: \(zoomLevel)")
+        self.graphView.zoomLevel = zoomLevel
+    }
     
     //MARK: keystroke handling
     override func keyDown(with event: NSEvent) {

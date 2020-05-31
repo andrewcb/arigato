@@ -27,8 +27,8 @@ class MixerGraphNodeView: NSView, GraphNodeView {
         // the height of the section containing the pan slider; includes non-slider space around it
         let panSectionHeight: CGFloat = 20
 
-        init(channelNumber: Int) {
-            let frame = NSRect(origin: CGPoint(x: CGFloat(channelNumber)*MixerGraphNodeView.channelSize.width, y: 0), size: MixerGraphNodeView.channelSize)
+        init(channelNumber: Int, scale: CGFloat) {
+            let frame = NSRect(origin: CGPoint(x: CGFloat(channelNumber)*MixerGraphNodeView.channelSize.width*scale, y: 0), size: MixerGraphNodeView.channelSize*scale)
             levelSlider = MixerNodeSlider(role: .level)
             panSlider = MixerNodeSlider(role: .pan)
             panSlider.minValue = -1
@@ -92,23 +92,28 @@ class MixerGraphNodeView: NSView, GraphNodeView {
         }
     }
     
+//    var scale: CGFloat = 1.0
+    
     //MARK: Metrics
     
     static let channelSize = CGSize(width: 48, height: 64)
+    var channelSize: CGSize { return Self.channelSize*graphView.zoomScale }
     
     // The depth of the inlet/outlet tabs (width if horizontal, height if vertical)
-    let connectionTabProtrusion: CGFloat = 4
+    var connectionTabProtrusion: CGFloat { return 4*graphView.zoomScale }
     // The depth of the tabs for the purposes of dropping links
-    let connectionTabDropDepth: CGFloat = 8
+    var connectionTabDropDepth: CGFloat { return 8*graphView.zoomScale }
     
-    let connectionTabWidth: CGFloat = 8
+    var connectionTabWidth: CGFloat { return 8*graphView.zoomScale }
     
-    let dragBarWidth: CGFloat = 8
+    var dragBarWidth: CGFloat { return 8*graphView.zoomScale }
 
     //MARK: ----
 
     func inletPoint(_ index: Int) -> NSPoint {
-        return NSPoint(x: Self.channelSize.width*(CGFloat(index)+0.5), y: bounds.size.height-(connectionTabProtrusion*0.5))
+        return NSPoint(
+            x: channelSize.width*(CGFloat(index)+0.5),
+            y: bounds.size.height-(connectionTabProtrusion*0.5))
     }
     
     func outletPoint(_ index: Int) -> NSPoint {
@@ -128,7 +133,7 @@ class MixerGraphNodeView: NSView, GraphNodeView {
         // if there are too few, create some
         if self.channelCount > self.channelViews.count {
             for i in (self.channelViews.count..<self.channelCount) {
-                let newView = ChannelView(channelNumber: i)
+                let newView = ChannelView(channelNumber: i, scale: graphView.zoomScale)
                 newView.onLevelChange = { [weak self] v in self?.mixerTarget?.setLevel(forChannel: i, to: v) }
                 newView.onPanChange = { [weak self] v in self?.mixerTarget?.setPan(forChannel: i, to: v) }
                 self.addSubview(newView)
@@ -177,14 +182,16 @@ class MixerGraphNodeView: NSView, GraphNodeView {
     let canAddInlets: Bool = true
 
     override var intrinsicContentSize: NSSize {
-        return NSSize(width: Self.channelSize.width*CGFloat(channelCount), height: MixerGraphNodeView.channelSize.height+dragBarWidth+connectionTabProtrusion)
+        return NSSize(
+            width: channelSize.width*CGFloat(channelCount),
+            height: channelSize.height+dragBarWidth+connectionTabProtrusion)
     }
     
     func regionHitTest(_ point: NSPoint) -> GraphView.NodeViewRegion? {
         if point.y >= self.frame.size.height-connectionTabDropDepth {
-            let channel = Int(floor(point.x / Self.channelSize.width))
-            let xc = point.x.truncatingRemainder(dividingBy: Self.channelSize.width)
-            let tabOffset = (Self.channelSize.width-connectionTabWidth)/2
+            let channel = Int(floor(point.x / channelSize.width))
+            let xc = point.x.truncatingRemainder(dividingBy: channelSize.width)
+            let tabOffset = (channelSize.width-connectionTabWidth)/2
             return (xc>=tabOffset && xc<tabOffset+connectionTabWidth) ? .inlet(channel) : nil
         }
         return .body
@@ -201,7 +208,7 @@ class MixerGraphNodeView: NSView, GraphNodeView {
     
     // A path which, when stroked, will draw an outline for the node. The pen thickness is given to center the line and reduce aliasing
     fileprivate func outlinePath(forLineWidth  outlineWidth: CGFloat) -> NSBezierPath {
-        let inOffset = (Self.channelSize.width - self.connectionTabWidth)/2
+        let inOffset = (channelSize.width - self.connectionTabWidth)/2
         let halfOutline = outlineWidth/2
         let bodyTop = self.frame.size.height-connectionTabProtrusion-halfOutline
         let top = self.bounds.size.height-halfOutline
@@ -211,7 +218,7 @@ class MixerGraphNodeView: NSView, GraphNodeView {
 
         let pts: [(CGFloat, CGFloat)] = [
             (left, bottom), (left, bodyTop)] + (0..<channelCount).flatMap { (i) -> [(CGFloat, CGFloat)] in
-                let tx1 = inOffset  + Self.channelSize.width*CGFloat(i) + halfOutline
+                let tx1 = inOffset + channelSize.width*CGFloat(i) + halfOutline
                 let tx2 = tx1+connectionTabWidth - outlineWidth
                 return [(tx1, bodyTop),  (tx1, top), (tx2, top), (tx2, bodyTop)]
             } + [(right, bodyTop), (right, bottom), (left, bottom)]

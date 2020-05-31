@@ -31,6 +31,14 @@ func +(_ a: NSSize, _ b: NSSize) -> NSSize {
     return NSSize(width: a.width+b.width, height: a.height+b.height)
 }
 
+func *(_ a: NSPoint, _ b: CGFloat) -> NSPoint {
+    return NSPoint(x: a.x*b, y: a.y*b)
+}
+
+func *(_ a: NSSize, _ b: CGFloat) -> NSSize {
+    return NSSize(width: a.width*b, height: a.height*b)
+}
+
 func max(_ a: NSSize, _ b: NSSize) -> NSSize {
     return NSSize(width: max(a.width, b.width), height: max(a.height, b.height))
 }

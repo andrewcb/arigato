@@ -21,5 +21,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    //MARK: zoom/scale
+    
+    // this is mapped to an exponential function; i.e., scale(z) =~ B^z, and z=0 is 1.0
+    var zoomLevel: Int = 0  {
+        didSet {
+            NotificationCenter.default.post(name: .zoomChanged, object: self, userInfo: [kZoomLevel: zoomLevel])
+            // send a notification here
+        }
+    }
+    @IBAction func zoomIn(_ sender: Any) {
+        self.zoomLevel += 1
+    }
+
+    @IBAction func zoomOut(_ sender: Any) {
+        self.zoomLevel -= 1
+
+    }
+
+    @IBAction func actualSize(_ sender: Any) {
+        self.zoomLevel = 0
+
+    }
 }
 

@@ -146,7 +146,7 @@ class GraphView: NSView {
     
     fileprivate func ensureViewFitsSuperview() {
         let visibleSize = self.visibleSize+NSSize(width: max(0,-self.frame.origin.x), height: max(0,-self.frame.origin.y))
-        self.frame.size = max(self.frame.size, visibleSize) //NSSize(width: max(self.frame.size.width, visibleSize.width), height: max(self.frame.size.height, visibleSize.height))
+        self.frame.size = max(self.frame.size, visibleSize)
     }
     
     // grow the size if needed to accommodate a specific node, which is assumed to have been moved recently
@@ -180,6 +180,23 @@ class GraphView: NSView {
     /** The publically available method to make the view adjust its frame to embrace all subviews and fill its container  */
     func adjustFrame() {
         self.adjustSizeToWrapNodes()
+    }
+    
+    // MARK: Zoom
+    /// this is the internal zoom scale, as calculated from the zoomLevel
+    var zoomScale: CGFloat = 1 {
+        didSet(prev) {
+            // Resize/reposition all node views, and set their scale
+            // refresh the connection overlay view
+            self.reloadData()
+        }
+    }
+    
+    /// a linear zoom level, with 0 being actual size
+    var zoomLevel: Int = 0 {
+        didSet {
+            self.zoomScale = pow(2, CGFloat(zoomLevel))
+        }
     }
     
     // MARK: data source accessors
@@ -278,7 +295,9 @@ class GraphView: NSView {
             let metadata = self.getMetadata(forNodeID: id)
             let newNodeView = self.makeView(forNodeID: id, withMetadata: metadata)
             self.nodeViews[id] = newNodeView
-            newNodeView.frame = NSRect(origin: self.nodePosition(forNodeID: id), size: newNodeView.intrinsicContentSize)
+            newNodeView.frame = NSRect(
+                origin: (self.nodePosition(forNodeID: id)*zoomScale).rounded(),
+                size: newNodeView.intrinsicContentSize)
             self.addSubview(newNodeView, positioned: .below, relativeTo: self.connectionOverlayView)
         }
         self.updateLineLayer()
@@ -314,7 +333,10 @@ class GraphView: NSView {
         switch(dragState) {
         case .movingNode(let id, offset: let offset):
             self.adjustSizeToWrapNodes()
-            self.layoutDelegate?.setNodePosition(NSPoint(x: locationInView.x+offset.x, y: locationInView.y+offset.y), forNodeID: id)
+            self.layoutDelegate?.setNodePosition(NSPoint(
+                x: (locationInView.x+offset.x)/self.zoomScale,
+                y: (locationInView.y+offset.y)/self.zoomScale),
+                                                 forNodeID: id)
         case .draggingFromInlet(let id2, let n2):
             self.connectionOverlayView.dragLine = nil
             guard
@@ -406,7 +428,7 @@ extension GraphView {
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
         let pasteboard = sender.draggingPasteboard
         
-        let point = convert(sender.draggingLocation, from: nil)
+        let point = (convert(sender.draggingLocation, from: nil)*(1/self.zoomScale)).rounded()
         
         if let types=pasteboard.types, types.contains(.audioUnit), let data = pasteboard.data(forType: .audioUnit) {
             guard let desc = AudioComponentDescription(data: data) else {
