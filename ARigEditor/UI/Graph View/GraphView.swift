@@ -519,7 +519,10 @@ extension GraphView {
         }
         
         override func draw(_ dirtyRect: NSRect) {
+            let context = NSGraphicsContext.current?.cgContext
+            context?.setFillColor(lineColor.cgColor)
             for (from, to, isSelected) in lines {
+                let terminalRadius = (isSelected ? 4 : 2)*self.drawScale
                 if (from.x < dirtyRect.minX  && to.x < dirtyRect.minX) || (from.y < dirtyRect.minY  && to.y < dirtyRect.minY) || (from.x > dirtyRect.maxX  && to.x > dirtyRect.maxX) || (from.y > dirtyRect.maxY  && to.y > dirtyRect.maxY) {
                     continue
                 }
@@ -529,6 +532,8 @@ extension GraphView {
                 curve.move(to: from)
                 curve.line(to: to)
                 curve.stroke()
+                context?.fillEllipse(in: NSRect(x: from.x-terminalRadius, y: from.y-terminalRadius, width: terminalRadius*2, height: terminalRadius*2))
+                context?.fillEllipse(in: NSRect(x: to.x-terminalRadius, y: to.y-terminalRadius, width: terminalRadius*2, height: terminalRadius*2))
             }
             if let (from, to) = dragLine {
                 lineColor.setStroke()
