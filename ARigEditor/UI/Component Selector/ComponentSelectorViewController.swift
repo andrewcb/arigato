@@ -267,6 +267,7 @@ extension ComponentSelectorViewController: NSOutlineViewDelegate {
         case .manufacturer(let i):
             let view = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ManufacturerCell"), owner: self) as? NSTableCellView
             if let textField = view?.textField {
+                textField.font = NSFont.systemFont(ofSize: 12*self.zoomScale)
                 textField.stringValue = self.instrumentsByManufacturer[i].0
             }
             return view
@@ -284,6 +285,6 @@ extension ComponentSelectorViewController: NSOutlineViewDelegate {
         if case .component(_) = oi {
             return 34*self.zoomScale
         }
-        return outlineView.rowHeight
+        return outlineView.rowHeight*self.zoomScale
     }
 }
