@@ -16,21 +16,22 @@ extension NSPasteboard.PasteboardType {
 class ComponentCellView: NSTableCellView {
 
     var component: AudioUnitComponent? = nil
+    var zoomScale: CGFloat = 1.0
 
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
     override func draw(_ dirtyRect: NSRect) {
-        GenericGraphNodeView.DrawingModel(frame: NSRect(x: 8, y: 2, width: 128, height: self.frame.size.height-4), title: component?.componentName ?? "", type: component?.audioComponentDescription.componentType ?? 0, isSelected: false, topTabs: nil, bottomTabs: nil, scale: 1.0).draw()
+        GenericGraphNodeView.DrawingModel(frame: NSRect(x: 8, y: 2, width: 128*zoomScale, height: self.frame.size.height-4), title: component?.componentName ?? "", type: component?.audioComponentDescription.componentType ?? 0, isSelected: false, topTabs: nil, bottomTabs: nil, scale: self.zoomScale).draw()
         
 
-        let titleAttr: [NSAttributedString.Key : Any] = [.font: NSFont.systemFont(ofSize: 8), .foregroundColor: NSColor.nodeText]
+        let titleAttr: [NSAttributedString.Key : Any] = [.font: NSFont.systemFont(ofSize: 8*self.zoomScale), .foregroundColor: NSColor.nodeText]
 
         NSString(string:(component?.audioComponentDescription.componentType.audioUnitTypeName ?? "")).draw(
             at: NSPoint(
                 x: 8+GenericGraphNodeView.DrawingModel.innerMargin,
-                y: 2+frame.size.height - 2*GenericGraphNodeView.DrawingModel.titleHeight - 3*GenericGraphNodeView.DrawingModel.innerMargin), withAttributes: titleAttr)
+                y: 2+frame.size.height - (2*GenericGraphNodeView.DrawingModel.titleHeight + 3*GenericGraphNodeView.DrawingModel.innerMargin)*zoomScale), withAttributes: titleAttr)
     }
 }
 
@@ -143,9 +144,21 @@ class ComponentSelectorViewController: NSViewController {
             }
         }
     }
+    
+    private func reloadOutlinePreservingExpandedState() {
+        let v = self.instrumentsByManufacturer
+        self.instrumentsByManufacturer = v
+    }
+    
+    var zoomScale: CGFloat = 1 {
+        didSet(prev) {
+            self.reloadOutlinePreservingExpandedState()
+        }
+    }
 
     override func viewWillAppear() {
         super.viewWillAppear()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleZoomNotification(_:)), name: .zoomChanged, object: nil)
         self.typeSegmentedControl.segmentCount = typeFilterOptions.count+1
         for (i,t) in typeFilterOptions.enumerated() {
             self.typeSegmentedControl.setLabel(t.label, forSegment: i+1)
@@ -186,6 +199,11 @@ class ComponentSelectorViewController: NSViewController {
         print("\(sender.indexOfSelectedItem)")
         self.currentTypeFilter = index>0 ? self.typeFilterOptions[index-1] : nil
     }
+
+    @objc func handleZoomNotification(_ notification: Notification) {
+        guard let zoomLevel = notification.userInfo?[kZoomLevel] as? Int else { return }
+        self.zoomScale = computeZoomScale(fromLevel: zoomLevel)
+    }
 }
 
 extension ComponentSelectorViewController: NSOutlineViewDataSource {
@@ -223,7 +241,7 @@ extension ComponentSelectorViewController: NSOutlineViewDataSource {
     }
     
     func outlineView(_ outlineView: NSOutlineView, draggingSession session: NSDraggingSession, willBeginAt screenPoint: NSPoint, forItems draggedItems: [Any]) {
-        let dragImageSize = NSSize(width: 64, height: 48)
+        let dragImageSize = (NSSize(width: 64, height: 48)*self.zoomScale)
         session.enumerateDraggingItems(options: .concurrent, for: nil, classes: [NSPasteboardItem.self], searchOptions: [:]) { (draggingItem, index, stopPtr) in
             
             guard case let .component(component) = draggedItems.first as? OutlineItem else { return }
@@ -233,7 +251,7 @@ extension ComponentSelectorViewController: NSOutlineViewDataSource {
                     frame: rect,
                     title: component.componentName ?? "",
                     type: component.audioComponentDescription.componentType,
-                    isSelected: false, topTabs: nil, bottomTabs: nil, scale: 1.0).draw()
+                    isSelected: false, topTabs: nil, bottomTabs: nil, scale: self.zoomScale).draw()
                 return true
             }))
             
@@ -254,6 +272,7 @@ extension ComponentSelectorViewController: NSOutlineViewDelegate {
             return view
         case .component(let component):
             let view = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ComponentCell"), owner: self) as? ComponentCellView
+            view?.zoomScale = self.zoomScale
             view?.component = component
             return view
         }
@@ -263,7 +282,7 @@ extension ComponentSelectorViewController: NSOutlineViewDelegate {
         guard let oi = item as? OutlineItem else { return outlineView.rowHeight }
 
         if case .component(_) = oi {
-            return 34
+            return 34*self.zoomScale
         }
         return outlineView.rowHeight
     }

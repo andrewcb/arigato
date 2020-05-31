@@ -138,7 +138,6 @@ class MainViewController: NSViewController {
     
     @objc func handleZoomNotification(_ notification: Notification) {
         guard let zoomLevel = notification.userInfo?[kZoomLevel] as? Int else { return }
-//        print("zoom notication: \(zoomLevel)")
         self.graphView.zoomLevel = zoomLevel
     }
     

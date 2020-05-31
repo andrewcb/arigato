@@ -195,7 +195,7 @@ class GraphView: NSView {
     /// a linear zoom level, with 0 being actual size
     var zoomLevel: Int = 0 {
         didSet {
-            self.zoomScale = pow(2, CGFloat(zoomLevel))
+            self.zoomScale = computeZoomScale(fromLevel: zoomLevel)
         }
     }
     

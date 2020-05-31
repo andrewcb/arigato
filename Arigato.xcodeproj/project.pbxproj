@@ -64,6 +64,7 @@
 		44FC9A212480112E00F158F1 /* NodeInterfaceContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A1F24800F5400F158F1 /* NodeInterfaceContainerViewController.swift */; };
 		44FC9A24248160CA00F158F1 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A23248160CA00F158F1 /* Helpers.swift */; };
 		44FC9A272481BBC700F158F1 /* Notification+application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A262481BBC700F158F1 /* Notification+application.swift */; };
+		44FC9A2A2483FAA300F158F1 /* Zoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A292483FAA300F158F1 /* Zoom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		44FC9A1F24800F5400F158F1 /* NodeInterfaceContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInterfaceContainerViewController.swift; sourceTree = "<group>"; };
 		44FC9A23248160CA00F158F1 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		44FC9A262481BBC700F158F1 /* Notification+application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+application.swift"; sourceTree = "<group>"; };
+		44FC9A292483FAA300F158F1 /* Zoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zoom.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +372,7 @@
 				44FC27C12452559A0003446F /* Graph View */,
 				44FC27C0245255710003446F /* controls */,
 				4414B9CF2479630600619B74 /* Dialogs */,
+				44FC9A282483FA7300F158F1 /* misc */,
 				44FC279D24524AE10003446F /* MainViewController.swift */,
 				44FC27C4245312230003446F /* CocoaExtensions.swift */,
 				44FC27CB245313FA0003446F /* NSColor+application.swift */,
@@ -445,6 +448,14 @@
 				44FC9A262481BBC700F158F1 /* Notification+application.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		44FC9A282483FA7300F158F1 /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				44FC9A292483FAA300F158F1 /* Zoom.swift */,
+			);
+			path = misc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -701,6 +712,7 @@
 				44FC27C8245313860003446F /* GenericGraphNodeView.swift in Sources */,
 				44FC27C32453053E0003446F /* GraphView.swift in Sources */,
 				44FC27C5245312230003446F /* CocoaExtensions.swift in Sources */,
+				44FC9A2A2483FAA300F158F1 /* Zoom.swift in Sources */,
 				44FC9A212480112E00F158F1 /* NodeInterfaceContainerViewController.swift in Sources */,
 				4490FCB124670344009C2729 /* NodeParameterEditorViewController.swift in Sources */,
 				44FC9A272481BBC700F158F1 /* Notification+application.swift in Sources */,
