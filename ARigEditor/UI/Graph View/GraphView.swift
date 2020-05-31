@@ -450,7 +450,15 @@ extension GraphView {
         let lineColor = NSColor.red
         
         /// the scale; this is used only for scaling elements such as line thickness, drop zone radius and such, as coördinates are  assumed to be prescaled.
-        var drawScale: CGFloat = 1.0
+        var drawScale: CGFloat = 1.0 {
+            didSet {
+                let radius: CGFloat = drawScale*10
+                self.connectionDropZoneLayer.bounds = NSRect(origin: .zero, size: CGSize(width: radius*2-1, height: radius*2-1))
+                self.connectionDropZoneLayer.cornerRadius = radius
+                self.connectionDropZoneLayer.borderWidth =  drawScale*2
+
+            }
+        }
         
         /// Connection lines that form part of the current graph
         var lines: [(NSPoint, NSPoint, Bool)] = []  {
