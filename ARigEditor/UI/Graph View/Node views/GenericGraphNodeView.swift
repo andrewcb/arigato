@@ -55,7 +55,6 @@ class GenericGraphNodeView: NSView, GraphNodeView {
         self.titleLabel.backgroundColor = NSColor.white
         self.titleLabel.textColor = NSColor.black
         //self.titleLabel.autoresizingMask = [.width]
-        self.titleLabel.font = DrawingModel.titleFont
         self.titleLabel.isBezeled = false
         self.titleLabel.isBordered = false
         self.titleLabel.isEditable = true
@@ -97,10 +96,11 @@ class GenericGraphNodeView: NSView, GraphNodeView {
             graphView.selection = .node(id)
         }
         let c = recognizer.location(in: self)
-        if c.y >= self.bounds.size.height-DrawingModel.unscaledConnectionTabProtrusion-DrawingModel.titleHeight && c.y < self.bounds.size.height-DrawingModel.unscaledConnectionTabProtrusion {
+        if c.y >= self.bounds.size.height-(DrawingModel.unscaledConnectionTabProtrusion+DrawingModel.titleHeight)*graphView.zoomScale && c.y < (self.bounds.size.height-DrawingModel.unscaledConnectionTabProtrusion)*graphView.zoomScale {
+            self.titleLabel.font = DrawingModel.titleFont(forScale: graphView.zoomScale)
             self.titleLabel.stringValue = self.metadata?.title ?? ""
             self.titleLabel.isHidden = false
-            self.titleLabel.frame = NSRect(x: 0, y: self.frame.size.height-(self.titleLabel.intrinsicContentSize.height+DrawingModel.unscaledConnectionTabProtrusion+DrawingModel.unscaledInnerMargin), width: self.frame.size.width, height: self.titleLabel.intrinsicContentSize.height)
+            self.titleLabel.frame = NSRect(x: 0, y: self.frame.size.height-(self.titleLabel.intrinsicContentSize.height+(DrawingModel.unscaledConnectionTabProtrusion+DrawingModel.unscaledInnerMargin)*graphView.zoomScale), width: self.frame.size.width, height: self.titleLabel.intrinsicContentSize.height)
             self.titleLabel.becomeFirstResponder()
         }
     }

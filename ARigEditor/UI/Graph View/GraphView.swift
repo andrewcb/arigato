@@ -456,7 +456,6 @@ extension GraphView {
                 self.connectionDropZoneLayer.bounds = NSRect(origin: .zero, size: CGSize(width: radius*2-1, height: radius*2-1))
                 self.connectionDropZoneLayer.cornerRadius = radius
                 self.connectionDropZoneLayer.borderWidth =  drawScale*2
-
             }
         }
         
