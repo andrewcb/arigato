@@ -23,15 +23,17 @@ class ComponentCellView: NSTableCellView {
     }
 
     override func draw(_ dirtyRect: NSRect) {
-        GenericGraphNodeView.DrawingModel(frame: NSRect(x: 8, y: 2, width: 128*zoomScale, height: self.frame.size.height-4), title: component?.componentName ?? "", type: component?.audioComponentDescription.componentType ?? 0, isSelected: false, topTabs: nil, bottomTabs: nil, scale: self.zoomScale).draw()
+        let drawingModel = GenericGraphNodeView.DrawingModel(frame: NSRect(x: 8, y: 2, width: 128*zoomScale, height: self.frame.size.height-4), title: component?.componentName ?? "", type: component?.audioComponentDescription.componentType ?? 0, isSelected: false, topTabs: nil, bottomTabs: nil, scale: self.zoomScale)
+        drawingModel.draw()
         
 
         let titleAttr: [NSAttributedString.Key : Any] = [.font: NSFont.systemFont(ofSize: 8*self.zoomScale), .foregroundColor: NSColor.nodeText]
 
         NSString(string:(component?.audioComponentDescription.componentType.audioUnitTypeName ?? "")).draw(
             at: NSPoint(
-                x: 8+GenericGraphNodeView.DrawingModel.unscaledInnerMargin,
-                y: 2+frame.size.height - (2*GenericGraphNodeView.DrawingModel.titleHeight + 3*GenericGraphNodeView.DrawingModel.unscaledInnerMargin)*zoomScale), withAttributes: titleAttr)
+                x: 8+drawingModel.innerMargin,
+                y: 2+frame.size.height - (2*drawingModel.titleHeight + 3*drawingModel.innerMargin)),
+            withAttributes: titleAttr)
     }
 }
 
