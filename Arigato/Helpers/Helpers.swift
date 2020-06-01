@@ -12,16 +12,16 @@ import AVFoundation
 // Code for making AudioUnits and such quicker to use in code
 
 extension AVAudioUnit {
-    var parameters: [AUParameter] {
+    public var parameters: [AUParameter] {
         return (self.auAudioUnit.parameterTree?.allParameters ?? [])
     }
-    var parameterNames: [String] { return self.parameters.map { $0.displayName } }
+    public var parameterNames: [String] { return self.parameters.map { $0.displayName } }
     
-    func parameter(matching pred: ((AUParameter)->Bool)) -> AUParameter? {
+    public func parameter(matching pred: ((AUParameter)->Bool)) -> AUParameter? {
         return self.parameters.first(where:pred)
     }
 
-    func parameter(named name: String) -> AUParameter? {
+    public func parameter(named name: String) -> AUParameter? {
         return self.parameter(matching: { $0.displayName == name })
     }
 }
@@ -36,7 +36,7 @@ extension AVAudioUnitMIDIInstrument {
     }
 }
 
-func sleep(for time: Double) {
+public func sleep(for time: Double) {
     usleep(useconds_t(time*1000000))
 }
 
