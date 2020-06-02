@@ -11,6 +11,10 @@ However, it can be inconvenient to programmatically prepare many AudioUnits for 
 
 Arigato provides a convenient one-stop alternative to this, in allowing an entire network of AudioUnits to be created in a graphical editor, saved to a file, and then loaded in your own code and played. Each AudioUnit in this network is also given a name, by which it can be referenced in your code. A saved  AudioUnit network with names is called an ARig, which is an  abbreviation for AudioUnit rig.
 
+## Demo
+
+There is a short video demonstrating Arigato in use [here](https://drive.google.com/file/d/125gF9MWGWI7WyF51RUHx2ZRIN4mG0LXt/view); it shows an ARig containing two software synthesisers and a delay being created, exported to an Xcode Playground, and then used to make a simple two-part melodic pattern.
+
 ## Language support
 
 Arigato is written in Swift, and can be used from Swift code; currently its main use case is for using AudioUnits in Xcode Playgrounds. The code in  the `Arigato` group in the Xcode project can be copied into the `Sources` folder of an Xcode playground, allowing any ARig placed in its `Resources` folder to be loaded.  ARigEditor has the option of creating an Xcode Playground with the code and current ARig in place, and optionally some sample code in the Playground text. It is also possible to build Arigato to a framework for use in macOS Applications.
