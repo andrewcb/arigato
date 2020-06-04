@@ -466,17 +466,17 @@ Gw
             <objects>
                 <viewController id="pez-58-Ucd" customClass="ComponentSelectorViewController" customModule="ARigEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="sRF-0p-3Tg">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="306"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="329"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="36" horizontalPageScroll="10" verticalLineScroll="36" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FL1-Po-0OR">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="248"/>
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="229"/>
                                 <clipView key="contentView" id="INf-mu-8av">
-                                    <rect key="frame" x="1" y="1" width="448" height="246"/>
+                                    <rect key="frame" x="1" y="1" width="448" height="227"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="34" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="1" indentationMarkerFollowsCell="NO" autoresizesOutlineColumn="YES" outlineTableColumn="NsZ-kO-gDC" id="tH0-t3-5de">
-                                            <rect key="frame" x="0.0" y="0.0" width="451" height="246"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="451" height="227"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -529,7 +529,7 @@ Gw
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="oyM-W0-V2R">
-                                    <rect key="frame" x="1" y="231" width="448" height="16"/>
+                                    <rect key="frame" x="1" y="212" width="448" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="JA7-Wj-E5i">
@@ -538,7 +538,7 @@ Gw
                                 </scroller>
                             </scrollView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lam-Mq-PZm">
-                                <rect key="frame" x="0.0" y="248" width="450" height="58"/>
+                                <rect key="frame" x="0.0" y="229" width="450" height="100"/>
                                 <subviews>
                                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bJZ-s1-Ofw">
                                         <rect key="frame" x="19" y="19" width="412" height="20"/>
@@ -552,11 +552,25 @@ Gw
                                             <action selector="typeSelected:" target="pez-58-Ucd" id="Dcx-ma-vpQ"/>
                                         </connections>
                                     </segmentedControl>
+                                    <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBV-A1-OaR">
+                                        <rect key="frame" x="20" y="58" width="410" height="22"/>
+                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" id="34e-pp-ugd">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <action selector="searchRequested:" target="pez-58-Ucd" id="K22-UM-Obr"/>
+                                            </connections>
+                                        </searchFieldCell>
+                                    </searchField>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="kBV-A1-OaR" firstAttribute="top" secondItem="Lam-Mq-PZm" secondAttribute="top" constant="20" id="9Ts-QM-678"/>
+                                    <constraint firstAttribute="trailing" secondItem="kBV-A1-OaR" secondAttribute="trailing" constant="20" id="Utv-rP-nht"/>
                                     <constraint firstAttribute="trailing" secondItem="bJZ-s1-Ofw" secondAttribute="trailing" constant="20" id="ZQg-88-oOu"/>
+                                    <constraint firstItem="kBV-A1-OaR" firstAttribute="leading" secondItem="Lam-Mq-PZm" secondAttribute="leading" constant="20" id="aAc-uy-dUG"/>
                                     <constraint firstAttribute="bottom" secondItem="bJZ-s1-Ofw" secondAttribute="bottom" constant="20" id="lSK-fQ-1f3"/>
-                                    <constraint firstItem="bJZ-s1-Ofw" firstAttribute="top" secondItem="Lam-Mq-PZm" secondAttribute="top" constant="20" id="mXD-GJ-b2q"/>
+                                    <constraint firstItem="bJZ-s1-Ofw" firstAttribute="top" secondItem="kBV-A1-OaR" secondAttribute="bottom" constant="20" id="szp-mN-Fnf"/>
                                     <constraint firstItem="bJZ-s1-Ofw" firstAttribute="leading" secondItem="Lam-Mq-PZm" secondAttribute="leading" constant="20" id="v38-Of-j6r"/>
                                 </constraints>
                             </customView>
@@ -573,12 +587,13 @@ Gw
                     </view>
                     <connections>
                         <outlet property="instrumentsOutlineView" destination="tH0-t3-5de" id="T7x-VV-TQj"/>
+                        <outlet property="searchField" destination="kBV-A1-OaR" id="kUN-mM-Cnn"/>
                         <outlet property="typeSegmentedControl" destination="bJZ-s1-Ofw" id="wm6-Nb-r3W"/>
                     </connections>
                 </viewController>
                 <customObject id="5kn-A1-LK3" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="586" y="480"/>
+            <point key="canvasLocation" x="586" y="479.5"/>
         </scene>
         <!--Keyboard Node Detail View Controller-->
         <scene sceneID="Ca7-iU-ggh">
