@@ -61,6 +61,7 @@ class ComponentSelectorViewController: NSViewController {
         case component(AudioUnitComponent)
     }
 
+    @IBOutlet weak var searchField: NSSearchField!
     @IBOutlet weak var typeSegmentedControl: NSSegmentedControl!
     @IBOutlet weak var instrumentsOutlineView: NSOutlineView!
 
@@ -93,10 +94,22 @@ class ComponentSelectorViewController: NSViewController {
         didSet { self.filterAvailableInstruments() }
     }
     
+    var searchFilter: ((AudioUnitComponent)->Bool)? = nil {
+        didSet { self.filterAvailableInstruments() }
+    }
+    
+    var searchString: String? = nil {
+        didSet(prev) {
+            guard (searchString != prev) else { return }
+            self.searchFilter = searchString.map { (q:String) -> ((AudioUnitComponent)->Bool) in { $0.componentName?.lowercased().contains(q) ?? false } }
+        }
+    }
+    
     private func filterAvailableInstruments() {
         self.filteredComponents = self.availableInstruments
             .filter { visibleAudioUnitTypes.contains($0.audioComponentDescription.componentType)}
             .filter  { currentTypeFilter?.apply($0) ?? true }
+            .filter(self.searchFilter ?? { _ in true })
     }
 
     var availableInstruments = [AudioUnitComponent]() {
@@ -194,6 +207,11 @@ class ComponentSelectorViewController: NSViewController {
                 sender.expandItem(itemAtRow)
             }
         }
+    }
+    
+    @IBAction func searchRequested(_ sender: Any) {
+        let sv = searchField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.searchString = sv.isEmpty ? nil : sv
     }
     
     @IBAction func typeSelected(_ sender: NSSegmentedControl) {
