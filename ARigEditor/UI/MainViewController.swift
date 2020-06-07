@@ -272,3 +272,34 @@ extension MainViewController: MixerTarget {
         self.document?.audioSystem.findMixingHeadNode(forMixerInput: ch)?.pan = value
     }
 }
+
+extension MainViewController: MIDIEventRecipient {
+    func receive(midiEvent: ArraySlice<UInt8>) {
+        guard
+            let inst = self.selectedMIDIInstrument,
+            let st  = midiEvent.first,
+            let d1 = midiEvent.dropFirst().first
+        else { return }
+        let t = st & 0xf0
+        let ch = st & 0x0f
+
+        let d2 = midiEvent.dropFirst(2).first ?? 0
+        switch(t) {
+        case 0x80: // note off
+            inst.stopNote(d1, onChannel: ch)
+        case 0x90: // note on
+            inst.startNote(d1, withVelocity: d2, onChannel: ch)
+        case 0xa0:
+            inst.sendPressure(forKey: d1, withValue: d2, onChannel: ch)
+        case 0xb0:
+            inst.sendController(d1, withValue: d2, onChannel: ch)
+        case 0xc0:
+            inst.sendProgramChange(d1, onChannel: ch)
+        case 0xd0:
+            inst.sendPressure(d1, onChannel: ch)
+        case 0xe0:
+            inst.sendPitchBend(UInt16(d1) | (UInt16(d2)<<7), onChannel: ch)
+        default: break
+        }
+    }
+}

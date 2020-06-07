@@ -65,6 +65,8 @@
 		44FC9A24248160CA00F158F1 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A23248160CA00F158F1 /* Helpers.swift */; };
 		44FC9A272481BBC700F158F1 /* Notification+application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A262481BBC700F158F1 /* Notification+application.swift */; };
 		44FC9A2A2483FAA300F158F1 /* Zoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A292483FAA300F158F1 /* Zoom.swift */; };
+		44FC9A2D248D2FDE00F158F1 /* MIDIInputHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A2C248D2FDE00F158F1 /* MIDIInputHandler.swift */; };
+		44FC9A2F248D51A900F158F1 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A2E248D51A900F158F1 /* MainWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +141,8 @@
 		44FC9A23248160CA00F158F1 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		44FC9A262481BBC700F158F1 /* Notification+application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+application.swift"; sourceTree = "<group>"; };
 		44FC9A292483FAA300F158F1 /* Zoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zoom.swift; sourceTree = "<group>"; };
+		44FC9A2C248D2FDE00F158F1 /* MIDIInputHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIInputHandler.swift; sourceTree = "<group>"; };
+		44FC9A2E248D51A900F158F1 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,6 +336,7 @@
 		44FC279A24524AE10003446F /* ARigEditor */ = {
 			isa = PBXGroup;
 			children = (
+				44FC9A2B248D2FB100F158F1 /* MIDI */,
 				4414B9CB2479617500619B74 /* Export */,
 				44FC27BF245255540003446F /* UI */,
 				44FC9A252481BBB100F158F1 /* Extensions */,
@@ -374,6 +379,7 @@
 				4414B9CF2479630600619B74 /* Dialogs */,
 				44FC9A282483FA7300F158F1 /* misc */,
 				44FC279D24524AE10003446F /* MainViewController.swift */,
+				44FC9A2E248D51A900F158F1 /* MainWindowController.swift */,
 				44FC27C4245312230003446F /* CocoaExtensions.swift */,
 				44FC27CB245313FA0003446F /* NSColor+application.swift */,
 			);
@@ -456,6 +462,14 @@
 				44FC9A292483FAA300F158F1 /* Zoom.swift */,
 			);
 			path = misc;
+			sourceTree = "<group>";
+		};
+		44FC9A2B248D2FB100F158F1 /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				44FC9A2C248D2FDE00F158F1 /* MIDIInputHandler.swift */,
+			);
+			path = MIDI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -712,9 +726,11 @@
 				44FC27C8245313860003446F /* GenericGraphNodeView.swift in Sources */,
 				44FC27C32453053E0003446F /* GraphView.swift in Sources */,
 				44FC27C5245312230003446F /* CocoaExtensions.swift in Sources */,
+				44FC9A2F248D51A900F158F1 /* MainWindowController.swift in Sources */,
 				44FC9A2A2483FAA300F158F1 /* Zoom.swift in Sources */,
 				44FC9A212480112E00F158F1 /* NodeInterfaceContainerViewController.swift in Sources */,
 				4490FCB124670344009C2729 /* NodeParameterEditorViewController.swift in Sources */,
+				44FC9A2D248D2FDE00F158F1 /* MIDIInputHandler.swift in Sources */,
 				44FC9A272481BBC700F158F1 /* Notification+application.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
