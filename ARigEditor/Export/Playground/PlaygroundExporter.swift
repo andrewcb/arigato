@@ -27,8 +27,6 @@ class PlaygroundExporter {
 
         // TODO: maybe put this into some sort of templated file in the resources?
         let prologue = """
-            /// this will be Arigato example code
-                    
             import Foundation
             import AVFoundation
             import PlaygroundSupport
@@ -55,11 +53,10 @@ class PlaygroundExporter {
                 """
                     // strum a (CMaj7) chord, holding the last note longer
                     for note in [60, 64, 67, 71, 72] {
-                        instrument?.startNote(UInt8(note), withVelocity: 90, onChannel: 0)
-                        usleep(200000 * ((note == 72) ? 4 : 1))
-                        instrument?.stopNote(UInt8(note), onChannel: 0)
+                        instrument?.play(note: UInt8(note), withVelocity: 90, onChannel: 0, forDuration: (note == 72) ? 0.8 : 0.2)
+                        sleep(for: 0.2)
                     }
-                    usleep(400000)
+                    sleep(for:0.4)
 
                 """
             } ?? ""
@@ -71,6 +68,7 @@ class PlaygroundExporter {
                 """
             }  ?? ""
             playCode = """
+            
             DispatchQueue.global().async {
             \(instPlayCode)
             \(speechPlayCode)
