@@ -174,14 +174,6 @@ class MainViewController: NSViewController {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                 self.midiInputIndicatorView.isHidden = true
             }
-//            CATransaction.begin()
-//            CATransaction.setAnimationDuration(0)
-//            self.midiInputIndicatorView.layer?.opacity = 1.0
-//            CATransaction.commit()
-//            CATransaction.begin()
-//            CATransaction.setAnimationDuration(0.5)
-//            self.midiInputIndicatorView.layer?.opacity = 0.1
-//            CATransaction.commit()
         }
     }
 }
