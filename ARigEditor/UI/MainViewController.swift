@@ -15,6 +15,7 @@ class MainViewController: NSViewController {
     
     @IBOutlet var graphView: GraphView!
     @IBOutlet var selectedNodeDetailContainerView: NSView!
+    @IBOutlet var midiInputIndicatorView: NSView!
     
     let nodeInterfaceManager  = NodeInterfaceManager()
 
@@ -90,6 +91,8 @@ class MainViewController: NSViewController {
         }
         
         nodeInterfaceManager.keystrokeRelayingTarget =  self
+        
+        self.midiInputIndicatorView.wantsLayer = true
     }
 
     override func viewWillAppear() {
@@ -161,6 +164,25 @@ class MainViewController: NSViewController {
     func openUIView(forNode id: AudioSystem.NodeID, preferringGUI: Bool = true) {
         guard let node = document?.audioSystem.node(byId: id) else { return }
         nodeInterfaceManager.openWindow(forNode: node, preferringGUI: preferringGUI)
+    }
+    
+    // MARK:
+    
+    func flashMIDIIndicator() {
+        DispatchQueue.main.async {
+            self.midiInputIndicatorView.isHidden = false
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                self.midiInputIndicatorView.isHidden = true
+            }
+//            CATransaction.begin()
+//            CATransaction.setAnimationDuration(0)
+//            self.midiInputIndicatorView.layer?.opacity = 1.0
+//            CATransaction.commit()
+//            CATransaction.begin()
+//            CATransaction.setAnimationDuration(0.5)
+//            self.midiInputIndicatorView.layer?.opacity = 0.1
+//            CATransaction.commit()
+        }
     }
 }
 
@@ -275,6 +297,9 @@ extension MainViewController: MixerTarget {
 
 extension MainViewController: MIDIEventRecipient {
     func receive(midiEvent: ArraySlice<UInt8>) {
+        
+        self.flashMIDIIndicator()
+
         guard
             let inst = self.selectedMIDIInstrument,
             let st  = midiEvent.first,
