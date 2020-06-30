@@ -192,6 +192,10 @@ extension AudioSystem.Snapshot: Codable { }
 extension AudioSystem {
     public convenience init(fromURL url: URL) throws {
         self.init()
+        try self.load(fromURL: url)
+    }
+    
+    public func load(fromURL url: URL) throws {
         let data
             = try Data(contentsOf: url)
 

@@ -12,6 +12,23 @@
 		4414B9CA24703B3F00619B74 /* MIDIComputerKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9C924703B3F00619B74 /* MIDIComputerKeyboardView.swift */; };
 		4414B9CD247961A000619B74 /* PlaygroundExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9CC247961A000619B74 /* PlaygroundExporter.swift */; };
 		4414B9D22479636A00619B74 /* ExportPlaygroundOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9D12479636A00619B74 /* ExportPlaygroundOptionsViewController.swift */; };
+		4449A43E249ED50100514DA5 /* PyArigato.m in Sources */ = {isa = PBXBuildFile; fileRef = 4449A43D249ED50100514DA5 /* PyArigato.m */; };
+		4449A441249FA33D00514DA5 /* PyARig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4449A440249FA33D00514DA5 /* PyARig.m */; };
+		4449A447249FA7D200514DA5 /* ARig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D82454ADD80003446F /* ARig.swift */; };
+		4449A448249FA7DF00514DA5 /* AudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC277D244DEB450003446F /* AudioSystem.swift */; };
+		4449A449249FA7DF00514DA5 /* AudioSystem.serialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2783244DF7960003446F /* AudioSystem.serialisation.swift */; };
+		4449A44A249FA7DF00514DA5 /* AudioUnitPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2793244E5CEE0003446F /* AudioUnitPreset.swift */; };
+		4449A44B249FA7DF00514DA5 /* AudioUnitComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D42453220B0003446F /* AudioUnitComponent.swift */; };
+		4449A44C249FA7E400514DA5 /* AVAudioNode+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D62453225D0003446F /* AVAudioNode+.swift */; };
+		4449A44D249FA7E400514DA5 /* AudioComponentDescription+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2786244DF86F0003446F /* AudioComponentDescription+.swift */; };
+		4449A44E249FA7E900514DA5 /* FourCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2788244DF9480003446F /* FourCC.swift */; };
+		4449A44F249FA7E900514DA5 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2791244E5AB90003446F /* Future.swift */; };
+		4449A450249FA7F600514DA5 /* NodeInterfaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27DB2454F46C0003446F /* NodeInterfaceManager.swift */; };
+		4449A451249FA7F600514DA5 /* NodeParameterEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */; };
+		4449A452249FA7F600514DA5 /* NodeInterfaceContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC9A1F24800F5400F158F1 /* NodeInterfaceContainerViewController.swift */; };
+		4449A453249FA83500514DA5 /* Snapshottable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2781244DF7570003446F /* Snapshottable.swift */; };
+		4449A455249FB75500514DA5 /* PyAudioUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4449A454249FB75500514DA5 /* PyAudioUnit.m */; };
+		4449A45824A0D97B00514DA5 /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4449A45724A0D97B00514DA5 /* Diagnostics.swift */; };
 		4490FCAC245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */; };
 		4490FCAE245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */; };
 		4490FCB02466EA40009C2729 /* NodeParameterEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */; };
@@ -92,6 +109,14 @@
 		4414B9C924703B3F00619B74 /* MIDIComputerKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIComputerKeyboardView.swift; sourceTree = "<group>"; };
 		4414B9CC247961A000619B74 /* PlaygroundExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundExporter.swift; sourceTree = "<group>"; };
 		4414B9D12479636A00619B74 /* ExportPlaygroundOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaygroundOptionsViewController.swift; sourceTree = "<group>"; };
+		4449A438249ED43400514DA5 /* arigato.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = arigato.so; sourceTree = BUILT_PRODUCTS_DIR; };
+		4449A43D249ED50100514DA5 /* PyArigato.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PyArigato.m; sourceTree = "<group>"; };
+		4449A440249FA33D00514DA5 /* PyARig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PyARig.m; sourceTree = "<group>"; };
+		4449A442249FA58E00514DA5 /* PyARig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PyARig.h; sourceTree = "<group>"; };
+		4449A444249FA75300514DA5 /* PyArigato-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PyArigato-Bridging-Header.h"; sourceTree = "<group>"; };
+		4449A454249FB75500514DA5 /* PyAudioUnit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PyAudioUnit.m; sourceTree = "<group>"; };
+		4449A456249FB80C00514DA5 /* PyAudioUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PyAudioUnit.h; sourceTree = "<group>"; };
+		4449A45724A0D97B00514DA5 /* Diagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagnostics.swift; sourceTree = "<group>"; };
 		4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIKeyboardNodeDetailViewController.swift; sourceTree = "<group>"; };
 		4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeechNodeDetailViewController.swift; sourceTree = "<group>"; };
 		4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeParameterEditorViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +171,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4449A436249ED43400514DA5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44FC275F244DEA360003446F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -210,6 +242,36 @@
 			path = Export;
 			sourceTree = "<group>";
 		};
+		4449A43C249ED44B00514DA5 /* PyArigato */ = {
+			isa = PBXGroup;
+			children = (
+				4449A443249FA73D00514DA5 /* Swift */,
+				4449A43F249FA30600514DA5 /* Python */,
+				4449A43D249ED50100514DA5 /* PyArigato.m */,
+			);
+			path = PyArigato;
+			sourceTree = "<group>";
+		};
+		4449A43F249FA30600514DA5 /* Python */ = {
+			isa = PBXGroup;
+			children = (
+				4449A440249FA33D00514DA5 /* PyARig.m */,
+				4449A442249FA58E00514DA5 /* PyARig.h */,
+				4449A454249FB75500514DA5 /* PyAudioUnit.m */,
+				4449A456249FB80C00514DA5 /* PyAudioUnit.h */,
+			);
+			path = Python;
+			sourceTree = "<group>";
+		};
+		4449A443249FA73D00514DA5 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				4449A444249FA75300514DA5 /* PyArigato-Bridging-Header.h */,
+				4449A45724A0D97B00514DA5 /* Diagnostics.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
 		4490FCAA245E3B20009C2729 /* Node Detail Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +289,7 @@
 				44FC276F244DEA360003446F /* ArigatoTests */,
 				44FC279A24524AE10003446F /* ARigEditor */,
 				44FC27AF24524AE50003446F /* ARigEditorTests */,
+				4449A43C249ED44B00514DA5 /* PyArigato */,
 				44FC2763244DEA360003446F /* Products */,
 				44FC27B924524DE60003446F /* Frameworks */,
 			);
@@ -239,6 +302,7 @@
 				44FC276B244DEA360003446F /* ArigatoTests.xctest */,
 				44FC279924524AE10003446F /* ARigEditor.app */,
 				44FC27AC24524AE50003446F /* ARigEditorTests.xctest */,
+				4449A438249ED43400514DA5 /* arigato.so */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -475,6 +539,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		4449A434249ED43400514DA5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44FC275D244DEA360003446F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -486,6 +557,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		4449A437249ED43400514DA5 /* PyArigato */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4449A43B249ED43400514DA5 /* Build configuration list for PBXNativeTarget "PyArigato" */;
+			buildPhases = (
+				4449A434249ED43400514DA5 /* Headers */,
+				4449A435249ED43400514DA5 /* Sources */,
+				4449A436249ED43400514DA5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PyArigato;
+			productName = PyArigato;
+			productReference = 4449A438249ED43400514DA5 /* arigato.so */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 		44FC2761244DEA360003446F /* Arigato */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 44FC2776244DEA360003446F /* Build configuration list for PBXNativeTarget "Arigato" */;
@@ -568,6 +656,10 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = acb;
 				TargetAttributes = {
+					4449A437249ED43400514DA5 = {
+						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1130;
+					};
 					44FC2761244DEA360003446F = {
 						CreatedOnToolsVersion = 11.3;
 						LastSwiftMigration = 1130;
@@ -601,6 +693,7 @@
 				44FC276A244DEA360003446F /* ArigatoTests */,
 				44FC279824524AE10003446F /* ARigEditor */,
 				44FC27AB24524AE50003446F /* ARigEditorTests */,
+				4449A437249ED43400514DA5 /* PyArigato */,
 			);
 		};
 /* End PBXProject section */
@@ -660,6 +753,30 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4449A435249ED43400514DA5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4449A43E249ED50100514DA5 /* PyArigato.m in Sources */,
+				4449A449249FA7DF00514DA5 /* AudioSystem.serialisation.swift in Sources */,
+				4449A452249FA7F600514DA5 /* NodeInterfaceContainerViewController.swift in Sources */,
+				4449A45824A0D97B00514DA5 /* Diagnostics.swift in Sources */,
+				4449A455249FB75500514DA5 /* PyAudioUnit.m in Sources */,
+				4449A44D249FA7E400514DA5 /* AudioComponentDescription+.swift in Sources */,
+				4449A441249FA33D00514DA5 /* PyARig.m in Sources */,
+				4449A447249FA7D200514DA5 /* ARig.swift in Sources */,
+				4449A44E249FA7E900514DA5 /* FourCC.swift in Sources */,
+				4449A448249FA7DF00514DA5 /* AudioSystem.swift in Sources */,
+				4449A450249FA7F600514DA5 /* NodeInterfaceManager.swift in Sources */,
+				4449A44B249FA7DF00514DA5 /* AudioUnitComponent.swift in Sources */,
+				4449A453249FA83500514DA5 /* Snapshottable.swift in Sources */,
+				4449A44F249FA7E900514DA5 /* Future.swift in Sources */,
+				4449A44A249FA7DF00514DA5 /* AudioUnitPreset.swift in Sources */,
+				4449A44C249FA7E400514DA5 /* AVAudioNode+.swift in Sources */,
+				4449A451249FA7F600514DA5 /* NodeParameterEditorViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44FC275E244DEA360003446F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -770,6 +887,49 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4449A439249ED43400514DA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RGZSVAB4M3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = so;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_NAME = arigato;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PyArigato/Swift/PyArigato-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4449A43A249ED43400514DA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RGZSVAB4M3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = so;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_NAME = arigato;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PyArigato/Swift/PyArigato-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		44FC2774244DEA360003446F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1069,6 +1229,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4449A43B249ED43400514DA5 /* Build configuration list for PBXNativeTarget "PyArigato" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4449A439249ED43400514DA5 /* Debug */,
+				4449A43A249ED43400514DA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		44FC275C244DEA360003446F /* Build configuration list for PBXProject "Arigato" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

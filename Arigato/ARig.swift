@@ -9,13 +9,22 @@
 
 import AVFoundation
 
-public class ARig {
+public class ARig: NSObject {
     let audioSystem: AudioSystem
     
     let nodeInterfaceManager = NodeInterfaceManager()
     
-    public init(fromURL url: URL) throws {
+    @objc public override init() {
+        audioSystem = AudioSystem()
+        super.init()
+    }
+    
+    @objc public init(fromURL url: URL) throws {
         audioSystem = try AudioSystem(fromURL: url)
+    }
+    
+    @objc public func load(fromURL url: URL) throws {
+        try audioSystem.load(fromURL: url)
     }
     
     enum Error: Swift.Error {
@@ -28,19 +37,19 @@ public class ARig {
         try self.init(fromURL: url)
     }
     
-    public func audioUnit(byName name: String) -> AVAudioUnit? {
+    @objc public func audioUnit(byName name: String) -> AVAudioUnit? {
         return audioSystem.audioUnit(byName: name)
     }
     
-    public func midiInstrument(byName name: String) -> AVAudioUnitMIDIInstrument? {
+    @objc public func midiInstrument(byName name: String) -> AVAudioUnitMIDIInstrument? {
         return audioSystem.midiInstrument(byName: name)
     }
 
-    public func mixingHeadNode(forMixerInput ch: Int) -> AVAudioMixing? {
+    @objc public func mixingHeadNode(forMixerInput ch: Int) -> AVAudioMixing? {
         return audioSystem.findMixingHeadNode(forMixerInput: ch)
     }
     
-    public func openWindow(forUnitNamed name: String) {
+    @objc public func openWindow(forUnitNamed name: String) {
         guard let node = audioSystem.node(byName: name) else { return }
         nodeInterfaceManager.openWindow(forNode: node)
     }
