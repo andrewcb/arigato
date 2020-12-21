@@ -30,22 +30,27 @@ public class AudioSystem {
         public typealias ID = Int
         public static let mainOutputID = 0
         public static let mainMixerID = 1
-        static var nextID: ID = 2
+        public static let firstUserID = 2
         
         public let id: ID
         public let avAudioNode: AVAudioNode
         public var name: String
         
-        init(id: ID? = nil, name: String, avAudioNode: AVAudioNode) {
-            self.id = id ?? Node.nextID
-            Node.nextID  = max(Node.nextID, self.id+1)
+        init(id: ID, name: String, avAudioNode: AVAudioNode) {
+            self.id = id
             self.name = name
             self.avAudioNode = avAudioNode
         }
     }
     public typealias NodeID = Node.ID
     
-    var nodeMap: [Node.ID:Node] = [:]
+    var nodeTable: [Node?] = []
+    
+    // insert a node into the data structures
+    internal func add(node: Node) {
+        assert(node.id == nodeTable.count)
+        nodeTable.append(.some(node))
+    }
     
     // MARK: Connections
     public struct Connection: Equatable, Hashable {
@@ -64,6 +69,10 @@ public class AudioSystem {
 
     public internal(set) var connections: [Connection] = []
     
+    // all node graph operations are performed on this queue, and thus made atomic
+    private let nodeGraphSyncQueue = DispatchQueue(label: "nodeGraphQueue")
+    // an array of nodes, indexable by offset; array indices never change, hence the contents are optional, and deleted nodes are replaced with nil
+    
     //MARK: internal handlers for events
     // do any processing required when the topology of connections changes
     internal func connectionsChanged() {
@@ -74,9 +83,8 @@ public class AudioSystem {
     
     // MARK: initialisation
     private func initNodeMap() {
-        self.nodeMap = [
-            Node.mainMixerID : Node(name: "$mixer", avAudioNode: self.engine.mainMixerNode)
-        ]
+        self.nodeTable = (0..<Node.firstUserID).map { _ in nil }
+        self.nodeTable[Node.mainMixerID] = Node(id: Node.mainMixerID, name: "$mixer", avAudioNode: self.engine.mainMixerNode)
     }
     
     public init() {
@@ -87,16 +95,20 @@ public class AudioSystem {
     
     //MARK: Public methods for accessing nodes
     
-    public var nodeCount: Int { return nodeMap.count }
+    public var nodeCount: Int {
+        return nodeTable.reduce(0) { $1==nil ? $0 : $0+1 }
+    }
     
-    public var nodeIDs: AnyCollection<NodeID> { return AnyCollection(nodeMap.keys) }
+    public var nodeIDs: AnyCollection<NodeID> {
+        return AnyCollection(nodeTable.compactMap { $0?.id })
+    }
     
     public func node(byId id: NodeID) -> Node? {
-        return nodeMap[id]
+        return nodeTable[id]
     }
     public func node(byName name: String) -> Node? {
         //  TODO: index this
-        return nodeMap.values.first { $0.name == name }
+        return nodeTable.first { $0?.name == name }.map { $0! }
     }
     public func audioUnit(byName name: String) -> AVAudioUnit? {
         return node(byName: name)?.avAudioNode as? AVAudioUnit
@@ -105,12 +117,20 @@ public class AudioSystem {
         return node(byName: name)?.avAudioNode as? AVAudioUnitMIDIInstrument
     }
     
+    func nodeIDsMatching(_ predicate: ((Node)->Bool)) -> [NodeID] {
+        return self.nodeTable.compactMap { maybeNode in
+            maybeNode.flatMap { node in
+                predicate(node) ? node.id  : nil
+            }
+        }
+    }
+    
     public var musicDeviceIDs: [NodeID] {
-        return self.nodeMap.compactMap { (id, node) in node.avAudioNode.isMusicDevice  ? id : nil }
+        return nodeIDsMatching { $0.avAudioNode.isMusicDevice }
     }
     
     public var speechSynthesizerIDs: [NodeID] {
-        return self.nodeMap.compactMap { (id, node) in node.avAudioNode.isSpeechSynthesizer  ? id : nil }
+        return nodeIDsMatching { $0.avAudioNode.isSpeechSynthesizer }
     }
     
     //MARK: Public node manipulation methods for editing the graph
@@ -126,43 +146,51 @@ public class AudioSystem {
     
     public func connect(fromNode from: Node.ID, bus fromBus: AVAudioNodeBus, toNode  to: Node.ID, bus toBus: AVAudioNodeBus) throws {
         guard
-            let fromNode = nodeMap[from],
-            let toNode = nodeMap[to]
+            let fromNode = nodeTable[from],
+            let toNode = nodeTable[to]
         else { throw Error.nodeNotFound }
-        engine.connect(fromNode.avAudioNode, to: toNode.avAudioNode, fromBus: fromBus, toBus: toBus, format: nil)
-        let newConnection = Connection(from: (from, fromBus), to: (to, toBus))
-        self.connections.removeAll { $0.from == newConnection.from || $0.to == newConnection.to }
-        self.connections.append(newConnection)
+        nodeGraphSyncQueue.sync {
+            engine.connect(fromNode.avAudioNode, to: toNode.avAudioNode, fromBus: fromBus, toBus: toBus, format: nil)
+            let newConnection = Connection(from: (from, fromBus), to: (to, toBus))
+            self.connections.removeAll { $0.from == newConnection.from || $0.to == newConnection.to }
+            self.connections.append(newConnection)
+        }
         self.connectionsChanged()
     }
     
     // Connect to the next available slot on the main mixer
     public func connectToMainMixer(node: Node.ID, bus: AVAudioNodeBus = 0) throws {
         guard
-            let fromNode = nodeMap[node]
+            let fromNode = nodeTable[node]
         else { throw Error.nodeNotFound }
-        let toBus = engine.mainMixerNode.nextAvailableInputBus
-        engine.connect(fromNode.avAudioNode, to: engine.mainMixerNode, fromBus: bus, toBus: toBus, format: nil)
-        self.connections.append(Connection(from: (node, bus), to: (Node.mainMixerID, toBus)))
+        nodeGraphSyncQueue.sync {
+            let toBus = engine.mainMixerNode.nextAvailableInputBus
+            engine.connect(fromNode.avAudioNode, to: engine.mainMixerNode, fromBus: bus, toBus: toBus, format: nil)
+            self.connections.append(Connection(from: (node, bus), to: (Node.mainMixerID, toBus)))
+        }
         self.connectionsChanged()
     }
     
     public func disconnect(inputBus: AVAudioNodeBus, ofNode nodeID: Node.ID) throws {
         guard
-            let node = nodeMap[nodeID]
+            let node = nodeTable[nodeID]
         else { throw Error.nodeNotFound }
-        engine.disconnectNodeInput(node.avAudioNode, bus: inputBus)
-        self.connections.removeAll { ($0.to.node, $0.to.bus) == (nodeID, inputBus) }
+        nodeGraphSyncQueue.sync {
+            engine.disconnectNodeInput(node.avAudioNode, bus: inputBus)
+            self.connections.removeAll { ($0.to.node, $0.to.bus) == (nodeID, inputBus) }
+        }
         self.connectionsChanged()
     }
     
     public func delete(node id: NodeID) {
-        guard let node = self.nodeMap[id] else { return }
-        self.connections.removeAll { id == $0.from.node || id == $0.to.node }
-        engine.disconnectNodeInput(node.avAudioNode)
-        engine.disconnectNodeOutput(node.avAudioNode)
-        engine.detach(node.avAudioNode)
-        nodeMap.removeValue(forKey: id)
+        guard let node = self.nodeTable[id] else { return }
+        nodeGraphSyncQueue.sync {
+            self.connections.removeAll { id == $0.from.node || id == $0.to.node }
+            engine.disconnectNodeInput(node.avAudioNode)
+            engine.disconnectNodeOutput(node.avAudioNode)
+            engine.detach(node.avAudioNode)
+            nodeTable[id] = nil
+        }
         self.connectionsChanged()
     }
         
@@ -171,26 +199,30 @@ public class AudioSystem {
     public func findMixingHeadNode(forMixerInput ch: Int) -> AVAudioMixing? {
         // Assumption: the node immediately upstream of the mixer input will be the one we want if  it's available. If this turns out to not be the case, we may need to follow links upstream
         return self.connections.first { $0.to == Connection.Endpoint(node: Node.mainMixerID, bus: ch)
-        }.flatMap { self.nodeMap[$0.from.node]?.avAudioNode as? AVAudioMixing }
+        }.flatMap { self.nodeTable[$0.from.node]?.avAudioNode as? AVAudioMixing }
     }
 
     //MARK: internal methods for editing the node graph
     @discardableResult func add(node avAudioNode: AVAudioNode, withName name: String)  -> Node.ID {
-        let node = Node(name: name, avAudioNode: avAudioNode)
-        engine.attach(avAudioNode)
-        self.nodeMap[node.id] = node
-        return node.id
+        return nodeGraphSyncQueue.sync {
+            let node = Node(id: nodeTable.count, name: name, avAudioNode: avAudioNode)
+            engine.attach(avAudioNode)
+            self.add(node: node)
+            return node.id
+        }
     }
     
     func deleteAll() {
-        for (id, node) in nodeMap {
-            guard id != Node.mainMixerID && id != Node.mainOutputID else { continue }
-            engine.disconnectNodeInput(node.avAudioNode)
-            engine.disconnectNodeOutput(node.avAudioNode)
-            engine.detach(node.avAudioNode)
+        nodeGraphSyncQueue.sync {
+            for maybeNode in nodeTable {
+                guard let node = maybeNode, node.id != Node.mainMixerID && node.id != Node.mainOutputID else { continue }
+                engine.disconnectNodeInput(node.avAudioNode)
+                engine.disconnectNodeOutput(node.avAudioNode)
+                engine.detach(node.avAudioNode)
+            }
+            self.initNodeMap()
+            self.connections = []
         }
-        self.initNodeMap()
-        self.connections = []
     }
 
 }

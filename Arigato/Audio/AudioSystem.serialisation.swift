@@ -36,10 +36,13 @@ extension AudioSystem: Snapshottable {
     public var snapshot: Snapshot {
         get {
             // gather node state
-            let nodeSnapshots: [Node.Snapshot] = self.nodeMap.values.map { $0.snapshot }
+            let nodeSnapshots: [Node.Snapshot] = self.nodeTable.compactMap { $0?.snapshot }
                     
-            let manifestData = self.nodeMap.values.reduce(into: [AudioComponentDescription:[Node]]()) { (accum, node) in
-                if let au = node.avAudioNode as? AVAudioUnit {
+            let manifestData = self.nodeTable.reduce(into: [AudioComponentDescription:[Node]]()) { (accum, maybeNode) in
+                if
+                    let node = maybeNode,
+                    let au = node.avAudioNode as? AVAudioUnit
+                {
                     accum[au.audioComponentDescription] = (accum[au.audioComponentDescription] ?? []) + [node]
                 }
             }
@@ -80,18 +83,20 @@ extension AudioSystem: Snapshottable {
         })
         
         nodesFuture.onSuccess { (nodeData: [(Node.Snapshot, AVAudioUnit)]) in
+            let maxNodeID = (nodeData.map { $0.0.id }).max() ?? self.nodeTable.count
+            self.nodeTable.append(contentsOf: (0...(maxNodeID-self.nodeTable.count)).map { _ in nil })
             for (nodeState,  avau) in nodeData {
                 let node = Node(id: nodeState.id, name: nodeState.name, avAudioNode: avau)
                 self.engine.attach(avau)
-                self.nodeMap[node.id] = node
+                self.nodeTable[node.id] = node
             }
         }
         
         // wire all nodes together
         for conn in state.connections {
             guard
-                let fromNode = nodeMap[conn.from.node],
-                let toNode = nodeMap[conn.to.node]
+                let fromNode = nodeTable[conn.from.node],
+                let toNode = nodeTable[conn.to.node]
             else { continue }
 
             engine.connect(fromNode.avAudioNode, to: toNode.avAudioNode, fromBus: conn.from.bus, toBus: conn.to.bus, format: nil)

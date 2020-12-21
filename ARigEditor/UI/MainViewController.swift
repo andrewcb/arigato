@@ -204,7 +204,7 @@ extension MainViewController: GraphViewDelegate {
     }
     
     func rename(node id: Int, to newTitle: String) {
-        document?.audioSystem.nodeMap[id]?.name = newTitle
+        document?.audioSystem.nodeTable[id]?.name = newTitle
         self.graphView.reloadData()
     }
     
