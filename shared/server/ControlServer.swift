@@ -75,7 +75,7 @@ class ControlServer {
         var retriesLeft = 16
         while (tcpCh == nil && retriesLeft>0) {
             do {
-                tcpCh = try bootstrapTCP.bind(host: host, port: port).wait()
+                tcpCh = try bootstrapTCP.bind(host: host, port: self.port).wait()
             } catch  {
                 self.port += 1
                 retriesLeft -=  1
