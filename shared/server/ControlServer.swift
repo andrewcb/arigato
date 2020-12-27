@@ -17,10 +17,11 @@ class ControlServer {
     let eventLoopGroup: EventLoopGroup
     let bootstrapTCP: ServerBootstrap
     let channelTCP: Channel
-//    let bootstrapUDP: ServerBootstrap
-//    let channelUDP: Channel
+    let bootstrapUDP: DatagramBootstrap
+    let channelUDP: Channel
     
     var queryHandler: QueryHandling = QueryHandler()
+    var udpPacketHandler: UDPPacketHandler? = nil
     
     // the query type
     enum TCPQuery {
@@ -46,6 +47,7 @@ class ControlServer {
     var audioSystem: AudioSystem? = nil {
         didSet {
             (self.queryHandler as? QueryHandler)?.audioSystem = self.audioSystem
+            self.udpPacketHandler?.target = self.audioSystem
         }
     }
 
@@ -71,24 +73,36 @@ class ControlServer {
             .childChannelOption(ChannelOptions.maxMessagesPerRead, value: 16)
             .childChannelOption(ChannelOptions.recvAllocator, value: AdaptiveRecvByteBufferAllocator())
         
-        var tcpCh: Channel? = nil
-        var retriesLeft = 16
-        while (tcpCh == nil && retriesLeft>0) {
+        let udpPacketHandler = UDPPacketHandler()
+        bootstrapUDP = DatagramBootstrap(group: eventLoopGroup)
+            .channelOption(ChannelOptions.socketOption(.so_reuseaddr), value: 1)
+            .channelInitializer { channel -> EventLoopFuture<Void> in
+                channel.pipeline.addHandler(udpPacketHandler)
+            }
+        self.udpPacketHandler = udpPacketHandler
+        
+        var tcpCh: Channel? = nil,  udpCh: Channel? = nil
+        var retriesLeft = 256
+        while ((tcpCh == nil || udpCh == nil) && retriesLeft>0) {
             do {
                 tcpCh = try bootstrapTCP.bind(host: host, port: self.port).wait()
+                udpCh = try bootstrapUDP.bind(host: host, port: self.port).wait()
             } catch  {
+                tcpCh?.close()
                 self.port += 1
                 retriesLeft -=  1
                 if retriesLeft < 1 { throw error }
             }
         }
         self.channelTCP = tcpCh!
+        self.channelUDP = udpCh!
         
         tcpQueryHandler.queryHandler = self.queryHandler
     }
     
     func shutDown() throws {
         try channelTCP.close().wait()
+        try channelUDP.close().wait()
     }
 }
 
