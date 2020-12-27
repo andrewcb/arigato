@@ -18,6 +18,9 @@ fileprivate struct Parser<A> {
         self.run = run
     }
 }
+fileprivate let end = Parser<()> { str in
+    return str.isEmpty ? () : nil
+}
 fileprivate let int = Parser<Int> { str in
     let prefix = str.hasPrefix("-") ? "-"+(str.dropFirst().prefix(while: { $0.isNumber }))  : str.prefix(while: { $0.isNumber })
     guard let match = Int(prefix) else { return nil }
@@ -152,6 +155,32 @@ fileprivate func zip<A, B, C, D, E, F>(
   return zip(a, zip(b, c, d, e, f))
     .map { a, bcdef in (a, bcdef.0, bcdef.1, bcdef.2, bcdef.3, bcdef.4) }
 }
+fileprivate func zip<A, B, C, D, E, F, G>(
+  _ a: Parser<A>,
+  _ b: Parser<B>,
+  _ c: Parser<C>,
+  _ d: Parser<D>,
+  _ e: Parser<E>,
+  _ f: Parser<F>,
+  _ g: Parser<G>
+  ) -> Parser<(A, B, C, D, E, F, G)> {
+  return zip(a, zip(b, c, d, e, f, g))
+    .map { a, bcdefg in (a, bcdefg.0, bcdefg.1, bcdefg.2, bcdefg.3, bcdefg.4, bcdefg.5) }
+}
+fileprivate func zip<A, B, C, D, E, F, G, H>(
+  _ a: Parser<A>,
+  _ b: Parser<B>,
+  _ c: Parser<C>,
+  _ d: Parser<D>,
+  _ e: Parser<E>,
+  _ f: Parser<F>,
+  _ g: Parser<G>,
+  _ h: Parser<H>
+  ) -> Parser<(A, B, C, D, E, F, G, H)> {
+  return zip(a, zip(b, c, d, e, f, g, h))
+    .map { a, bcdefgh in (a, bcdefgh.0, bcdefgh.1, bcdefgh.2, bcdefgh.3, bcdefgh.4, bcdefgh.5, bcdefgh.6 ) }
+}
+
 fileprivate let zeroOrMoreSpaces = prefix(while: { $0 == " " })
     .map { _ in () }
 fileprivate let oneOrMoreSpaces = prefix(while: { $0 == " " })
@@ -167,8 +196,8 @@ fileprivate extension Parser {
 
 func parse(query: String) -> ControlServer.TCPQuery? {
     let parser = oneOf([
-        (zip(literal("ls"), oneOrMoreSpaces, literal("nodes["), int, literal("].params"))).map { (_, _, _, id, _) in ControlServer.TCPQuery.listParametersForNode(id)},
-        (zip(literal("ls"), oneOrMoreSpaces, literal("nodes"))).map { (_, _, _) in ControlServer.TCPQuery.listNodes}
+        (zip(literal("ls"), oneOrMoreSpaces, literal("nodes["), int, literal("].params"), zeroOrMoreSpaces, end)).map { (_, _, _, id, _, _, _) in ControlServer.TCPQuery.listParametersForNode(id)},
+        (zip(literal("ls"), oneOrMoreSpaces, literal("nodes"), zeroOrMoreSpaces, end)).map { (_, _, _, _, _) in ControlServer.TCPQuery.listNodes}
     ])
     return parser.run(query).0
 }
