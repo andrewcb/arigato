@@ -9,6 +9,12 @@
 import Cocoa
 
 class RemoteSelectorButton: NSView {
+    enum State {
+        case inactive
+        case active(onPort:Int)
+        case error
+    }
+    
     override var intrinsicContentSize: NSSize  { return NSSize(width: 20, height: 20)}
     
     override func awakeFromNib() {
@@ -17,7 +23,7 @@ class RemoteSelectorButton: NSView {
         self.addGestureRecognizer(recognizer)
     }
     
-    var isActive: Bool = false {
+    var state: State  = .inactive {
         didSet {
             self.needsDisplay = true
         }
@@ -37,7 +43,12 @@ class RemoteSelectorButton: NSView {
         let ctx = NSGraphicsContext.current
         //NSPoint(x: 0, y: 0)
         let x1=0, y1=0, x2=self.frame.size.width-1, y2=self.frame.size.height-1, mx=x2/2, my=y2/2
-        let color = (isActive ? NSColor.black : NSColor.lightGray)
+        let color: NSColor // = (isActive ? NSColor.black : NSColor.lightGray)
+        switch(self.state) {
+        case .inactive: color = .lightGray
+        case .active: color = .black
+        case .error: color = .red
+        }
         color.setStroke()
         color.setFill()
         let path  = NSBezierPath()
@@ -77,6 +88,17 @@ class RemoteSelectorButton: NSView {
         
         path.appendOval(in: NSRect(x: mx-1, y:y2-topClearance-1, width:2, height:2))
         path.fill()
+        
+        if case let .active(onPort: port) = self.state {
+            let str = NSString(string:"\(port)")
+            str.draw(
+                in: NSRect(x: 0, y:0, width: self.frame.size.width, height: self.frame.size.height/2),
+                withAttributes: [
+                    NSAttributedString.Key.font : NSFont.systemFont(ofSize: 6),
+                    NSAttributedString.Key.backgroundColor: NSColor.white
+            ])
+            
+        }
     }
     
     @objc func clicked(_ recognizer: NSClickGestureRecognizer) {

@@ -102,10 +102,12 @@ class MainViewController: NSViewController {
                 self.controlServer = try? ControlServer()
                 print("Listening on \(self.controlServer?.port)")
                 self.controlServer?.audioSystem = self.document?.audioSystem
+                self.remoteSelectorButton.state = (self.controlServer?.port).map { .active(onPort: $0) } ?? .error
             } else {
                 print("Shutting down control server")
                 try? self.controlServer?.shutDown()
                 self.controlServer = nil
+                self.remoteSelectorButton.state = .inactive
             }
         }
     }
