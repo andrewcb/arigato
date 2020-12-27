@@ -9,6 +9,24 @@
 import Foundation
 import AVFoundation
 
+protocol NodeIDRemappable {
+    func withIDRemapped(using table: [AudioSystem.Node.ID?]) -> Self
+}
+
+extension AudioSystem.Node: NodeIDRemappable {
+    func withIDRemapped(using table: [AudioSystem.Node.ID?]) -> AudioSystem.Node {
+        return AudioSystem.Node(id: table[self.id]!, name: self.name, avAudioNode: self.avAudioNode)
+    }
+}
+
+extension AudioSystem.Connection: NodeIDRemappable {
+    func withIDRemapped(using table: [AudioSystem.Node.ID?]) -> AudioSystem.Connection {
+        return AudioSystem.Connection(
+            from: (table[self.from.node]!, self.from.bus),
+            to: (table[self.to.node]!, self.to.bus))
+    }
+}
+
 extension AudioSystem: Snapshottable {
     
     public struct Snapshot {
