@@ -3,10 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4407FFA9258E486F002EB638 /* ControlServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFA8258E486E002EB638 /* ControlServer.swift */; };
+		4407FFAC258E4CE1002EB638 /* NIO in Frameworks */ = {isa = PBXBuildFile; productRef = 4407FFAB258E4CE1002EB638 /* NIO */; };
+		4407FFB0258E5F5D002EB638 /* LineDelimiterCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFAF258E5F5D002EB638 /* LineDelimiterCodec.swift */; };
+		4407FFB2258E6013002EB638 /* TCPQueryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFB1258E6013002EB638 /* TCPQueryHandler.swift */; };
+		4407FFB5258E6676002EB638 /* QueryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFB4258E6676002EB638 /* QueryHandler.swift */; };
+		4407FFB8258FAB7A002EB638 /* Sequence+compacting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFB7258FAB7A002EB638 /* Sequence+compacting.swift */; };
+		4407FFB9258FAB7A002EB638 /* Sequence+compacting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFB7258FAB7A002EB638 /* Sequence+compacting.swift */; };
+		4407FFBC2592A8FB002EB638 /* RemoteSelectorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFBB2592A8FB002EB638 /* RemoteSelectorButton.swift */; };
 		4414B9C4246D958000619B74 /* AudioSystemSerialisationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9C3246D958000619B74 /* AudioSystemSerialisationTests.swift */; };
 		4414B9C8246F4FA000619B74 /* ARigEditorDocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9C7246F4FA000619B74 /* ARigEditorDocumentController.swift */; };
 		4414B9CA24703B3F00619B74 /* MIDIComputerKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9C924703B3F00619B74 /* MIDIComputerKeyboardView.swift */; };
@@ -87,6 +95,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4407FFA8258E486E002EB638 /* ControlServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlServer.swift; sourceTree = "<group>"; };
+		4407FFAF258E5F5D002EB638 /* LineDelimiterCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineDelimiterCodec.swift; sourceTree = "<group>"; };
+		4407FFB1258E6013002EB638 /* TCPQueryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPQueryHandler.swift; sourceTree = "<group>"; };
+		4407FFB4258E6676002EB638 /* QueryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryHandler.swift; sourceTree = "<group>"; };
+		4407FFB7258FAB7A002EB638 /* Sequence+compacting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+compacting.swift"; sourceTree = "<group>"; };
+		4407FFBB2592A8FB002EB638 /* RemoteSelectorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSelectorButton.swift; sourceTree = "<group>"; };
 		4414B9C3246D958000619B74 /* AudioSystemSerialisationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSystemSerialisationTests.swift; sourceTree = "<group>"; };
 		4414B9C7246F4FA000619B74 /* ARigEditorDocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARigEditorDocumentController.swift; sourceTree = "<group>"; };
 		4414B9C924703B3F00619B74 /* MIDIComputerKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIComputerKeyboardView.swift; sourceTree = "<group>"; };
@@ -165,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4407FFAC258E4CE1002EB638 /* NIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +193,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4407FFA6258E4283002EB638 /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				4407FFA7258E42F2002EB638 /* server */,
+			);
+			path = shared;
+			sourceTree = "<group>";
+		};
+		4407FFA7258E42F2002EB638 /* server */ = {
+			isa = PBXGroup;
+			children = (
+				4407FFB3258E664E002EB638 /* model */,
+				4407FFAD258E5F26002EB638 /* TCP */,
+				4407FFAE258E5F33002EB638 /* UDP */,
+				4407FFA8258E486E002EB638 /* ControlServer.swift */,
+			);
+			path = server;
+			sourceTree = "<group>";
+		};
+		4407FFAD258E5F26002EB638 /* TCP */ = {
+			isa = PBXGroup;
+			children = (
+				4407FFAF258E5F5D002EB638 /* LineDelimiterCodec.swift */,
+				4407FFB1258E6013002EB638 /* TCPQueryHandler.swift */,
+			);
+			path = TCP;
+			sourceTree = "<group>";
+		};
+		4407FFAE258E5F33002EB638 /* UDP */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UDP;
+			sourceTree = "<group>";
+		};
+		4407FFB3258E664E002EB638 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				4407FFB4258E6676002EB638 /* QueryHandler.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		4407FFB6258FAB56002EB638 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4407FFB7258FAB7A002EB638 /* Sequence+compacting.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		4414B9CB2479617500619B74 /* Export */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +291,7 @@
 			children = (
 				44FC2764244DEA360003446F /* Arigato */,
 				44FC276F244DEA360003446F /* ArigatoTests */,
+				4407FFA6258E4283002EB638 /* shared */,
 				44FC279A24524AE10003446F /* ARigEditor */,
 				44FC27AF24524AE50003446F /* ARigEditorTests */,
 				44FC2763244DEA360003446F /* Products */,
@@ -283,6 +350,7 @@
 		44FC277F244DF7380003446F /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				4407FFB6258FAB56002EB638 /* extensions */,
 				44FC2780244DF73D0003446F /* Protocols */,
 				44FC2788244DF9480003446F /* FourCC.swift */,
 				44FC2791244E5AB90003446F /* Future.swift */,
@@ -391,6 +459,7 @@
 			children = (
 				44FC27CD245318500003446F /* KeyboardCommittableTextField.swift */,
 				44FC27CF245318810003446F /* MixerNodeSlider.swift */,
+				4407FFBB2592A8FB002EB638 /* RemoteSelectorButton.swift */,
 			);
 			path = controls;
 			sourceTree = "<group>";
@@ -536,6 +605,9 @@
 			dependencies = (
 			);
 			name = ARigEditor;
+			packageProductDependencies = (
+				4407FFAB258E4CE1002EB638 /* NIO */,
+			);
 			productName = ARigEditor;
 			productReference = 44FC279924524AE10003446F /* ARigEditor.app */;
 			productType = "com.apple.product-type.application";
@@ -593,6 +665,9 @@
 				Base,
 			);
 			mainGroup = 44FC2758244DEA360003446F;
+			packageReferences = (
+				4407FFAA258E4CE1002EB638 /* XCRemoteSwiftPackageReference "swift-nio" */,
+			);
 			productRefGroup = 44FC2763244DEA360003446F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -666,6 +741,7 @@
 			files = (
 				44FC27D52453220B0003446F /* AudioUnitComponent.swift in Sources */,
 				44FC9A24248160CA00F158F1 /* Helpers.swift in Sources */,
+				4407FFB8258FAB7A002EB638 /* Sequence+compacting.swift in Sources */,
 				44FC2792244E5AB90003446F /* Future.swift in Sources */,
 				44FC2789244DF9480003446F /* FourCC.swift in Sources */,
 				44FC2794244E5CEE0003446F /* AudioUnitPreset.swift in Sources */,
@@ -705,6 +781,7 @@
 				44FC27E52458E9E10003446F /* AudioComponentDescription+.swift in Sources */,
 				44FC27E22458E9A30003446F /* Snapshottable.swift in Sources */,
 				4414B9CD247961A000619B74 /* PlaygroundExporter.swift in Sources */,
+				4407FFB2258E6013002EB638 /* TCPQueryHandler.swift in Sources */,
 				44FC27E42458E9A70003446F /* Future.swift in Sources */,
 				4490FCAE245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift in Sources */,
 				44FC27CA245313B50003446F /* MixerGraphNodeView.swift in Sources */,
@@ -716,13 +793,16 @@
 				44FC279C24524AE10003446F /* AppDelegate.swift in Sources */,
 				44FC27D0245318810003446F /* MixerNodeSlider.swift in Sources */,
 				4414B9C8246F4FA000619B74 /* ARigEditorDocumentController.swift in Sources */,
+				4407FFB0258E5F5D002EB638 /* LineDelimiterCodec.swift in Sources */,
 				44FC27E12458E9990003446F /* AudioUnitComponent.swift in Sources */,
 				44FC27CC245313FA0003446F /* NSColor+application.swift in Sources */,
 				44FC27E32458E9A70003446F /* FourCC.swift in Sources */,
 				4490FCAC245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift in Sources */,
 				44FC27DD2458E96A0003446F /* NodeInterfaceManager.swift in Sources */,
+				4407FFBC2592A8FB002EB638 /* RemoteSelectorButton.swift in Sources */,
 				44FC27DE2458E9900003446F /* AudioSystem.swift in Sources */,
 				44FC27A024524AE10003446F /* ARigDocument.swift in Sources */,
+				4407FFA9258E486F002EB638 /* ControlServer.swift in Sources */,
 				44FC27C8245313860003446F /* GenericGraphNodeView.swift in Sources */,
 				44FC27C32453053E0003446F /* GraphView.swift in Sources */,
 				44FC27C5245312230003446F /* CocoaExtensions.swift in Sources */,
@@ -730,6 +810,8 @@
 				44FC9A2A2483FAA300F158F1 /* Zoom.swift in Sources */,
 				44FC9A212480112E00F158F1 /* NodeInterfaceContainerViewController.swift in Sources */,
 				4490FCB124670344009C2729 /* NodeParameterEditorViewController.swift in Sources */,
+				4407FFB5258E6676002EB638 /* QueryHandler.swift in Sources */,
+				4407FFB9258FAB7A002EB638 /* Sequence+compacting.swift in Sources */,
 				44FC9A2D248D2FDE00F158F1 /* MIDIInputHandler.swift in Sources */,
 				44FC9A272481BBC700F158F1 /* Notification+application.swift in Sources */,
 			);
@@ -1115,6 +1197,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4407FFAA258E4CE1002EB638 /* XCRemoteSwiftPackageReference "swift-nio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-nio.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.25.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4407FFAB258E4CE1002EB638 /* NIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4407FFAA258E4CE1002EB638 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 44FC2759244DEA360003446F /* Project object */;
 }

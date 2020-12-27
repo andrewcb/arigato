@@ -299,14 +299,14 @@
                                 </constraints>
                             </customView>
                             <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FiF-Nd-cim">
-                                <rect key="frame" x="0.0" y="64" width="480" height="182"/>
+                                <rect key="frame" x="0.0" y="66" width="480" height="180"/>
                                 <subviews>
                                     <customView id="oHJ-Xn-g07">
-                                        <rect key="frame" x="0.0" y="0.0" width="134" height="182"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="134" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="WQo-Eh-mdw">
-                                                <rect key="frame" x="0.0" y="0.0" width="134" height="182"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="134" height="180"/>
                                                 <connections>
                                                     <segue destination="pez-58-Ucd" kind="embed" id="yMe-Dx-bX0"/>
                                                 </connections>
@@ -320,24 +320,24 @@
                                         </constraints>
                                     </customView>
                                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="Qyf-2p-FIR">
-                                        <rect key="frame" x="135" y="0.0" width="345" height="182"/>
+                                        <rect key="frame" x="135" y="0.0" width="345" height="180"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" id="bru-Dh-R94">
-                                            <rect key="frame" x="1" y="1" width="343" height="180"/>
+                                            <rect key="frame" x="1" y="1" width="343" height="178"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <view id="Nu4-T6-CaE" customClass="GraphView" customModule="ARigEditor" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="328" height="165"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="328" height="163"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="pGs-qN-Zkv">
-                                            <rect key="frame" x="1" y="165" width="343" height="16"/>
+                                            <rect key="frame" x="1" y="163" width="343" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="NzY-oV-R2d">
-                                            <rect key="frame" x="328" y="1" width="16" height="180"/>
+                                            <rect key="frame" x="328" y="1" width="16" height="178"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -355,15 +355,24 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="he4-bU-jCX" customClass="RemoteSelectorButton" customModule="ARigEditor" customModuleProvider="target">
+                                <rect key="frame" x="426" y="248" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="he4-bU-jCX" secondAttribute="height" multiplier="1:1" id="eOU-96-K1E"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Lbk-AS-FNK" firstAttribute="top" secondItem="FiF-Nd-cim" secondAttribute="bottom" id="26U-80-ARL"/>
+                            <constraint firstItem="Lbk-AS-FNK" firstAttribute="top" secondItem="FiF-Nd-cim" secondAttribute="bottom" constant="2" id="26U-80-ARL"/>
                             <constraint firstAttribute="bottom" secondItem="Lbk-AS-FNK" secondAttribute="bottom" id="3zY-ZS-dbN"/>
+                            <constraint firstItem="FiF-Nd-cim" firstAttribute="top" secondItem="he4-bU-jCX" secondAttribute="bottom" constant="2" id="9PC-U4-43e"/>
+                            <constraint firstItem="he4-bU-jCX" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="2" id="DN1-2v-uLs"/>
                             <constraint firstItem="FiF-Nd-cim" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="ZZJ-92-ecI"/>
                             <constraint firstAttribute="trailing" secondItem="ARV-tq-pJT" secondAttribute="trailing" constant="8" id="aC7-v1-nil"/>
                             <constraint firstAttribute="trailing" secondItem="FiF-Nd-cim" secondAttribute="trailing" id="bj8-vU-8se"/>
                             <constraint firstItem="Lbk-AS-FNK" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="f05-cN-ugk"/>
                             <constraint firstItem="FiF-Nd-cim" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="24" id="fUR-5g-eug"/>
+                            <constraint firstItem="ARV-tq-pJT" firstAttribute="leading" secondItem="he4-bU-jCX" secondAttribute="trailing" constant="10" id="foF-bn-QnF"/>
                             <constraint firstAttribute="trailing" secondItem="Lbk-AS-FNK" secondAttribute="trailing" id="kky-Ii-RbT"/>
                             <constraint firstItem="ARV-tq-pJT" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="2" id="lfU-kO-YFC"/>
                         </constraints>
@@ -371,6 +380,7 @@
                     <connections>
                         <outlet property="graphView" destination="Nu4-T6-CaE" id="M7V-Pa-QHD"/>
                         <outlet property="midiInputIndicatorView" destination="ARV-tq-pJT" id="rI6-ap-QXU"/>
+                        <outlet property="remoteSelectorButton" destination="he4-bU-jCX" id="dPq-3w-quD"/>
                         <outlet property="selectedNodeDetailContainerView" destination="9fo-Wv-IFM" id="oUN-y7-VGn"/>
                     </connections>
                 </viewController>
