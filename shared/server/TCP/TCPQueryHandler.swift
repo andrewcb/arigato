@@ -22,14 +22,15 @@ final class TCPQueryHandler: ChannelInboundHandler {
         let line = inb.getString(at: 0, length: inb.readableBytes) ?? ""
         let sp = line.split(separator: " ", maxSplits: 1)
         
-        let query  = ControlServer.TCPQuery.listNodes // FIXME: parse this
-        
-        
-        guard
-            let result = queryHandler?.handle(query: query)
-        else {
-            print("No query handler set")
-            return
+        //let query  = ControlServer.TCPQuery.listNodes // FIXME: parse this
+        let result: ControlServer.TCPQueryResponse
+        if
+            let queryHandler = queryHandler,
+            let query = parse(query: line)
+        {
+            result = queryHandler.handle(query: query)
+        } else {
+            result = .failure("Invalid query")
         }
         //ControlServer.TCPQueryResponse.success(.nodes([ControlServer.TCPQueryResponse.ResultValue.NodeInfo(id: 23, name: "test")]))
         
