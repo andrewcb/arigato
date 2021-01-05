@@ -51,7 +51,7 @@ class ControlServer {
         }
     }
 
-    init(host: String = "::1", port: Int = 6666) throws {
+    init(host: String = "::1", port: Int) throws {
         self.host = host
         self.port = port
         

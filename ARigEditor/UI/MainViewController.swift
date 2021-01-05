@@ -99,7 +99,7 @@ class MainViewController: NSViewController {
         
         self.remoteSelectorButton.onClick = {
             if self.controlServer == nil {
-                self.controlServer = try? ControlServer()
+                self.controlServer = try? ControlServer(port: 9900)
                 print("Listening on \(self.controlServer?.port)")
                 self.controlServer?.audioSystem = self.document?.audioSystem
                 self.remoteSelectorButton.state = (self.controlServer?.port).map { .active(onPort: $0) } ?? .error
