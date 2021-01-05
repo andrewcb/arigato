@@ -104,6 +104,10 @@ class ControlServer {
         try channelTCP.close().wait()
         try channelUDP.close().wait()
     }
+    
+    var closeFuture: EventLoopFuture<Void>  {
+        return channelTCP.closeFuture.and(channelUDP.closeFuture).map { _ in () }
+    }
 }
 
 extension ControlServer.TCPQueryResponse.ResultValue.NodeInfo: Encodable {
