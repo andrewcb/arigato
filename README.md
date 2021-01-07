@@ -1,5 +1,5 @@
 #  Arigato
-Arigato is a lightweight, unopinionated system for preparing configurations of AudioUnit plugins such as software synthesisers and audio effects for scripting with code.
+Arigato is a lightweight, unopinionated system for preparing configurations of AudioUnit plugins such as software synthesisers and audio effects for scripting with code. It consists of an editor for setting up AudioUnit networks and a Swift library for loading and making them available (that is usable from within Xcode Playgrounds). For situations in which Swift code is not useful (such as use from other languages), there is a (currently experimental and limited) TCP/UDP-based remote protocol, with a command-line-based server.
 
 ## The problem
 
@@ -43,11 +43,19 @@ DispatchQueue.global().async {
 PlaygroundPage.current.needsIndefiniteExecution = true
 ```
 
-One thing to note is that this script is asynchronous, and runs on multiple threads, keeping time by pausing the current thread (with the `sleep(for:)` function). As such, it would be possible to add other voices, or processes controlling parameters, by  adding other dispatch queues.
+One thing to note is that this script is asynchronous, and runs on multiple threads, keeping time by pausing the current thread (with the `sleep(for:)` function). As such, it would be possible to add other voices, or processes controlling parameters, by adding other dispatch queues.
+
+##The remote protocol
+
+Another way to use Arigato is as a server that loads an AudioUnit network, listens for commands on a network port and sends MIDI events to the AudioUnit network. This can be done with the `arighost` command-line utility, which is started with the pathname of a `.arig` file to load. Alternatively, any document in `ARigEditor` can listen for and respond to network connections, if activated using the antenna button in the top right of the window. When active, this shows the port it is listening on.
+
+The remote protocol is actually two protocols: a TCP-based query protocol, for looking up node IDs, and a UDP packet-based protocol for sending events to be played. The UDP protocol is a binary protocol, which uses integer node IDs, not guaranteed to remain constant between sessions, to identify nodes; as nodes are identified by names,  the TCP protocol is used to obtain a list of nodes.
+
+For more information, see the `RemoteProtocol.md` document in the `doc` directory.
 
 ## Future directions
 
-Given Arigato's use case, it would be useful to develop bindings for it for various other languages, such as, for example, Python, JavaScript or various Lisp/Scheme dialects. These would allow scripts written in those languages to make use of AudioUnit networks authored with it, opening up the use of AudioUnit components to users of those languages, and the possibilities for its use in creative coding environments other than Xcode Playgrounds.
+Given Arigato's use case, it would be useful to develop bindings for it for various other languages, such as, for example, Python, JavaScript or various Lisp/Scheme dialects. These would allow scripts written in those languages to make use of AudioUnit networks authored with it, opening up the use of AudioUnit components to users of those languages, and the possibilities for its use in creative coding environments other than Xcode Playgrounds. Alternatively, libraries in other languages which communicate with an Arigato server using the remote protocol could be created.
 
 The ARig format is currently a single flat file, containing AudioUnit network data and the serialised state of each component. This does not store, for example, audio files or samples played by components such as  Apple's `AUAudioFilePlayer` and `AUSampler`. In future, it may be useful to have a bundle/directory format, which can store the AudioUnit network information as present as well as assets used by various components, allowing networks to be built containing pre-packaged audio files and sampler data in SoundFont format.
 
