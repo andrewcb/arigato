@@ -16,6 +16,7 @@ class MainViewController: NSViewController {
     @IBOutlet var graphView: GraphView!
     @IBOutlet var selectedNodeDetailContainerView: NSView!
     @IBOutlet var midiInputIndicatorView: NSView!
+    @IBOutlet var remoteSelectorButton: RemoteSelectorButton!
     
     let nodeInterfaceManager  = NodeInterfaceManager()
 
@@ -67,6 +68,8 @@ class MainViewController: NSViewController {
     
     var keystrokeReceiverChain: [KeystrokeReceiver] = []
 
+    // each window owns its own control server
+    var controlServer: ControlServer? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +96,20 @@ class MainViewController: NSViewController {
         nodeInterfaceManager.keystrokeRelayingTarget =  self
         
         self.midiInputIndicatorView.wantsLayer = true
+        
+        self.remoteSelectorButton.onClick = {
+            if self.controlServer == nil {
+                self.controlServer = try? ControlServer(port: 9900)
+                print("Listening on \(self.controlServer?.port)")
+                self.controlServer?.audioSystem = self.document?.audioSystem
+                self.remoteSelectorButton.state = (self.controlServer?.port).map { .active(onPort: $0) } ?? .error
+            } else {
+                print("Shutting down control server")
+                try? self.controlServer?.shutDown()
+                self.controlServer = nil
+                self.remoteSelectorButton.state = .inactive
+            }
+        }
     }
 
     override func viewWillAppear() {
@@ -102,6 +119,7 @@ class MainViewController: NSViewController {
     
     override func viewWillDisappear() {
         NotificationCenter.default.removeObserver(self)
+        try? self.controlServer?.shutDown()
     }
     
     override func viewDidLayout() {
@@ -204,7 +222,7 @@ extension MainViewController: GraphViewDelegate {
     }
     
     func rename(node id: Int, to newTitle: String) {
-        document?.audioSystem.nodeMap[id]?.name = newTitle
+        document?.audioSystem.nodeTable[id]?.name = newTitle
         self.graphView.reloadData()
     }
     

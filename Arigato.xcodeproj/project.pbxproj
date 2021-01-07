@@ -3,15 +3,44 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4407FFA9258E486F002EB638 /* ControlServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFA8258E486E002EB638 /* ControlServer.swift */; };
+		4407FFAC258E4CE1002EB638 /* NIO in Frameworks */ = {isa = PBXBuildFile; productRef = 4407FFAB258E4CE1002EB638 /* NIO */; };
+		4407FFB0258E5F5D002EB638 /* LineDelimiterCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFAF258E5F5D002EB638 /* LineDelimiterCodec.swift */; };
+		4407FFB2258E6013002EB638 /* TCPQueryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFB1258E6013002EB638 /* TCPQueryHandler.swift */; };
+		4407FFB5258E6676002EB638 /* QueryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFB4258E6676002EB638 /* QueryHandler.swift */; };
+		4407FFB8258FAB7A002EB638 /* Sequence+compacting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFB7258FAB7A002EB638 /* Sequence+compacting.swift */; };
+		4407FFB9258FAB7A002EB638 /* Sequence+compacting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFB7258FAB7A002EB638 /* Sequence+compacting.swift */; };
+		4407FFBC2592A8FB002EB638 /* RemoteSelectorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFBB2592A8FB002EB638 /* RemoteSelectorButton.swift */; };
+		4407FFC0259811E9002EB638 /* QueryParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFBF259811E9002EB638 /* QueryParsing.swift */; };
+		4407FFC22598BCB2002EB638 /* UDPPacketHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFC12598BCB2002EB638 /* UDPPacketHandler.swift */; };
 		4414B9C4246D958000619B74 /* AudioSystemSerialisationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9C3246D958000619B74 /* AudioSystemSerialisationTests.swift */; };
 		4414B9C8246F4FA000619B74 /* ARigEditorDocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9C7246F4FA000619B74 /* ARigEditorDocumentController.swift */; };
 		4414B9CA24703B3F00619B74 /* MIDIComputerKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9C924703B3F00619B74 /* MIDIComputerKeyboardView.swift */; };
 		4414B9CD247961A000619B74 /* PlaygroundExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9CC247961A000619B74 /* PlaygroundExporter.swift */; };
 		4414B9D22479636A00619B74 /* ExportPlaygroundOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B9D12479636A00619B74 /* ExportPlaygroundOptionsViewController.swift */; };
+		441AE97D25A0ADAE00951C0B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441AE97C25A0ADAE00951C0B /* main.swift */; };
+		441AE98A25A0AF3A00951C0B /* NIO in Frameworks */ = {isa = PBXBuildFile; productRef = 441AE98925A0AF3A00951C0B /* NIO */; };
+		441AE98C25A0CCED00951C0B /* ControlServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFA8258E486E002EB638 /* ControlServer.swift */; };
+		441AE98D25A0CCF000951C0B /* UDPPacketHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFC12598BCB2002EB638 /* UDPPacketHandler.swift */; };
+		441AE98E25A0CCF300951C0B /* TCPQueryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFB1258E6013002EB638 /* TCPQueryHandler.swift */; };
+		441AE98F25A0CCF500951C0B /* LineDelimiterCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFAF258E5F5D002EB638 /* LineDelimiterCodec.swift */; };
+		441AE99025A0CCF800951C0B /* QueryParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFBF259811E9002EB638 /* QueryParsing.swift */; };
+		441AE99125A0CCFA00951C0B /* QueryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407FFB4258E6676002EB638 /* QueryHandler.swift */; };
+		441AE99225A0CD2200951C0B /* AudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC277D244DEB450003446F /* AudioSystem.swift */; };
+		441AE99325A0CD2500951C0B /* AudioSystem.serialisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2783244DF7960003446F /* AudioSystem.serialisation.swift */; };
+		441AE99425A0CD2800951C0B /* AudioUnitPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2793244E5CEE0003446F /* AudioUnitPreset.swift */; };
+		441AE99525A0CD2C00951C0B /* AudioUnitComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D42453220B0003446F /* AudioUnitComponent.swift */; };
+		441AE99725A0CD3100951C0B /* AVAudioNode+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC27D62453225D0003446F /* AVAudioNode+.swift */; };
+		441AE99825A0CD3B00951C0B /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2791244E5AB90003446F /* Future.swift */; };
+		441AE99925A0CD3F00951C0B /* FourCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2788244DF9480003446F /* FourCC.swift */; };
+		441AE99A25A0CD4600951C0B /* Snapshottable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2781244DF7570003446F /* Snapshottable.swift */; };
+		441AE99B25A0CEAA00951C0B /* AudioComponentDescription+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC2786244DF86F0003446F /* AudioComponentDescription+.swift */; };
+		441AE9A025A143B800951C0B /* ParserCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441AE99F25A143B800951C0B /* ParserCore.swift */; };
+		441AE9A125A143B900951C0B /* ParserCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441AE99F25A143B800951C0B /* ParserCore.swift */; };
 		4490FCAC245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */; };
 		4490FCAE245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */; };
 		4490FCB02466EA40009C2729 /* NodeParameterEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */; };
@@ -86,12 +115,36 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		441AE97825A0ADAE00951C0B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		4407FFA8258E486E002EB638 /* ControlServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlServer.swift; sourceTree = "<group>"; };
+		4407FFAF258E5F5D002EB638 /* LineDelimiterCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineDelimiterCodec.swift; sourceTree = "<group>"; };
+		4407FFB1258E6013002EB638 /* TCPQueryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPQueryHandler.swift; sourceTree = "<group>"; };
+		4407FFB4258E6676002EB638 /* QueryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryHandler.swift; sourceTree = "<group>"; };
+		4407FFB7258FAB7A002EB638 /* Sequence+compacting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+compacting.swift"; sourceTree = "<group>"; };
+		4407FFBB2592A8FB002EB638 /* RemoteSelectorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSelectorButton.swift; sourceTree = "<group>"; };
+		4407FFBF259811E9002EB638 /* QueryParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryParsing.swift; sourceTree = "<group>"; };
+		4407FFC12598BCB2002EB638 /* UDPPacketHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDPPacketHandler.swift; sourceTree = "<group>"; };
 		4414B9C3246D958000619B74 /* AudioSystemSerialisationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSystemSerialisationTests.swift; sourceTree = "<group>"; };
 		4414B9C7246F4FA000619B74 /* ARigEditorDocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARigEditorDocumentController.swift; sourceTree = "<group>"; };
 		4414B9C924703B3F00619B74 /* MIDIComputerKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIComputerKeyboardView.swift; sourceTree = "<group>"; };
 		4414B9CC247961A000619B74 /* PlaygroundExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundExporter.swift; sourceTree = "<group>"; };
 		4414B9D12479636A00619B74 /* ExportPlaygroundOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaygroundOptionsViewController.swift; sourceTree = "<group>"; };
+		441AE97A25A0ADAE00951C0B /* arighost */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = arighost; sourceTree = BUILT_PRODUCTS_DIR; };
+		441AE97C25A0ADAE00951C0B /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		441AE99C25A13EB100951C0B /* arighost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = arighost.entitlements; sourceTree = "<group>"; };
+		441AE99F25A143B800951C0B /* ParserCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserCore.swift; sourceTree = "<group>"; };
 		4490FCAB245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIKeyboardNodeDetailViewController.swift; sourceTree = "<group>"; };
 		4490FCAD245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeechNodeDetailViewController.swift; sourceTree = "<group>"; };
 		4490FCAF2466EA40009C2729 /* NodeParameterEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeParameterEditorViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +199,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		441AE97725A0ADAE00951C0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				441AE98A25A0AF3A00951C0B /* NIO in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44FC275F244DEA360003446F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -165,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4407FFAC258E4CE1002EB638 /* NIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +240,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4407FFA6258E4283002EB638 /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				441AE99D25A1434100951C0B /* utility */,
+				4407FFA7258E42F2002EB638 /* server */,
+			);
+			path = shared;
+			sourceTree = "<group>";
+		};
+		4407FFA7258E42F2002EB638 /* server */ = {
+			isa = PBXGroup;
+			children = (
+				4407FFB3258E664E002EB638 /* model */,
+				4407FFAD258E5F26002EB638 /* TCP */,
+				4407FFAE258E5F33002EB638 /* UDP */,
+				4407FFA8258E486E002EB638 /* ControlServer.swift */,
+			);
+			path = server;
+			sourceTree = "<group>";
+		};
+		4407FFAD258E5F26002EB638 /* TCP */ = {
+			isa = PBXGroup;
+			children = (
+				4407FFAF258E5F5D002EB638 /* LineDelimiterCodec.swift */,
+				4407FFB1258E6013002EB638 /* TCPQueryHandler.swift */,
+			);
+			path = TCP;
+			sourceTree = "<group>";
+		};
+		4407FFAE258E5F33002EB638 /* UDP */ = {
+			isa = PBXGroup;
+			children = (
+				4407FFC12598BCB2002EB638 /* UDPPacketHandler.swift */,
+			);
+			path = UDP;
+			sourceTree = "<group>";
+		};
+		4407FFB3258E664E002EB638 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				4407FFB4258E6676002EB638 /* QueryHandler.swift */,
+				4407FFBF259811E9002EB638 /* QueryParsing.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		4407FFB6258FAB56002EB638 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4407FFB7258FAB7A002EB638 /* Sequence+compacting.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		4414B9CB2479617500619B74 /* Export */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +326,31 @@
 			path = Export;
 			sourceTree = "<group>";
 		};
+		441AE97B25A0ADAE00951C0B /* arighost */ = {
+			isa = PBXGroup;
+			children = (
+				441AE99C25A13EB100951C0B /* arighost.entitlements */,
+				441AE97C25A0ADAE00951C0B /* main.swift */,
+			);
+			path = arighost;
+			sourceTree = "<group>";
+		};
+		441AE99D25A1434100951C0B /* utility */ = {
+			isa = PBXGroup;
+			children = (
+				441AE99E25A1434700951C0B /* parsing */,
+			);
+			path = utility;
+			sourceTree = "<group>";
+		};
+		441AE99E25A1434700951C0B /* parsing */ = {
+			isa = PBXGroup;
+			children = (
+				441AE99F25A143B800951C0B /* ParserCore.swift */,
+			);
+			path = parsing;
+			sourceTree = "<group>";
+		};
 		4490FCAA245E3B20009C2729 /* Node Detail Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,8 +366,10 @@
 			children = (
 				44FC2764244DEA360003446F /* Arigato */,
 				44FC276F244DEA360003446F /* ArigatoTests */,
+				4407FFA6258E4283002EB638 /* shared */,
 				44FC279A24524AE10003446F /* ARigEditor */,
 				44FC27AF24524AE50003446F /* ARigEditorTests */,
+				441AE97B25A0ADAE00951C0B /* arighost */,
 				44FC2763244DEA360003446F /* Products */,
 				44FC27B924524DE60003446F /* Frameworks */,
 			);
@@ -239,6 +382,7 @@
 				44FC276B244DEA360003446F /* ArigatoTests.xctest */,
 				44FC279924524AE10003446F /* ARigEditor.app */,
 				44FC27AC24524AE50003446F /* ARigEditorTests.xctest */,
+				441AE97A25A0ADAE00951C0B /* arighost */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -283,6 +427,7 @@
 		44FC277F244DF7380003446F /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				4407FFB6258FAB56002EB638 /* extensions */,
 				44FC2780244DF73D0003446F /* Protocols */,
 				44FC2788244DF9480003446F /* FourCC.swift */,
 				44FC2791244E5AB90003446F /* Future.swift */,
@@ -391,6 +536,7 @@
 			children = (
 				44FC27CD245318500003446F /* KeyboardCommittableTextField.swift */,
 				44FC27CF245318810003446F /* MixerNodeSlider.swift */,
+				4407FFBB2592A8FB002EB638 /* RemoteSelectorButton.swift */,
 			);
 			path = controls;
 			sourceTree = "<group>";
@@ -486,6 +632,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		441AE97925A0ADAE00951C0B /* arighost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 441AE98025A0ADAE00951C0B /* Build configuration list for PBXNativeTarget "arighost" */;
+			buildPhases = (
+				441AE97625A0ADAE00951C0B /* Sources */,
+				441AE97725A0ADAE00951C0B /* Frameworks */,
+				441AE97825A0ADAE00951C0B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = arighost;
+			packageProductDependencies = (
+				441AE98925A0AF3A00951C0B /* NIO */,
+			);
+			productName = arighost;
+			productReference = 441AE97A25A0ADAE00951C0B /* arighost */;
+			productType = "com.apple.product-type.tool";
+		};
 		44FC2761244DEA360003446F /* Arigato */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 44FC2776244DEA360003446F /* Build configuration list for PBXNativeTarget "Arigato" */;
@@ -536,6 +702,9 @@
 			dependencies = (
 			);
 			name = ARigEditor;
+			packageProductDependencies = (
+				4407FFAB258E4CE1002EB638 /* NIO */,
+			);
 			productName = ARigEditor;
 			productReference = 44FC279924524AE10003446F /* ARigEditor.app */;
 			productType = "com.apple.product-type.application";
@@ -568,6 +737,9 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = acb;
 				TargetAttributes = {
+					441AE97925A0ADAE00951C0B = {
+						CreatedOnToolsVersion = 11.3;
+					};
 					44FC2761244DEA360003446F = {
 						CreatedOnToolsVersion = 11.3;
 						LastSwiftMigration = 1130;
@@ -593,6 +765,9 @@
 				Base,
 			);
 			mainGroup = 44FC2758244DEA360003446F;
+			packageReferences = (
+				4407FFAA258E4CE1002EB638 /* XCRemoteSwiftPackageReference "swift-nio" */,
+			);
 			productRefGroup = 44FC2763244DEA360003446F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -601,6 +776,7 @@
 				44FC276A244DEA360003446F /* ArigatoTests */,
 				44FC279824524AE10003446F /* ARigEditor */,
 				44FC27AB24524AE50003446F /* ARigEditorTests */,
+				441AE97925A0ADAE00951C0B /* arighost */,
 			);
 		};
 /* End PBXProject section */
@@ -660,12 +836,37 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		441AE97625A0ADAE00951C0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				441AE98C25A0CCED00951C0B /* ControlServer.swift in Sources */,
+				441AE99125A0CCFA00951C0B /* QueryHandler.swift in Sources */,
+				441AE99325A0CD2500951C0B /* AudioSystem.serialisation.swift in Sources */,
+				441AE99725A0CD3100951C0B /* AVAudioNode+.swift in Sources */,
+				441AE99925A0CD3F00951C0B /* FourCC.swift in Sources */,
+				441AE99A25A0CD4600951C0B /* Snapshottable.swift in Sources */,
+				441AE9A125A143B900951C0B /* ParserCore.swift in Sources */,
+				441AE99025A0CCF800951C0B /* QueryParsing.swift in Sources */,
+				441AE99225A0CD2200951C0B /* AudioSystem.swift in Sources */,
+				441AE99425A0CD2800951C0B /* AudioUnitPreset.swift in Sources */,
+				441AE99825A0CD3B00951C0B /* Future.swift in Sources */,
+				441AE98D25A0CCF000951C0B /* UDPPacketHandler.swift in Sources */,
+				441AE98F25A0CCF500951C0B /* LineDelimiterCodec.swift in Sources */,
+				441AE97D25A0ADAE00951C0B /* main.swift in Sources */,
+				441AE98E25A0CCF300951C0B /* TCPQueryHandler.swift in Sources */,
+				441AE99B25A0CEAA00951C0B /* AudioComponentDescription+.swift in Sources */,
+				441AE99525A0CD2C00951C0B /* AudioUnitComponent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44FC275E244DEA360003446F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				44FC27D52453220B0003446F /* AudioUnitComponent.swift in Sources */,
 				44FC9A24248160CA00F158F1 /* Helpers.swift in Sources */,
+				4407FFB8258FAB7A002EB638 /* Sequence+compacting.swift in Sources */,
 				44FC2792244E5AB90003446F /* Future.swift in Sources */,
 				44FC2789244DF9480003446F /* FourCC.swift in Sources */,
 				44FC2794244E5CEE0003446F /* AudioUnitPreset.swift in Sources */,
@@ -698,6 +899,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44FC27EE245B8F770003446F /* MIDIKeystrokeHandler.swift in Sources */,
+				441AE9A025A143B800951C0B /* ParserCore.swift in Sources */,
 				44FC27DF2458E9930003446F /* AudioSystem.serialisation.swift in Sources */,
 				44FC27D3245318F30003446F /* ComponentSelectorViewController.swift in Sources */,
 				4414B9CA24703B3F00619B74 /* MIDIComputerKeyboardView.swift in Sources */,
@@ -705,6 +907,8 @@
 				44FC27E52458E9E10003446F /* AudioComponentDescription+.swift in Sources */,
 				44FC27E22458E9A30003446F /* Snapshottable.swift in Sources */,
 				4414B9CD247961A000619B74 /* PlaygroundExporter.swift in Sources */,
+				4407FFB2258E6013002EB638 /* TCPQueryHandler.swift in Sources */,
+				4407FFC22598BCB2002EB638 /* UDPPacketHandler.swift in Sources */,
 				44FC27E42458E9A70003446F /* Future.swift in Sources */,
 				4490FCAE245E3B77009C2729 /* TextToSpeechNodeDetailViewController.swift in Sources */,
 				44FC27CA245313B50003446F /* MixerGraphNodeView.swift in Sources */,
@@ -716,20 +920,26 @@
 				44FC279C24524AE10003446F /* AppDelegate.swift in Sources */,
 				44FC27D0245318810003446F /* MixerNodeSlider.swift in Sources */,
 				4414B9C8246F4FA000619B74 /* ARigEditorDocumentController.swift in Sources */,
+				4407FFB0258E5F5D002EB638 /* LineDelimiterCodec.swift in Sources */,
 				44FC27E12458E9990003446F /* AudioUnitComponent.swift in Sources */,
 				44FC27CC245313FA0003446F /* NSColor+application.swift in Sources */,
 				44FC27E32458E9A70003446F /* FourCC.swift in Sources */,
 				4490FCAC245E3B49009C2729 /* MIDIKeyboardNodeDetailViewController.swift in Sources */,
 				44FC27DD2458E96A0003446F /* NodeInterfaceManager.swift in Sources */,
+				4407FFBC2592A8FB002EB638 /* RemoteSelectorButton.swift in Sources */,
 				44FC27DE2458E9900003446F /* AudioSystem.swift in Sources */,
 				44FC27A024524AE10003446F /* ARigDocument.swift in Sources */,
+				4407FFA9258E486F002EB638 /* ControlServer.swift in Sources */,
 				44FC27C8245313860003446F /* GenericGraphNodeView.swift in Sources */,
+				4407FFC0259811E9002EB638 /* QueryParsing.swift in Sources */,
 				44FC27C32453053E0003446F /* GraphView.swift in Sources */,
 				44FC27C5245312230003446F /* CocoaExtensions.swift in Sources */,
 				44FC9A2F248D51A900F158F1 /* MainWindowController.swift in Sources */,
 				44FC9A2A2483FAA300F158F1 /* Zoom.swift in Sources */,
 				44FC9A212480112E00F158F1 /* NodeInterfaceContainerViewController.swift in Sources */,
 				4490FCB124670344009C2729 /* NodeParameterEditorViewController.swift in Sources */,
+				4407FFB5258E6676002EB638 /* QueryHandler.swift in Sources */,
+				4407FFB9258FAB7A002EB638 /* Sequence+compacting.swift in Sources */,
 				44FC9A2D248D2FDE00F158F1 /* MIDIInputHandler.swift in Sources */,
 				44FC9A272481BBC700F158F1 /* Notification+application.swift in Sources */,
 			);
@@ -770,6 +980,30 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		441AE97E25A0ADAE00951C0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = arighost/arighost.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RGZSVAB4M3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		441AE97F25A0ADAE00951C0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = arighost/arighost.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RGZSVAB4M3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		44FC2774244DEA360003446F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1069,6 +1303,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		441AE98025A0ADAE00951C0B /* Build configuration list for PBXNativeTarget "arighost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				441AE97E25A0ADAE00951C0B /* Debug */,
+				441AE97F25A0ADAE00951C0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		44FC275C244DEA360003446F /* Build configuration list for PBXProject "Arigato" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1115,6 +1358,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4407FFAA258E4CE1002EB638 /* XCRemoteSwiftPackageReference "swift-nio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-nio.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.25.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4407FFAB258E4CE1002EB638 /* NIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4407FFAA258E4CE1002EB638 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIO;
+		};
+		441AE98925A0AF3A00951C0B /* NIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4407FFAA258E4CE1002EB638 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 44FC2759244DEA360003446F /* Project object */;
 }
