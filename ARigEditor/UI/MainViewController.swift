@@ -228,15 +228,19 @@ extension MainViewController: GraphViewDelegate {
     
     func createNode(withDesc desc: AudioComponentDescription, at point: NSPoint) {
         self.document?.audioSystem.createNode(withDesc: desc) { (newID) in
-            self.document?.nodePositions[newID] = point
-            self.graphView.reloadData()
+            DispatchQueue.main.async {
+                self.document?.nodePositions[newID] = point
+                self.graphView.reloadData()
+            }
         }
     }
     
     func delete(node id: GraphView.NodeID) {
         nodeInterfaceManager.closeInterfaces(forNodeWithID: id)
-        self.document?.audioSystem.delete(node: id)
-        self.graphView.reloadData()
+        DispatchQueue.main.async {
+            self.document?.audioSystem.delete(node: id)
+            self.graphView.reloadData()
+        }
     }
 
 }
